@@ -44,8 +44,29 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
+
+    implementation 'com.github.bumptech.glide:glide:4.11.0' //glide
+    implementation 'pub.devrel:easypermissions:3.0.0' //easy permission
+    implementation 'com.android.volley:volley:1.1.1' //volley
+    implementation 'com.squareup.okhttp3:okhttp:3.0.1'//http
+
+
+    //Firebase
     implementation platform('com.google.firebase:firebase-bom:28.2.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    //lifecycle components
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-runtime:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+
+    //Retrofit2
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'androidx.work:work-runtime:2.2.0'
+
+    //circleimageview
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
