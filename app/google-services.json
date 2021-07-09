@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1067736791609",
+    "project_id": "relax-india-90a1b",
+    "storage_bucket": "relax-india-90a1b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067736791609:android:98c1e982cc79780fcd6be8",
+        "android_client_info": {
+          "package_name": "org.relaxindia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1067736791609-gcm7vmcjldc1e5scpe8jem5td5h2afhe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.relaxindia",
+            "certificate_hash": "6fc3028ff9892ef963ea70be92ce4c536dd4fb71"
+          }
+        },
+        {
+          "client_id": "1067736791609-9sl6n5l68m4d2eremsfroll4h0sepgcs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDs5WI0Id30zrMsJjhCVwBdnpEG_Q-t1LY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1067736791609-9sl6n5l68m4d2eremsfroll4h0sepgcs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
