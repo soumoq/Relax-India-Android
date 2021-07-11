@@ -53,7 +53,6 @@ dependencies {
     implementation 'com.github.poovamraj:PinEditTextField:1.2.6'
 
 
-
     //Firebase
     implementation platform('com.google.firebase:firebase-bom:28.2.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'

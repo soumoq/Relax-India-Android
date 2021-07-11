@@ -13,7 +13,7 @@ class OtpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_otp)
 
-        val text =  "Don't receive SMS?  <font color=#1b9ff1>Resend OTP</font>"
+        val text = "Don't receive SMS?  <font color=#1b9ff1>Resend OTP</font>"
         resend_sms.text = Html.fromHtml(text)
 
         otp_back.setOnClickListener {
@@ -21,7 +21,8 @@ class OtpActivity : AppCompatActivity() {
         }
 
         otp_proceed.button.setOnClickListener {
-            toast(pin_view.text.toString())
+            val intent = Intent(this,LocationActivity::class.java)
+            startActivity(intent)
         }
 
 

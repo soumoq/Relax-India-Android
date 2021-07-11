@@ -68,11 +68,10 @@
                     android:inputType="number"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:highlightEnabled="false"
                     app:cornerRadius="15dp"
-                    app:fieldColor="@color/app_color"
                     app:highlightColor="@color/app_color"
-                    app:lineThickness="2dp"
+                    app:highlightType="currentField"
+                    app:lineThickness="1dp"
                     app:noOfFields="6" />
 
                 <com.dagang.library.GradientButton

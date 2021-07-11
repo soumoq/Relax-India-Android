@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RelaxIndia">
-        <activity android:name=".view.activity.OtpActivity"></activity>
+        <activity android:name=".view.activity.LocationActivity"></activity>
+        <activity android:name=".view.activity.OtpActivity" />
         <activity
             android:name=".view.activity.LoginActivity"
             android:launchMode="singleTop" />
