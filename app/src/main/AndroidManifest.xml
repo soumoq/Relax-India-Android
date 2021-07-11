@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
@@ -13,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RelaxIndia">
-        <activity android:name=".view.activity.LocationActivity"></activity>
+        <activity android:name=".view.activity.HomeActivity"></activity>
         <activity android:name=".view.activity.OtpActivity" />
         <activity
             android:name=".view.activity.LoginActivity"

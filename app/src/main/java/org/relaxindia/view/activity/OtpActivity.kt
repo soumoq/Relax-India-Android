@@ -107,7 +107,8 @@ class OtpActivity : AppCompatActivity() {
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(OnCompleteListener<AuthResult?> { task ->
                 if (task.isSuccessful) {
-                    val intent = Intent(this, LocationActivity::class.java)
+                    val intent = Intent(this, HomeActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                 } else {
                     Toast.makeText(applicationContext, task.exception!!.message, Toast.LENGTH_LONG)

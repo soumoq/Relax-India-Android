@@ -1,17 +1,22 @@
 package org.relaxindia.view.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import org.relaxindia.R
-import org.relaxindia.util.toast
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var mAuth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        mAuth = FirebaseAuth.getInstance()
 
         val text =
             "By Continuing, you agree to the <font color=#1b9ff1>Terms Of Service </font>and <font color=#1b9ff1>Privacy Policy</font>"
@@ -27,7 +32,15 @@ class LoginActivity : AppCompatActivity() {
                 login_phone_number.error = "Enter valid phone number"
             }
 
+        }
+    }
 
+    override fun onStart() {
+        super.onStart()
+        if (mAuth.currentUser != null) {
+            val intent = Intent(this, HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
     }
 

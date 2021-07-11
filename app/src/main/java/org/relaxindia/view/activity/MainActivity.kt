@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
         val perms = arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.CALL_PHONE
+            Manifest.permission.CALL_PHONE,
+            Manifest.permission.ACCESS_COARSE_LOCATION
         )
 
         if (EasyPermissions.hasPermissions(this, *perms)) {
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         } else {
             EasyPermissions.requestPermissions(
                 this,
-                "This permission find location",
+                "This permission find location and phone call",
                 123,
                 *perms
             )
