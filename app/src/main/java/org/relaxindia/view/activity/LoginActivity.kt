@@ -18,8 +18,16 @@ class LoginActivity : AppCompatActivity() {
         terms_service.text = Html.fromHtml(text)
 
         login_continue.button.setOnClickListener {
-            val intent = Intent(this, OtpActivity::class.java)
-            startActivity(intent)
+
+            if (login_phone_number.text.toString().length == 10) {
+                val intent = Intent(this, OtpActivity::class.java)
+                intent.putExtra("phone_number", login_phone_number.text.toString())
+                startActivity(intent)
+            } else {
+                login_phone_number.error = "Enter valid phone number"
+            }
+
+
         }
     }
 
