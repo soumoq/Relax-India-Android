@@ -13,11 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RelaxIndia">
-        <activity android:name=".OtpActivity"></activity>
+        <activity android:name=".view.activity.OtpActivity"></activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.activity.LoginActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

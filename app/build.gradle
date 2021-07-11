@@ -50,6 +50,7 @@ dependencies {
     implementation 'com.android.volley:volley:1.1.1' //volley
     implementation 'com.squareup.okhttp3:okhttp:3.0.1'//http
     implementation 'com.dagang:gradient-button:1.0.1' //Custom button
+    implementation 'com.github.poovamraj:PinEditTextField:1.2.6'
 
 
 
