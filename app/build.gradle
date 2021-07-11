@@ -49,11 +49,14 @@ dependencies {
     implementation 'pub.devrel:easypermissions:3.0.0' //easy permission
     implementation 'com.android.volley:volley:1.1.1' //volley
     implementation 'com.squareup.okhttp3:okhttp:3.0.1'//http
+    implementation 'com.dagang:gradient-button:1.0.1' //Custom button
+
 
 
     //Firebase
     implementation platform('com.google.firebase:firebase-bom:28.2.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
+
 
     //lifecycle components
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.2.0"
