@@ -1,70 +1,110 @@
 package org.relaxindia.view.activity
 
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.provider.Settings
 import android.provider.Settings.SettingNotFoundException
 import android.text.TextUtils
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
 import org.relaxindia.R
 import org.relaxindia.util.ImpFun
 import org.relaxindia.util.toast
 
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
+
+    //location
+    private var currentLocation: Location? = null
+    private var fusedLocationProviderClient: FusedLocationProviderClient? = null
+    private val REQUEST_CODE = 101
+    private lateinit var supportMapFragment: SupportMapFragment
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        if (!isLocationEnabled(this)) {
-            openLocationDialog(this, "Enable Location", ImpFun.locationAlert)
-        }
+
 
     }
 
 
-    private fun isLocationEnabled(context: Context): Boolean {
-        var locationMode = 0
-        val locationProviders: String
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            locationMode = try {
-                Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE)
-            } catch (e: SettingNotFoundException) {
-                e.printStackTrace()
-                return false
-            }
-            locationMode != Settings.Secure.LOCATION_MODE_OFF
-        } else {
-            locationProviders = Settings.Secure.getString(
-                context.getContentResolver(),
-                Settings.Secure.LOCATION_PROVIDERS_ALLOWED
+
+
+
+    private fun fetchLocation() {
+        if (ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                REQUEST_CODE
             )
-            !TextUtils.isEmpty(locationProviders)
+            return
+        }
+        val task = fusedLocationProviderClient!!.lastLocation
+        task.addOnSuccessListener { location ->
+            if (location != null) {
+                currentLocation = location
+                //Toast.makeText(getApplicationContext(), currentLocation.getLatitude() + "" + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
+                supportMapFragment =
+                    (supportFragmentManager.findFragmentById(R.id.myMap) as SupportMapFragment?)!!
+                //requireActivity().supportFragmentManager.findFragmentById(R.id.myMap) as SupportMapFragment
+                assert(supportMapFragment != null)
+                supportMapFragment!!.getMapAsync(this)
+            }
         }
     }
 
-    private fun openLocationDialog(context: Context, title: String, message: String) {
-        // setup the alert builder
-        val builder = AlertDialog.Builder(context)
-        builder.setTitle(title)
-        builder.setMessage(message)
-
-        // add a button
-        builder.setPositiveButton("Allow Access", DialogInterface.OnClickListener { dialog, which ->
-            startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-        })
-
-
-        val dialog = builder.create()
-        dialog.show()
+    @SuppressLint("MissingPermission")
+    override fun onMapReady(googleMap: GoogleMap) {
+        googleMap.clear()
+        val handler = Handler()
+        handler.post {
+            googleMap.isMyLocationEnabled = true
+            googleMap.uiSettings.isMyLocationButtonEnabled = true
+        }
+        val latLng = LatLng(currentLocation!!.latitude, currentLocation!!.longitude)
+        val cameraPosition = CameraPosition.Builder().target(latLng).zoom(16f).build()
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
     }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                fetchLocation()
+            }
+        }
+    }
+
 
     override fun startActivity(intent: Intent?) {
         super.startActivity(intent)
@@ -74,6 +114,17 @@ class HomeActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (ImpFun.isLocationEnabled(this)) {
+            fusedLocationProviderClient =
+                LocationServices.getFusedLocationProviderClient(this)
+            fetchLocation()
+        } else {
+            ImpFun.openLocationDialog(this, "Enable Location", ImpFun.locationAlert)
+        }
     }
 
 
