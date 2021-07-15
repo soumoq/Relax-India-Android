@@ -29,6 +29,7 @@ class OtpActivity : AppCompatActivity() {
         val phoneNumber: String = intent.getStringExtra("phone_number").toString()
         val text = "Don't receive SMS?  <font color=#1b9ff1>Resend OTP</font>"
         resend_sms.text = Html.fromHtml(text)
+        otp_phone_number_display.text = "Enter the 6-digit code send to \n$phoneNumber"
 
         otp_back.setOnClickListener {
             onBackPressed()

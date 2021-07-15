@@ -66,14 +66,12 @@
                     android:layout_marginRight="15dp"
                     android:hint="Mobile number"
                     android:orientation="horizontal"
-                    app:expandedHintEnabled="false"
                     app:hintEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/login_phone_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Enter your phone number"
                         android:imeOptions="actionNext"
                         android:inputType="phone"
                         android:textSize="16sp" />

@@ -49,12 +49,13 @@
                     android:textSize="22sp" />
 
                 <TextView
+                    android:id="@+id/otp_phone_number_display"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="15dp"
-                    android:text="Enter the 4-digit code send to \n+91******"
+                    android:text="Enter the 6-digit code send to \n+91******"
                     android:textSize="15sp" />
 
                 <com.poovam.pinedittextfield.SquarePinField
