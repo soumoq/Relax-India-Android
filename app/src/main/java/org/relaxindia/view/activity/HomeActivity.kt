@@ -47,6 +47,8 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        cart_view_home.setBackgroundResource(R.drawable.cart_view_top_radius)
+
         auth = FirebaseAuth.getInstance()
         home_logout.setOnClickListener {
             auth.signOut()
