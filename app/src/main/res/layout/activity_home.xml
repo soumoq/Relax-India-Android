@@ -1,163 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activity.HomeActivity">
+    android:fitsSystemWindows="true"
+    tools:context=".view.activity.HomeActivity"
+    tools:openDrawer="start">
 
-
-    <fragment
-        android:id="@+id/myMap"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/home_bottom_layout"
-        tools:context=".activity.LocationActivity">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/home_logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="50dp"
-            android:background="?selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/ic_baseline_logout_24" />
-
-    </fragment>
-
-
-    <RelativeLayout
-        android:id="@+id/home_bottom_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/light_gray">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cart_view_home"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/app_color"
+            android:elevation="0dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-            <LinearLayout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <fragment
+                android:id="@+id/myMap"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="20dp"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:layout_above="@+id/home_bottom_layout"
+                tools:context=".activity.LocationActivity">
 
-                <LinearLayout
+                <ImageView
+                    android:id="@+id/home_logout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:orientation="horizontal">
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="50dp"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_baseline_logout_24" />
 
-                    <RelativeLayout
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="bottom"
-                        android:background="@drawable/blue_border_circle">
-
-
-                        <RelativeLayout
-                            android:layout_width="13dp"
-                            android:layout_height="13dp"
-                            android:layout_centerInParent="true"
-                            android:background="@drawable/blue_circle" />
+            </fragment>
 
 
-                    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/home_bottom_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/light_gray">
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cart_view_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="20dp"
                         android:orientation="vertical">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:text="Pick-up" />
+                            android:layout_marginLeft="20dp"
+                            android:orientation="horizontal">
 
-                        <TextView
+                            <RelativeLayout
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="bottom"
+                                android:background="@drawable/blue_border_circle">
+
+
+                                <RelativeLayout
+                                    android:layout_width="13dp"
+                                    android:layout_height="13dp"
+                                    android:layout_centerInParent="true"
+                                    android:background="@drawable/blue_circle" />
+
+
+                            </RelativeLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:text="Pick-up" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginTop="5dp"
+                                    android:text="My current location"
+                                    android:textColor="@color/black"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <View
+                                android:id="@+id/home_vertical_line"
+                                android:layout_width="1dp"
+                                android:layout_height="50dp"
+                                android:layout_marginLeft="30dp"
+                                android:background="@drawable/doted_line" />
+
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="15dp"
+                                android:layout_toRightOf="@+id/home_vertical_line"
+                                android:background="@color/gray" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="55dp"
+                                android:layout_marginTop="30dp"
+                                android:text="Destination" />
+
+
+                        </RelativeLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="5dp"
-                            android:text="My current location"
-                            android:textColor="@color/black"
-                            android:textSize="15sp" />
+                            android:layout_marginLeft="20dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="bottom"
+                                android:src="@drawable/location_logo" />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:text="B.N. Bose Hospital"
+                                android:textColor="@color/black"
+                                android:textSize="15sp" />
+
+
+                        </LinearLayout>
+
 
                     </LinearLayout>
 
 
-                </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            </RelativeLayout>
 
-                    <View
-                        android:id="@+id/home_vertical_line"
-                        android:layout_width="1dp"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="30dp"
-                        android:background="@drawable/doted_line" />
+        </RelativeLayout>
 
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"
-                        android:layout_toRightOf="@+id/home_vertical_line"
-                        android:background="@color/gray" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="55dp"
-                        android:layout_marginTop="30dp"
-                        android:text="Destination" />
+    </LinearLayout>
 
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu">
 
-                </RelativeLayout>
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/app_color"
+            android:text="Logout"
+            android:visibility="invisible"
+            android:textColor="#ffffff" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="bottom"
-                        android:src="@drawable/location_logo" />
+    </com.google.android.material.navigation.NavigationView>
 
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:text="B.N. Bose Hospital"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
-
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-
-        </androidx.cardview.widget.CardView>
-
-    </RelativeLayout>
-
-
-</RelativeLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

@@ -3,18 +3,13 @@ package org.relaxindia.view.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.provider.Settings
-import android.provider.Settings.SettingNotFoundException
-import android.text.TextUtils
-import androidx.appcompat.app.AlertDialog
+import android.view.Gravity
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -25,6 +20,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_home.*
 import org.relaxindia.R
@@ -34,7 +30,7 @@ import org.relaxindia.util.toast
 
 class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var auth : FirebaseAuth
+    private lateinit var auth: FirebaseAuth
 
     //location
     private var currentLocation: Location? = null
@@ -43,6 +39,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var supportMapFragment: SupportMapFragment
 
 
+    @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -50,16 +47,35 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         cart_view_home.setBackgroundResource(R.drawable.cart_view_top_radius)
 
         auth = FirebaseAuth.getInstance()
-        home_logout.setOnClickListener {
-            auth.signOut()
-            val intent = Intent(this, LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
+
+
+        val toggle = ActionBarDrawerToggle(
+            this, drawer_layout, toolbar,
+            R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        )
+        drawer_layout.addDrawerListener(toggle)
+        toggle.syncState()
+
+
+        nav_view.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_home ->{
+                    
+                }
+            }
+            true
         }
 
 
     }
 
+    /*
+      BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    startBtmHomeFragment()
+                }
+    */
 
 
 
@@ -105,8 +121,11 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String?>, grantResults: IntArray)
-    {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -135,7 +154,6 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onBackPressed()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
-
 
 
 }
