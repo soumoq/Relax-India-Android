@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".view.activity.HomeActivity"
-    tools:openDrawer="start">
+    tools:context=".view.activity.HomeActivity">
+<!--    tools:openDrawer="start"-->
 
     <LinearLayout
         android:orientation="vertical"
@@ -36,13 +36,13 @@
                 tools:context=".activity.LocationActivity">
 
                 <ImageView
-                    android:id="@+id/home_logout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="50dp"
                     android:background="?selectableItemBackgroundBorderless"
                     android:clickable="true"
+                    android:visibility="invisible"
                     android:focusable="true"
                     android:src="@drawable/ic_baseline_logout_24" />
 
@@ -194,13 +194,12 @@
         app:menu="@menu/drawer_menu">
 
         <Button
-            android:id="@+id/logout"
+            android:id="@+id/home_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@color/app_color"
             android:text="Logout"
-            android:visibility="invisible"
             android:textColor="#ffffff" />
 
     </com.google.android.material.navigation.NavigationView>

@@ -8,7 +8,6 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.os.Handler
-import android.view.Gravity
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -20,12 +19,10 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_home.*
 import org.relaxindia.R
 import org.relaxindia.util.ImpFun
-import org.relaxindia.util.toast
 
 
 class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -48,6 +45,13 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
         auth = FirebaseAuth.getInstance()
 
+        home_logout.setOnClickListener {
+            auth.signOut()
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar,
@@ -59,8 +63,12 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
         nav_view.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.menu_home ->{
-                    
+                R.id.menu_home -> {
+
+                }
+                R.id.menu_your_booking -> {
+                    val intent = Intent(this, MyBookingActivity::class.java)
+                    startActivity(intent)
                 }
             }
             true
@@ -76,8 +84,6 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                     startBtmHomeFragment()
                 }
     */
-
-
 
 
     private fun fetchLocation() {
