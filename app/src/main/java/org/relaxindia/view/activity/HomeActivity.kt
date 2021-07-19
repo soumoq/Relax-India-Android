@@ -52,6 +52,11 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
             startActivity(intent)
         }
 
+        book_now.setOnClickListener {
+            val intent = Intent(this, BookNowActivity::class.java)
+            startActivity(intent)
+        }
+
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar,
