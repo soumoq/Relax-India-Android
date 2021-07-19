@@ -5,13 +5,18 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+    <color name="black">#343e54</color>
     <color name="white">#FFFFFFFF</color>
 
     <color name="top_ber_color">#1380c1</color>
-    <color name="app_color">#1b9ff1</color>
+    <color name="app_color">#00b0ec</color>
 
     <color name="gray">#515151</color>
     <color name="light_gray">#EAECEE</color>
     <color name="light_light_gray">#cdf0e7</color>
+    <color name="line_color">#ededed</color>
+    <color name="dp_color">#1f2a43</color>
+
+
+
 </resources>
