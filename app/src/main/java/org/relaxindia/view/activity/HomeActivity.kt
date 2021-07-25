@@ -19,10 +19,12 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_home.*
 import org.relaxindia.R
-import org.relaxindia.util.ImpFun
+import org.relaxindia.util.App
+import org.relaxindia.view.fragment.HomeDashboardSheet
 
 
 class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -41,7 +43,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        cart_view_home.setBackgroundResource(R.drawable.cart_view_top_radius)
+        //cart_view_home.setBackgroundResource(R.drawable.cart_view_top_radius)
 
         auth = FirebaseAuth.getInstance()
 
@@ -52,10 +54,10 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
             startActivity(intent)
         }
 
-        book_now.setOnClickListener {
-            val intent = Intent(this, BookNowActivity::class.java)
-            startActivity(intent)
-        }
+//        book_now.setOnClickListener {
+//            val intent = Intent(this, BookNowActivity::class.java)
+//            startActivity(intent)
+//        }
 
 
         val toggle = ActionBarDrawerToggle(
@@ -77,6 +79,12 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
             true
+        }
+
+        open_bottom_sheet.setOnClickListener {
+            val homeDashboardSheet = BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme)
+            homeDashboardSheet.setContentView(R.layout.sheet_home_dashboard)
+            homeDashboardSheet.show()
         }
 
 
@@ -147,12 +155,12 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onResume() {
         super.onResume()
-        if (ImpFun.isLocationEnabled(this)) {
+        if (App.isLocationEnabled(this)) {
             fusedLocationProviderClient =
                 LocationServices.getFusedLocationProviderClient(this)
             fetchLocation()
         } else {
-            ImpFun.openLocationDialog(this, "Enable Location", ImpFun.locationAlert)
+            App.openLocationDialog(this, "Enable Location", App.locationAlert)
         }
     }
 

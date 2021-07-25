@@ -9,7 +9,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import org.relaxindia.R
-import org.relaxindia.util.ImpFun
+import org.relaxindia.util.App
 
 class LoginActivity : AppCompatActivity() {
 
@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (ImpFun.isLocationEnabled(this)) {
+        if (App.isLocationEnabled(this)) {
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
             if (mAuth.currentUser != null) {
@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         } else {
-            ImpFun.openLocationDialog(this, "Enable Location", ImpFun.locationAlert)
+            App.openLocationDialog(this, "Enable Location", App.locationAlert)
         }
     }
 

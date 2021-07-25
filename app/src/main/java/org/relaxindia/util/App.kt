@@ -8,7 +8,7 @@ import android.provider.Settings
 import android.text.TextUtils
 import androidx.appcompat.app.AlertDialog
 
-object ImpFun {
+object App {
 
     const val locationAlert = "We'll only use your location to show available delivery option. You can change this preference in settings at any time"
 
