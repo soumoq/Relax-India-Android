@@ -13,7 +13,7 @@
 
     <color name="gray">#515151</color>
     <color name="light_gray">#EAECEE</color>
-    <color name="light_light_gray">#cdf0e7</color>
+    <color name="light_light_gray">#F8F9F9 </color>
     <color name="line_color">#ededed</color>
     <color name="dp_color">#1f2a43</color>
 

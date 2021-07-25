@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RelaxIndia">
-        <activity android:name=".view.activity.BookingSuccessfulActivity"></activity>
+        <activity android:name=".view.activity.DriverFeedbackActivity"></activity>
+        <activity android:name=".view.activity.BookingSuccessfulActivity" />
         <activity android:name=".view.activity.HomeActivity" />
         <activity android:name=".view.activity.OtpActivity" />
         <activity android:name=".view.activity.MyBookingActivity" />

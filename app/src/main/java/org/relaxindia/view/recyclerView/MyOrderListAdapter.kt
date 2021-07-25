@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.recycler_my_order_list.view.*
 
 import org.relaxindia.R
 import org.relaxindia.view.activity.BookingInfoActivity
+import org.relaxindia.view.activity.DriverFeedbackActivity
 
 
 class MyOrderListAdapter(context: Context) : RecyclerView.Adapter<MyOrderListAdapter.ViewHolder>() {
@@ -49,6 +50,11 @@ class MyOrderListAdapter(context: Context) : RecyclerView.Adapter<MyOrderListAda
 
             view.view_booking_details.setOnClickListener {
                 val intent = Intent(view.context, BookingInfoActivity::class.java)
+                view.context.startActivity(intent)
+            }
+
+            view.driver_info.setOnClickListener {
+                val intent = Intent(view.context, DriverFeedbackActivity::class.java)
                 view.context.startActivity(intent)
             }
 
