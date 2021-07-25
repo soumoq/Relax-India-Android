@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.sheet_home_dashboard.*
 import org.relaxindia.R
 import org.relaxindia.util.App
 import org.relaxindia.view.fragment.HomeDashboardSheet
@@ -47,6 +48,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
         auth = FirebaseAuth.getInstance()
 
+
         home_logout.setOnClickListener {
             auth.signOut()
             val intent = Intent(this, LoginActivity::class.java)
@@ -54,10 +56,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
             startActivity(intent)
         }
 
-//        book_now.setOnClickListener {
-//            val intent = Intent(this, BookNowActivity::class.java)
-//            startActivity(intent)
-//        }
+
 
 
         val toggle = ActionBarDrawerToggle(
@@ -81,22 +80,20 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
             true
         }
 
+        //Bottom sheet
+        val homeDashboardSheet = BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme)
+        homeDashboardSheet.setContentView(R.layout.sheet_home_dashboard)
+
         open_bottom_sheet.setOnClickListener {
-            val homeDashboardSheet = BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme)
-            homeDashboardSheet.setContentView(R.layout.sheet_home_dashboard)
             homeDashboardSheet.show()
         }
 
+        homeDashboardSheet.book_now.setOnClickListener {
+            val intent = Intent(this, BookNowActivity::class.java)
+            startActivity(intent)
+        }
 
     }
-
-    /*
-      BottomNavigationView.OnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    startBtmHomeFragment()
-                }
-    */
 
 
     private fun fetchLocation() {

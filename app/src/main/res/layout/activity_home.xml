@@ -38,13 +38,21 @@
                 android:layout_height="match_parent"
                 tools:context=".activity.LocationActivity" />
 
-            <Button
+            <RelativeLayout
                 android:id="@+id/open_bottom_sheet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:background="@drawable/round_layout"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:text="open" />
+                android:layout_centerHorizontal="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_baseline_keyboard_arrow_up_24"/>
+
+            </RelativeLayout>
 
 
         </RelativeLayout>
