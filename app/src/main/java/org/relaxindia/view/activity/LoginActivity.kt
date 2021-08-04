@@ -33,9 +33,6 @@ class LoginActivity : AppCompatActivity() {
         login_continue.button.setOnClickListener {
 
             if (login_phone_number.text.toString().length == 10) {
-//                val intent = Intent(this, OtpActivity::class.java)
-//                intent.putExtra("phone_number", login_phone_number.text.toString())
-//                startActivity(intent)
                 apiCallViewModel.loginInfo(this,login_phone_number.text.toString())
             } else {
                 login_phone_number.error = "Enter valid phone number"
@@ -62,6 +59,13 @@ class LoginActivity : AppCompatActivity() {
         super.onResume()
         if (App.isLocationEnabled(this)) {
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+            val sp = applicationContext.getSharedPreferences("user_info", MODE_PRIVATE)
+            val id = sp.getString(App.preferenceUserToken, "")
+            if (!(id.equals(""))){
+                val intent = Intent(this,HomeActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+            }
 
 
         } else {

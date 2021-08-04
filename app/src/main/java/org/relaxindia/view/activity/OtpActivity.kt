@@ -1,20 +1,31 @@
 package org.relaxindia.view.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_otp.*
 import org.relaxindia.R
+import org.relaxindia.util.App
+import org.relaxindia.viewModel.ApiCallViewModel
 import java.util.concurrent.TimeUnit
 
 
 class OtpActivity : AppCompatActivity() {
 
+    lateinit var apiCallViewModel: ApiCallViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_otp)
+
+        apiCallViewModel = ViewModelProvider(this).get(ApiCallViewModel::class.java)
+        observeViewModel()
+
 
         val phoneNumber: String = intent.getStringExtra("phone_number").toString()
         val text = "Don't receive SMS?  <font color=#1b9ff1>Resend OTP</font>"
@@ -27,9 +38,28 @@ class OtpActivity : AppCompatActivity() {
 
 
         otp_proceed.button.setOnClickListener {
+            apiCallViewModel.otpInfo(this, intent.getStringExtra("phone_number")!!, intent.getStringExtra("otp")!!)
         }
 
 
+    }
+
+    private fun observeViewModel() {
+        apiCallViewModel.otpInfo.observe(this, Observer {
+            if (!it.error){
+                val sp = getSharedPreferences("user_info", Context.MODE_PRIVATE)
+                val editor = sp.edit()
+                editor.putString(App.preferenceUserToken, it.data.access_token)
+                editor.commit()
+
+                val intent = Intent(this,HomeActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+
+            }else{
+                App.openDialog(this,"Error",it.message)
+            }
+        })
     }
 
 

@@ -1,8 +1,8 @@
 package org.relaxindia.retrofit
 
 
-
 import org.relaxindia.model.login.LoginResponse
+import org.relaxindia.model.otp.OtpResponse
 import org.relaxindia.util.App
 import retrofit2.Call
 import retrofit2.http.*
@@ -16,7 +16,14 @@ interface ApiCallService {
         phone: String
     ): Call<LoginResponse>
 
-
+    @FormUrlEncoded
+    @POST(App.apiCheckOtp)
+    fun checkOtp(
+        @Field("phone")
+        phone: String,
+        @Field("otp")
+        otp: String
+    ): Call<OtpResponse>
 
 
 }

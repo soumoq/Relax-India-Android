@@ -15,6 +15,11 @@ object App {
     //API
     const val apiBaseUrl = "http://itmartsolution.com/demo/relaxindia.org/api/v1/user/"
     const val apiLogin = "login"
+    const val apiCheckOtp = "verify-otp"
+
+    //Share preference key
+    const val preferenceUserToken = "user_token"
+
 
     fun isLocationEnabled(context: Context): Boolean {
         var locationMode = 0

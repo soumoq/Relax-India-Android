@@ -44,12 +44,16 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         //cart_view_home.setBackgroundResource(R.drawable.cart_view_top_radius)
 
 
-
         home_logout.setOnClickListener {
+            val sp = applicationContext.getSharedPreferences("user_info", MODE_PRIVATE)
+            val editor = sp.edit()
+            editor.clear()
+            editor.apply()
 
+            val intent = Intent(this,LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
-
-
 
 
         val toggle = ActionBarDrawerToggle(
