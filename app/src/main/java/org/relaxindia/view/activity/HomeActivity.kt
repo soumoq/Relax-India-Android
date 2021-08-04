@@ -20,17 +20,14 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.sheet_home_dashboard.*
 import org.relaxindia.R
 import org.relaxindia.util.App
-import org.relaxindia.view.fragment.HomeDashboardSheet
 
 
 class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var auth: FirebaseAuth
 
     //location
     private var currentLocation: Location? = null
@@ -46,14 +43,10 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
         //cart_view_home.setBackgroundResource(R.drawable.cart_view_top_radius)
 
-        auth = FirebaseAuth.getInstance()
 
 
         home_logout.setOnClickListener {
-            auth.signOut()
-            val intent = Intent(this, LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
+
         }
 
 

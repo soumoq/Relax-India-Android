@@ -6,14 +6,12 @@ import android.text.Html
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import org.relaxindia.R
 import org.relaxindia.util.App
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var mAuth: FirebaseAuth
     private var fusedLocationProviderClient: FusedLocationProviderClient? = null
 
 
@@ -21,7 +19,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        mAuth = FirebaseAuth.getInstance()
 
         val text =
             "By Continuing, you agree to the <font color=#1b9ff1>Terms Of Service </font>and <font color=#1b9ff1>Privacy Policy</font>"
@@ -46,11 +43,7 @@ class LoginActivity : AppCompatActivity() {
         if (App.isLocationEnabled(this)) {
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
-            if (mAuth.currentUser != null) {
-                val intent = Intent(this, HomeActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-            }
+
         } else {
             App.openLocationDialog(this, "Enable Location", App.locationAlert)
         }
