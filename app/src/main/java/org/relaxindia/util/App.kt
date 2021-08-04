@@ -12,6 +12,9 @@ object App {
 
     const val locationAlert = "We'll only use your location to show available delivery option. You can change this preference in settings at any time"
 
+    //API
+    const val apiBaseUrl = "http://itmartsolution.com/demo/relaxindia.org/api/v1/user/"
+    const val apiLogin = "login"
 
     fun isLocationEnabled(context: Context): Boolean {
         var locationMode = 0
