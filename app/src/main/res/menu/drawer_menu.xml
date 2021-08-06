@@ -17,6 +17,7 @@
             android:title="Wallet" />
 
         <item
+            android:id="@+id/menu_profile"
             android:title="My Profile" />
 
         <item

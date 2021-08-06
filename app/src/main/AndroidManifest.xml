@@ -11,12 +11,15 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:requestLegacyExternalStorage="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.RelaxIndia">
-        <activity android:name=".view.activity.ThankYouActivity"></activity>
+        android:theme="@style/Theme.RelaxIndia"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".view.activity.MyProfileActivity"
+            android:exported="true" />
+        <activity android:name=".view.activity.ThankYouActivity" />
         <activity android:name=".view.activity.DriverFeedbackActivity" />
         <activity android:name=".view.activity.BookingSuccessfulActivity" />
         <activity android:name=".view.activity.HomeActivity" />

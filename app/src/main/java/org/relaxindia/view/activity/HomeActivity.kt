@@ -50,7 +50,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
             editor.clear()
             editor.apply()
 
-            val intent = Intent(this,LoginActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
@@ -71,6 +71,10 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
                 R.id.menu_your_booking -> {
                     val intent = Intent(this, MyBookingActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.menu_profile -> {
+                    val intent = Intent(this, MyProfileActivity::class.java)
                     startActivity(intent)
                 }
             }
