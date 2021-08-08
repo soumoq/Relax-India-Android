@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_my_profile.*
 import kotlinx.android.synthetic.main.nav_header.view.*
 import org.relaxindia.R
+import org.relaxindia.util.App
+import org.relaxindia.util.toast
 import org.relaxindia.viewModel.ApiCallViewModel
 
 class MyProfileActivity : AppCompatActivity() {
@@ -23,11 +25,28 @@ class MyProfileActivity : AppCompatActivity() {
         observeViewModel()
         apiCallViewModel.profileInfo(this)
 
+        update_profile.setOnClickListener {
+            if (profile_name.text.toString().equals("") ||
+                profile_email.text.toString().equals("") ||
+                profile_address.text.toString().equals("") ||
+                profile_pin_code.text.toString().equals("")
+            ) {
+                toast("Enter valid input")
+            } else {
+                apiCallViewModel.updateProfileInfo(
+                    this,
+                    profile_name.text.toString(),
+                    profile_email.text.toString(),
+                    profile_address.text.toString(),
+                    profile_pin_code.text.toString()
+                )
+            }
+        }
+
     }
 
 
     private fun observeViewModel() {
-
         apiCallViewModel.profileInfo.observe(this, Observer {
             profile_phone.setText(it.data.phone)
             profile_name.setText(it.data.name)
@@ -35,6 +54,16 @@ class MyProfileActivity : AppCompatActivity() {
             profile_address.setText(it.data.address)
             profile_pin_code.setText(it.data.pincode)
         })
+
+        apiCallViewModel.updateProfile.observe(this, Observer {
+            if (it.error) {
+                App.openDialog(this, "Error", "Something went wrong")
+            } else {
+                toast(it.message)
+                onBackPressed()
+            }
+        })
+
     }
 
 
@@ -44,8 +73,13 @@ class MyProfileActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        if (profile_name.text.toString().equals("")) {
+            App.openDialog(this, "Alert", "Please update your name.")
+        } else {
+            super.onBackPressed()
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        }
+
     }
 
 }

@@ -45,7 +45,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
     lateinit var apiCallViewModel: ApiCallViewModel
 
     //nav-header
-    lateinit var  navHeader : View
+    lateinit var navHeader: View
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,7 +78,6 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
-        apiCallViewModel.profileInfo(this)
 
         navHeader = nav_view.getHeaderView(0)
         nav_view.setNavigationItemSelectedListener {
@@ -114,11 +113,13 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun observeViewModel() {
         apiCallViewModel.profileInfo.observe(this, Observer {
-            if (it.data.name == null){
-                val intent = Intent(this,MyProfileActivity::class.java)
+            if (it.data.name == null) {
+                val intent = Intent(this, MyProfileActivity::class.java)
                 startActivity(intent)
-            }else{
+            } else {
                 navHeader.nav_username.text = it.data.name
+                navHeader.nav_phone.text = it.data.phone
+                navHeader.nav_image.text = it.data.name.take(1)
             }
         })
     }
@@ -180,6 +181,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onResume() {
         super.onResume()
+        apiCallViewModel.profileInfo(this)
         if (App.isLocationEnabled(this)) {
             fusedLocationProviderClient =
                 LocationServices.getFusedLocationProviderClient(this)

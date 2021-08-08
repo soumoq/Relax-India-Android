@@ -22,6 +22,7 @@
             android:background="@drawable/name_circle">
 
             <TextView
+                android:id="@+id/nav_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

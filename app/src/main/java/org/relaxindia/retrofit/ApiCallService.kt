@@ -1,6 +1,7 @@
 package org.relaxindia.retrofit
 
 
+import org.relaxindia.model.GlobalResponse
 import org.relaxindia.model.login.LoginResponse
 import org.relaxindia.model.otp.OtpResponse
 import org.relaxindia.model.userProfile.ProfileResponse
@@ -31,6 +32,21 @@ interface ApiCallService {
         @Header("Authorization")
         authHeader: String,
     ): Call<ProfileResponse>
+
+    @FormUrlEncoded
+    @PATCH(App.apiProfile)
+    fun updateProfile(
+        @Header("Authorization")
+        authHeader: String,
+        @Field("name")
+        name: String,
+        @Field("email")
+        email: String,
+        @Field("address")
+        address: String,
+        @Field("pincode")
+        pincode: String
+    ): Call<GlobalResponse>
 
 
 }

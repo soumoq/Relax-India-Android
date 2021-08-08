@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import org.relaxindia.model.GlobalResponse
 import org.relaxindia.model.login.LoginData
 import org.relaxindia.model.login.LoginResponse
 import org.relaxindia.model.otp.OtpResponse
@@ -21,6 +22,7 @@ class ApiCallViewModel : ViewModel() {
     val loginInfo = MutableLiveData<LoginResponse>()
     val otpInfo = MutableLiveData<OtpResponse>()
     val profileInfo = MutableLiveData<ProfileResponse>()
+    val updateProfile = MutableLiveData<GlobalResponse>()
 
     lateinit var progressDialog: ProgressDialog
 
@@ -60,8 +62,8 @@ class ApiCallViewModel : ViewModel() {
         progressDialog.setMessage("Please wait we are verifying your OTP")
         progressDialog.show()
 
-        val response: Call<OtpResponse> = restApiService.checkOtp(phone,otp)
-        response.enqueue(object :Callback<OtpResponse>{
+        val response: Call<OtpResponse> = restApiService.checkOtp(phone, otp)
+        response.enqueue(object : Callback<OtpResponse> {
             override fun onResponse(call: Call<OtpResponse>, response: Response<OtpResponse>) {
                 progressDialog.dismiss()
                 if (response.isSuccessful) {
@@ -84,20 +86,20 @@ class ApiCallViewModel : ViewModel() {
 
     }
 
-    fun profileInfo(context: Context){
+    fun profileInfo(context: Context) {
         progressDialog = ProgressDialog(context)
         progressDialog.setTitle("Please wait")
         progressDialog.setMessage("Please wait we are fetching profile info")
         progressDialog.show()
 
         val response: Call<ProfileResponse> = restApiService.profile(App.getUserToken(context))
-        response.enqueue(object : Callback<ProfileResponse>{
+        response.enqueue(object : Callback<ProfileResponse> {
             override fun onResponse(call: Call<ProfileResponse>, response: Response<ProfileResponse>) {
                 progressDialog.dismiss()
-                if (response.isSuccessful){
+                if (response.isSuccessful) {
                     Log.e("$LOG-profileInfo-if", "Success")
                     profileInfo.value = response.body()
-                }else{
+                } else {
                     Log.e("$LOG-profileInfo-else", "Error")
 
                 }
@@ -106,6 +108,35 @@ class ApiCallViewModel : ViewModel() {
             override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
                 progressDialog.dismiss()
                 Log.e("$LOG-profileInfo-onFailure", "${t}")
+            }
+
+        })
+
+    }
+
+    fun updateProfileInfo(context: Context, name: String, email: String, address: String, pinCode: String) {
+        progressDialog = ProgressDialog(context)
+        progressDialog.setTitle("Please wait")
+        progressDialog.setMessage("Please wait we are updating your profile")
+        progressDialog.show()
+
+        val response: Call<GlobalResponse> =
+            restApiService.updateProfile(App.getUserToken(context), name, email, address, pinCode)
+        response.enqueue(object : Callback<GlobalResponse> {
+            override fun onResponse(call: Call<GlobalResponse>, response: Response<GlobalResponse>) {
+                progressDialog.dismiss()
+                if (response.isSuccessful) {
+                    Log.e("$LOG-updateProfileInfo-if", "success")
+                    updateProfile.value = response.body()
+                } else {
+                    Log.e("$LOG-updateProfileInfo-else", "else")
+                }
+            }
+
+            override fun onFailure(call: Call<GlobalResponse>, t: Throwable) {
+                progressDialog.dismiss()
+                Log.e("$LOG-updateProfileInfo-onFailure", "${t}")
+
             }
 
         })
