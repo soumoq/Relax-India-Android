@@ -26,11 +26,10 @@ interface ApiCallService {
         otp: String
     ): Call<OtpResponse>
 
-    @FormUrlEncoded
     @POST(App.apiProfile)
     fun profile(
-        @Field("Authorization")
-        authorization: String,
+        @Header("Authorization")
+        authHeader: String,
     ): Call<ProfileResponse>
 
 

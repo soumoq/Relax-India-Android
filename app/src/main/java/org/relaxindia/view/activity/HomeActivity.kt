@@ -24,6 +24,7 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.nav_header.view.*
 import kotlinx.android.synthetic.main.sheet_home_dashboard.*
 import org.relaxindia.R
 import org.relaxindia.util.App
@@ -113,6 +114,12 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun observeViewModel() {
         apiCallViewModel.profileInfo.observe(this, Observer {
+            if (it.data.name == null){
+                val intent = Intent(this,MyProfileActivity::class.java)
+                startActivity(intent)
+            }else{
+                navHeader.nav_username.text = it.data.name
+            }
         })
     }
 
