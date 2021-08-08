@@ -8,9 +8,12 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -24,6 +27,8 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.sheet_home_dashboard.*
 import org.relaxindia.R
 import org.relaxindia.util.App
+import org.relaxindia.util.toast
+import org.relaxindia.viewModel.ApiCallViewModel
 
 
 class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -35,11 +40,20 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
     private val REQUEST_CODE = 101
     private lateinit var supportMapFragment: SupportMapFragment
 
+    //view-model
+    lateinit var apiCallViewModel: ApiCallViewModel
+
+    //nav-header
+    lateinit var  navHeader : View
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        apiCallViewModel = ViewModelProvider(this).get(ApiCallViewModel::class.java)
+        observeViewModel()
+
 
         //cart_view_home.setBackgroundResource(R.drawable.cart_view_top_radius)
 
@@ -63,7 +77,9 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
+        apiCallViewModel.profileInfo(this)
 
+        navHeader = nav_view.getHeaderView(0)
         nav_view.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_home -> {
@@ -81,7 +97,6 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
             true
         }
 
-        //Bottom sheet
         val homeDashboardSheet = BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme)
         homeDashboardSheet.setContentView(R.layout.sheet_home_dashboard)
 
@@ -94,6 +109,11 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
             startActivity(intent)
         }
 
+    }
+
+    private fun observeViewModel() {
+        apiCallViewModel.profileInfo.observe(this, Observer {
+        })
     }
 
 

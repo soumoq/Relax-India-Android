@@ -6,7 +6,9 @@ import android.content.Intent
 import android.os.Build
 import android.provider.Settings
 import android.text.TextUtils
+import android.util.Log
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 
 object App {
 
@@ -16,9 +18,16 @@ object App {
     const val apiBaseUrl = "http://itmartsolution.com/demo/relaxindia.org/api/v1/user/"
     const val apiLogin = "login"
     const val apiCheckOtp = "verify-otp"
+    const val apiProfile = "profile"
+
 
     //Share preference key
     const val preferenceUserToken = "user_token"
+
+    fun getUserToken(context: Context) : String{
+        val sp = context.getSharedPreferences("user_info", AppCompatActivity.MODE_PRIVATE)
+        return "Bearer ${(sp.getString(App.preferenceUserToken, "").toString())}"
+    }
 
 
     fun isLocationEnabled(context: Context): Boolean {

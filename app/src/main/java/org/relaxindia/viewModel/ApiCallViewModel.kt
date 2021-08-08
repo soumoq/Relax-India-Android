@@ -8,8 +8,10 @@ import androidx.lifecycle.ViewModel
 import org.relaxindia.model.login.LoginData
 import org.relaxindia.model.login.LoginResponse
 import org.relaxindia.model.otp.OtpResponse
+import org.relaxindia.model.userProfile.ProfileResponse
 import org.relaxindia.retrofit.ApiCallService
 import org.relaxindia.retrofit.RestApiServiceBuilder
+import org.relaxindia.util.App
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,11 +20,14 @@ class ApiCallViewModel : ViewModel() {
     val LOG = "ApiCallViewModel"
     val loginInfo = MutableLiveData<LoginResponse>()
     val otpInfo = MutableLiveData<OtpResponse>()
+    val profileInfo = MutableLiveData<ProfileResponse>()
+
+    lateinit var progressDialog: ProgressDialog
 
     private val restApiService = RestApiServiceBuilder().buildService(ApiCallService::class.java)
 
     fun loginInfo(context: Context, phone: String) {
-        val progressDialog = ProgressDialog(context)
+        progressDialog = ProgressDialog(context)
         progressDialog.setTitle("Please wait")
         progressDialog.setMessage("Please wait will send you a otp")
         progressDialog.show()
@@ -50,7 +55,7 @@ class ApiCallViewModel : ViewModel() {
     }
 
     fun otpInfo(context: Context, phone: String, otp: String) {
-        val progressDialog = ProgressDialog(context)
+        progressDialog = ProgressDialog(context)
         progressDialog.setTitle("Please wait")
         progressDialog.setMessage("Please wait we are verifying your OTP")
         progressDialog.show()
@@ -76,6 +81,34 @@ class ApiCallViewModel : ViewModel() {
 
         })
 
+
+    }
+
+    fun profileInfo(context: Context){
+        progressDialog = ProgressDialog(context)
+        progressDialog.setTitle("Please wait")
+        progressDialog.setMessage("Please wait we are fetching profile info")
+        progressDialog.show()
+
+        val response: Call<ProfileResponse> = restApiService.profile(App.getUserToken(context))
+        response.enqueue(object : Callback<ProfileResponse>{
+            override fun onResponse(call: Call<ProfileResponse>, response: Response<ProfileResponse>) {
+                progressDialog.dismiss()
+                if (response.isSuccessful){
+                    Log.e("$LOG-profileInfo-if", "Success")
+                    profileInfo.value = response.body()
+                }else{
+                    Log.e("$LOG-profileInfo-else", "Error")
+
+                }
+            }
+
+            override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
+                progressDialog.dismiss()
+                Log.e("$LOG-profileInfo-onFailure", "${t}")
+            }
+
+        })
 
     }
 
