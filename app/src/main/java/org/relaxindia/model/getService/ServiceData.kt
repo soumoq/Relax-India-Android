@@ -19,5 +19,6 @@ data class ServiceData(
     @SerializedName("id") val id: Int,
     @SerializedName("name") val name: String,
     @SerializedName("price") val price: Double,
-    @SerializedName("image") val image: String
+    @SerializedName("image") val image: String,
+    var select: Boolean
 )

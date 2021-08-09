@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.nav_header.view.*
 import kotlinx.android.synthetic.main.sheet_home_dashboard.*
 import org.relaxindia.R
+import org.relaxindia.model.getService.ServiceData
 import org.relaxindia.util.App
 import org.relaxindia.util.toast
 import org.relaxindia.view.recyclerView.ServiceAdapter
@@ -51,6 +52,9 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
     //Bottom sheet
     lateinit var homeDashboardSheet: BottomSheetDialog
+
+    //adapter
+    private lateinit var serviceAdapter : ServiceAdapter
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -140,11 +144,23 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
         apiCallViewModel.getService.observe(this, Observer {
             if (!it.error) {
-                val serviceAdapter = ServiceAdapter(this)
+                serviceAdapter = ServiceAdapter(this@HomeActivity)
                 homeDashboardSheet.service_recycler_view.adapter = serviceAdapter
                 serviceAdapter.updateData(it.data)
             }
         })
+    }
+
+    fun changeBackGround(position: Int) {
+        homeDashboardSheet.book_now.visibility = View.VISIBLE
+        val serviceInfo = ArrayList<ServiceData>()
+        serviceInfo.addAll(apiCallViewModel.getService.value?.data!!)
+        for (i in 0 until serviceInfo.size) {
+            serviceInfo[i].select = false
+        }
+        serviceInfo[position].select = true
+        apiCallViewModel.getService.value!!.data = serviceInfo
+        serviceAdapter.notifyDataSetChanged()
     }
 
 

@@ -16,7 +16,7 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 data class ServiceResponse (
 
-	@SerializedName("error") val error : Boolean,
-	@SerializedName("data") val data : List<ServiceData>,
-	@SerializedName("message") val message : String
+    @SerializedName("error") val error : Boolean,
+    @SerializedName("data") var data : List<ServiceData>,
+    @SerializedName("message") val message : String
 )
