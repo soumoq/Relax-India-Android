@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.relaxindia.model.GlobalResponse
+import org.relaxindia.model.getService.ServiceResponse
 import org.relaxindia.model.login.LoginData
 import org.relaxindia.model.login.LoginResponse
 import org.relaxindia.model.otp.OtpResponse
@@ -23,6 +24,7 @@ class ApiCallViewModel : ViewModel() {
     val otpInfo = MutableLiveData<OtpResponse>()
     val profileInfo = MutableLiveData<ProfileResponse>()
     val updateProfile = MutableLiveData<GlobalResponse>()
+    val getService = MutableLiveData<ServiceResponse>()
 
     lateinit var progressDialog: ProgressDialog
 
@@ -94,7 +96,10 @@ class ApiCallViewModel : ViewModel() {
 
         val response: Call<ProfileResponse> = restApiService.profile(App.getUserToken(context))
         response.enqueue(object : Callback<ProfileResponse> {
-            override fun onResponse(call: Call<ProfileResponse>, response: Response<ProfileResponse>) {
+            override fun onResponse(
+                call: Call<ProfileResponse>,
+                response: Response<ProfileResponse>
+            ) {
                 progressDialog.dismiss()
                 if (response.isSuccessful) {
                     Log.e("$LOG-profileInfo-if", "Success")
@@ -114,7 +119,13 @@ class ApiCallViewModel : ViewModel() {
 
     }
 
-    fun updateProfileInfo(context: Context, name: String, email: String, address: String, pinCode: String) {
+    fun updateProfileInfo(
+        context: Context,
+        name: String,
+        email: String,
+        address: String,
+        pinCode: String
+    ) {
         progressDialog = ProgressDialog(context)
         progressDialog.setTitle("Please wait")
         progressDialog.setMessage("Please wait we are updating your profile")
@@ -123,7 +134,10 @@ class ApiCallViewModel : ViewModel() {
         val response: Call<GlobalResponse> =
             restApiService.updateProfile(App.getUserToken(context), name, email, address, pinCode)
         response.enqueue(object : Callback<GlobalResponse> {
-            override fun onResponse(call: Call<GlobalResponse>, response: Response<GlobalResponse>) {
+            override fun onResponse(
+                call: Call<GlobalResponse>,
+                response: Response<GlobalResponse>
+            ) {
                 progressDialog.dismiss()
                 if (response.isSuccessful) {
                     Log.e("$LOG-updateProfileInfo-if", "success")
@@ -141,6 +155,39 @@ class ApiCallViewModel : ViewModel() {
 
         })
 
+    }
+
+    fun serviceInfo(context: Context, serviceType: String = "Main Service") {
+        progressDialog = ProgressDialog(context)
+        progressDialog.setTitle("Please wait")
+        progressDialog.setMessage("Please wait we are fetching service")
+        progressDialog.show()
+        Log.e("$LOG-serviceInfo-value", "${App.getUserToken(context)}\t$serviceType")
+
+
+        val response: Call<ServiceResponse> =
+            restApiService.getService(App.getUserToken(context), serviceType)
+        response.enqueue(object : Callback<ServiceResponse> {
+            override fun onResponse(
+                call: Call<ServiceResponse>,
+                response: Response<ServiceResponse>
+            ) {
+                progressDialog.dismiss()
+                if (response.isSuccessful) {
+                    Log.e("$LOG-serviceInfo-if", "success")
+                    getService.value = response.body()
+                } else {
+                    Log.e("$LOG-serviceInfo-else", "error")
+                }
+            }
+
+            override fun onFailure(call: Call<ServiceResponse>, t: Throwable) {
+                progressDialog.dismiss()
+                Log.e("$LOG-serviceInfo-onFailure: ", t.message.toString())
+
+            }
+
+        })
     }
 
 }

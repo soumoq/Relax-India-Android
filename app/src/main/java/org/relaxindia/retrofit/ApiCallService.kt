@@ -2,6 +2,7 @@ package org.relaxindia.retrofit
 
 
 import org.relaxindia.model.GlobalResponse
+import org.relaxindia.model.getService.ServiceResponse
 import org.relaxindia.model.login.LoginResponse
 import org.relaxindia.model.otp.OtpResponse
 import org.relaxindia.model.userProfile.ProfileResponse
@@ -47,6 +48,15 @@ interface ApiCallService {
         @Field("pincode")
         pincode: String
     ): Call<GlobalResponse>
+
+    @FormUrlEncoded
+    @POST(App.getService)
+    fun getService(
+        @Header("Authorization")
+        authHeader: String,
+        @Field("service_type")
+        serviceType: String,
+    ): Call<ServiceResponse>
 
 
 }

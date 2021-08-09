@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.os.Handler
+import android.view.KeyEvent
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +30,7 @@ import kotlinx.android.synthetic.main.sheet_home_dashboard.*
 import org.relaxindia.R
 import org.relaxindia.util.App
 import org.relaxindia.util.toast
+import org.relaxindia.view.recyclerView.ServiceAdapter
 import org.relaxindia.viewModel.ApiCallViewModel
 
 
@@ -46,6 +48,9 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
     //nav-header
     lateinit var navHeader: View
+
+    //Bottom sheet
+    lateinit var homeDashboardSheet: BottomSheetDialog
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,8 +102,9 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
             true
         }
 
-        val homeDashboardSheet = BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme)
+        homeDashboardSheet = BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme)
         homeDashboardSheet.setContentView(R.layout.sheet_home_dashboard)
+        homeDashboardSheet.show()
 
         open_bottom_sheet.setOnClickListener {
             homeDashboardSheet.show()
@@ -107,6 +113,15 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         homeDashboardSheet.book_now.setOnClickListener {
             val intent = Intent(this, BookNowActivity::class.java)
             startActivity(intent)
+        }
+
+        homeDashboardSheet.destination_address.setOnKeyListener { view, keyCode, keyEvent ->
+            if (keyEvent.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                homeDashboardSheet.select_ambulance_layout.visibility = View.VISIBLE
+                apiCallViewModel.serviceInfo(this)
+                true
+            }
+            false
         }
 
     }
@@ -120,6 +135,14 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                 navHeader.nav_username.text = it.data.name
                 navHeader.nav_phone.text = it.data.phone
                 navHeader.nav_image.text = it.data.name.take(1)
+            }
+        })
+
+        apiCallViewModel.getService.observe(this, Observer {
+            if (!it.error) {
+                val serviceAdapter = ServiceAdapter(this)
+                homeDashboardSheet.service_recycler_view.adapter = serviceAdapter
+                serviceAdapter.updateData(it.data)
             }
         })
     }
