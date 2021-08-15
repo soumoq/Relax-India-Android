@@ -3,6 +3,7 @@ package org.relaxindia.view.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
@@ -30,7 +31,6 @@ import kotlinx.android.synthetic.main.sheet_home_dashboard.*
 import org.relaxindia.R
 import org.relaxindia.model.getService.ServiceData
 import org.relaxindia.util.App
-import org.relaxindia.util.toast
 import org.relaxindia.view.recyclerView.ServiceAdapter
 import org.relaxindia.viewModel.ApiCallViewModel
 
@@ -54,7 +54,10 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
     lateinit var homeDashboardSheet: BottomSheetDialog
 
     //adapter
-    private lateinit var serviceAdapter : ServiceAdapter
+    private lateinit var serviceAdapter: ServiceAdapter
+
+    //Service Price
+    var servicePrice: Double = 0.0
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -116,11 +119,12 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
         homeDashboardSheet.book_now.setOnClickListener {
             val intent = Intent(this, BookNowActivity::class.java)
+            intent.putExtra("service_price", servicePrice.toString())
             startActivity(intent)
         }
 
         homeDashboardSheet.destination_address.setOnKeyListener { view, keyCode, keyEvent ->
-            if (keyEvent.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+            if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                 homeDashboardSheet.select_ambulance_layout.visibility = View.VISIBLE
                 apiCallViewModel.serviceInfo(this)
                 true
@@ -136,6 +140,13 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                 val intent = Intent(this, MyProfileActivity::class.java)
                 startActivity(intent)
             } else {
+                val sp = getSharedPreferences("user_info", Context.MODE_PRIVATE)
+                val editor = sp.edit()
+                editor.putString(App.preferenceUserPhone, it.data.phone)
+                editor.putString(App.preferenceUserEmail, it.data.email)
+                editor.putString(App.preferenceUserName, it.data.email)
+                editor.commit()
+
                 navHeader.nav_username.text = it.data.name
                 navHeader.nav_phone.text = it.data.phone
                 navHeader.nav_image.text = it.data.name.take(1)
@@ -151,7 +162,8 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         })
     }
 
-    fun changeBackGround(position: Int) {
+    fun changeBackGround(position: Int, price: Double) {
+        servicePrice = price * 100
         homeDashboardSheet.book_now.visibility = View.VISIBLE
         val serviceInfo = ArrayList<ServiceData>()
         serviceInfo.addAll(apiCallViewModel.getService.value?.data!!)

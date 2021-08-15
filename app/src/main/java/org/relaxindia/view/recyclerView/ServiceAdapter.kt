@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.recycler_service.view.*
 
 import org.relaxindia.R
 import org.relaxindia.model.getService.ServiceData
-import org.relaxindia.util.toast
 import org.relaxindia.view.activity.HomeActivity
 
 
@@ -62,7 +61,7 @@ class ServiceAdapter(context: Context) : RecyclerView.Adapter<ServiceAdapter.Vie
 
 
             view.recycler_library_service_layout.setOnClickListener {
-                (context as HomeActivity).changeBackGround(position)
+                (context as HomeActivity).changeBackGround(position,service.price)
 
             }
 

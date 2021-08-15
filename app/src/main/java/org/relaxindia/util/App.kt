@@ -12,7 +12,11 @@ import androidx.appcompat.app.AppCompatActivity
 
 object App {
 
-    const val locationAlert = "We'll only use your location to show available delivery option. You can change this preference in settings at any time"
+    const val locationAlert =
+        "We'll only use your location to show available delivery option. You can change this preference in settings at any time"
+
+    //Payment key id
+    const val paymentkeyId = "rzp_test_jbQerQj2ziorxg"
 
     //API
     const val apiBaseUrl = "http://itmartsolution.com/demo/relaxindia.org/api/v1/user/"
@@ -22,13 +26,32 @@ object App {
     const val getService = "get-services"
 
 
-
     //Share preference key
     const val preferenceUserToken = "user_token"
+    const val preferenceUserPhone = "user_phone"
+    const val preferenceUserEmail = "user_email"
+    const val preferenceUserName = "user_name"
 
-    fun getUserToken(context: Context) : String{
+
+
+    fun getUserToken(context: Context): String {
         val sp = context.getSharedPreferences("user_info", AppCompatActivity.MODE_PRIVATE)
         return "Bearer ${(sp.getString(App.preferenceUserToken, "").toString())}"
+    }
+
+    fun getUserPhone(context: Context): String {
+        val sp = context.getSharedPreferences("user_info", AppCompatActivity.MODE_PRIVATE)
+        return sp.getString(App.preferenceUserPhone, "")!!
+    }
+
+    fun getUserEmail(context: Context): String {
+        val sp = context.getSharedPreferences("user_info", AppCompatActivity.MODE_PRIVATE)
+        return sp.getString(App.preferenceUserEmail, "")!!
+    }
+
+    fun getUserName(context: Context): String {
+        val sp = context.getSharedPreferences("user_info", AppCompatActivity.MODE_PRIVATE)
+        return sp.getString(App.preferenceUserName, "")!!
     }
 
 

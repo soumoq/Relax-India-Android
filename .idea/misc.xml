@@ -3,9 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/name_circle.xml" value="0.1925925925925926" />
+        <entry key="app/src/main/res/drawable-v24/text_box.xml" value="0.1638888888888889" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.1925925925925926" />
+        <entry key="app/src/main/res/layout/activity_book_now.xml" value="0.16757246376811594" />
+        <entry key="app/src/main/res/layout/activity_booking_info.xml" value="0.16757246376811594" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.18" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.10326086956521739" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_my_profile.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/layout/activity_otp.xml" value="0.1716485507246377" />
         <entry key="app/src/main/res/layout/nav_header.xml" value="0.21" />
         <entry key="app/src/main/res/layout/recycler_my_order_list.xml" value="0.22" />
         <entry key="app/src/main/res/layout/recycler_service.xml" value="0.12681159420289856" />

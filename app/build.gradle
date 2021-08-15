@@ -5,6 +5,13 @@ plugins {
 
 }
 
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -49,9 +56,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.0.1'//http
     implementation 'com.dagang:gradient-button:1.0.1' //Custom button
     implementation 'com.github.poovamraj:PinEditTextField:1.2.6' //Pin view
-
-
-
+    implementation 'de.hdodenhof:circleimageview:3.1.0' //circleimageview
+    implementation 'com.razorpay:checkout:1.6.11'
 
     //lifecycle components
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.3.1"
@@ -64,8 +70,6 @@ dependencies {
     implementation 'androidx.work:work-runtime:2.5.0'
     implementation 'com.google.code.gson:gson:2.8.7'
 
-    //circleimageview
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     //Map
     implementation 'com.google.android.gms:play-services-maps:17.0.0'

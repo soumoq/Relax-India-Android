@@ -16,34 +16,33 @@
             android:id="@+id/pay_to_book"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/app_color"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:background="@color/app_color">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_centerInParent="true">
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Pay to book"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
-                    android:layout_gravity="center"
-                    android:textSize="14sp"
-                    android:text="Pay to book"/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textSize="12sp"
+                    android:text="Pay now $260.00"
                     android:textColor="@color/white"
-                    android:text="Pay now $260.00"/>
+                    android:textSize="12sp" />
 
             </LinearLayout>
-
 
 
         </RelativeLayout>
@@ -61,7 +60,7 @@
                 android:layout_marginTop="15dp">
 
                 <ImageView
-                    android:id="@+id/booking_info_back"
+                    android:id="@+id/book_now_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_arrow_back_white_24" />
