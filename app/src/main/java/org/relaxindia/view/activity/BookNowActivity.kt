@@ -25,6 +25,8 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         //Payment check out
         Checkout.preload(applicationContext)
 
+        book_now_amount.text =
+            "Pay now ${((intent.getStringExtra("service_price"))?.toDouble())!! / 100}"
 
         pay_to_book.setOnClickListener {
             startPayment()

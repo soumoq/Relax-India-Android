@@ -27,35 +27,49 @@
             app:title="Relax India"
             app:titleTextColor="@color/white" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <fragment
-                android:id="@+id/myMap"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:id="@+id/autocomplete_fragment"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".activity.LocationActivity" />
+                android:layout_height="wrap_content" />
 
             <RelativeLayout
-                android:id="@+id/open_bottom_sheet"
-                android:layout_width="60dp"
-                android:layout_height="20dp"
-                android:background="@drawable/round_layout"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/ic_baseline_keyboard_arrow_up_24" />
+                <fragment
+                    android:id="@+id/myMap"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:context=".activity.LocationActivity" />
+
+                <RelativeLayout
+                    android:id="@+id/open_bottom_sheet"
+                    android:layout_width="60dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/round_layout">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_up_24" />
+
+                </RelativeLayout>
+
 
             </RelativeLayout>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
 
     </LinearLayout>

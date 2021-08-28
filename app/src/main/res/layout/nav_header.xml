@@ -3,17 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:background="@color/app_color"
-    android:gravity="bottom"
     android:orientation="vertical"
-    android:padding="30dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:orientation="horizontal">
-
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:orientation="horizontal"
+        android:paddingTop="29dp">
 
         <RelativeLayout
             android:layout_width="65dp"
@@ -26,9 +25,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="S"
+                android:text="s"
+                android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="40dp"
+                android:textSize="40sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
@@ -38,7 +38,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:gravity="center"
             android:orientation="vertical">
 
             <TextView

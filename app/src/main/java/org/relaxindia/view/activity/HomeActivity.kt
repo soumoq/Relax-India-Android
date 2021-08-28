@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -24,6 +26,10 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.nav_header.view.*
@@ -31,6 +37,7 @@ import kotlinx.android.synthetic.main.sheet_home_dashboard.*
 import org.relaxindia.R
 import org.relaxindia.model.getService.ServiceData
 import org.relaxindia.util.App
+import org.relaxindia.util.toast
 import org.relaxindia.view.recyclerView.ServiceAdapter
 import org.relaxindia.viewModel.ApiCallViewModel
 
@@ -64,9 +71,45 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        val apiKey = "AIzaSyCvH3N2o52hiCKM713rBd9aSX-O7ma0UVg"
+        if (!Places.isInitialized()) {
+            Places.initialize(applicationContext, apiKey)
+        }
+        Places.createClient(this)
+        val autocompleteFragment =
+            supportFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment?
+        autocompleteFragment!!.setPlaceFields(
+            listOf(
+                Place.Field.ID,
+                Place.Field.NAME,
+                Place.Field.LAT_LNG,
+                Place.Field.ADDRESS
+            )
+        )
+        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
+            override fun onPlaceSelected(place: Place) {
+                // TODO: Get info about the selected place.
+                //Log.i("TAG", "Place: " + place.getName() + ", " + place.getId());
+                //Toast.makeText(getApplicationContext(),"Success" + place.getName(),Toast.LENGTH_LONG).show();
+                val queriedLocation = place.latLng
+                toast(queriedLocation!!.latitude.toString())
+                /*val intent = Intent(applicationContext, MapActivity::class.java)
+                intent.putExtra("place", place.address + "")
+                assert(queriedLocation != null)
+                intent.putExtra("latitude", queriedLocation!!.latitude.toString() + "")
+                intent.putExtra("longitude", queriedLocation!!.longitude.toString() + "")
+                startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)*/
+            }
+
+            override fun onError(status: Status) {
+                // TODO: Handle the error.
+                Log.e("SEARCH_ERROR", status.toString())
+            }
+        })
+
         apiCallViewModel = ViewModelProvider(this).get(ApiCallViewModel::class.java)
         observeViewModel()
-
 
         //cart_view_home.setBackgroundResource(R.drawable.cart_view_top_radius)
 
