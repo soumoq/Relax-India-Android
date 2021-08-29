@@ -71,10 +71,30 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
     //Service Price
     var servicePrice: Double = 0.0
 
+    var sourceLocation = ""
+    var desLocation = ""
+
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        //Buttom sheet
+        homeDashboardSheet = BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme)
+        homeDashboardSheet.setContentView(R.layout.sheet_home_dashboard)
+
+        open_bottom_sheet.setOnClickListener {
+            homeDashboardSheet.show()
+        }
+
+        homeDashboardSheet.book_now.setOnClickListener {
+            val intent = Intent(this, BookNowActivity::class.java)
+            intent.putExtra("service_price", servicePrice.toString())
+            intent.putExtra("source_loc",sourceLocation)
+            intent.putExtra("des_loc",desLocation)
+            startActivity(intent)
+        }
+
 
         val gpsTracker = GpsTracker(this)
         val geocoder = Geocoder(this, Locale.getDefault())
@@ -88,7 +108,8 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         String postalCode = addresses.get(0).getPostalCode();
         String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
         */
-        pickup_address.setText(addresses[0]?.getAddressLine(0))
+        sourceLocation = addresses[0]?.getAddressLine(0).toString();
+        pickup_address.setText(sourceLocation)
 
         val apiKey = App.googleApiKey
         if (!Places.isInitialized()) {
@@ -105,14 +126,11 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                 //Log.i("TAG", "Place: " + place.getName() + ", " + place.getId());
                 //Toast.makeText(getApplicationContext(),"Success" + place.getName(),Toast.LENGTH_LONG).show();
                 val queriedLocation = place.latLng
-                toast(queriedLocation!!.latitude.toString())
-                /*val intent = Intent(applicationContext, MapActivity::class.java)
-                intent.putExtra("place", place.address + "")
-                assert(queriedLocation != null)
-                intent.putExtra("latitude", queriedLocation!!.latitude.toString() + "")
-                intent.putExtra("longitude", queriedLocation!!.longitude.toString() + "")
-                startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)*/
+                homeDashboardSheet.select_ambulance_layout.visibility = View.VISIBLE
+                apiCallViewModel.serviceInfo(this@HomeActivity)
+                homeDashboardSheet.show()
+                desLocation = place.address.toString()
+                //toast(queriedLocation!!.latitude.toString())
             }
 
             override fun onError(status: Status) {
@@ -164,28 +182,6 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
             true
         }
 
-        homeDashboardSheet = BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme)
-        homeDashboardSheet.setContentView(R.layout.sheet_home_dashboard)
-        homeDashboardSheet.show()
-
-        open_bottom_sheet.setOnClickListener {
-            homeDashboardSheet.show()
-        }
-
-        homeDashboardSheet.book_now.setOnClickListener {
-            val intent = Intent(this, BookNowActivity::class.java)
-            intent.putExtra("service_price", servicePrice.toString())
-            startActivity(intent)
-        }
-
-        homeDashboardSheet.destination_address.setOnKeyListener { view, keyCode, keyEvent ->
-            if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                homeDashboardSheet.select_ambulance_layout.visibility = View.VISIBLE
-                apiCallViewModel.serviceInfo(this)
-                true
-            }
-            false
-        }
 
     }
 

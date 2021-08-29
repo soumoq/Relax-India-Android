@@ -160,7 +160,7 @@ class ApiCallViewModel : ViewModel() {
         progressDialog = ProgressDialog(context)
         progressDialog.setTitle("Please wait")
         progressDialog.setMessage("Please wait we are fetching service")
-        progressDialog.show()
+        //progressDialog.show()
         Log.e("$LOG-serviceInfo-value", "${App.getUserToken(context)}\t$serviceType")
 
 

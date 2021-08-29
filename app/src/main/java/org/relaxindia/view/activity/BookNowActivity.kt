@@ -10,21 +10,36 @@ import org.json.JSONObject
 import android.app.Activity
 
 import android.util.Log
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.razorpay.PaymentResultListener
+import kotlinx.android.synthetic.main.sheet_home_dashboard.*
 import org.relaxindia.R
 import org.relaxindia.util.App
+import org.relaxindia.view.recyclerView.OptionalServiceAdapter
+import org.relaxindia.view.recyclerView.ServiceAdapter
+import org.relaxindia.viewModel.ApiCallViewModel
 import java.lang.Exception
 
 
 class BookNowActivity : AppCompatActivity(), PaymentResultListener {
 
+    //view-model
+    lateinit var apiCallViewModel: ApiCallViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_now)
 
+        apiCallViewModel = ViewModelProvider(this).get(ApiCallViewModel::class.java)
+        observeViewModel()
+        apiCallViewModel.serviceInfo(this,"Optional Service")
+
         //Payment check out
         Checkout.preload(applicationContext)
 
+        des_location.text = intent.getStringExtra("des_loc")
+        source_location.text = intent.getStringExtra("source_loc")
         book_now_amount.text =
             "Pay now ${((intent.getStringExtra("service_price"))?.toDouble())!! / 100}"
 
@@ -37,6 +52,18 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         }
 
     }
+
+
+    private fun observeViewModel() {
+        apiCallViewModel.getService.observe(this, Observer {
+            if (!it.error) {
+                val serviceAdapter = OptionalServiceAdapter(this)
+                op_service_recycler_view.adapter = serviceAdapter
+                serviceAdapter.updateData(it.data)
+            }
+        })
+    }
+
 
     private fun startPayment() {
         val checkout = Checkout()

@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 object App {
 
+    const val rs = "₹"
     const val locationAlert =
         "We'll only use your location to show available delivery option. You can change this preference in settings at any time"
 

@@ -82,14 +82,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
             android:layout_marginTop="55dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginBottom="45dp"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:background="@color/white"
                 android:elevation="5dp"
                 app:cardCornerRadius="10dp">
@@ -152,14 +153,45 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:text="Optional Service"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/op_service_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+
                 android:layout_marginTop="10dp"
                 android:text="Journey" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
                 android:background="@color/white"
                 android:elevation="5dp"
                 app:cardCornerRadius="10dp">
@@ -179,7 +211,7 @@
                         <RelativeLayout
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:layout_gravity="bottom"
+                            android:layout_gravity="center"
                             android:background="@drawable/blue_border_circle">
 
 
@@ -194,6 +226,7 @@
 
 
                         <TextView
+                            android:id="@+id/source_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
@@ -209,8 +242,7 @@
                     <View
                         android:layout_width="1dp"
                         android:layout_height="30dp"
-                        android:layout_marginLeft="22dp"
-                        android:background="@drawable/doted_line" />
+                        android:layout_marginLeft="22dp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -221,11 +253,12 @@
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:layout_gravity="bottom"
+                            android:layout_gravity="center"
                             android:src="@drawable/location_logo" />
 
 
                         <TextView
+                            android:id="@+id/des_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
@@ -261,15 +294,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="25dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
                 android:text="Price Details" />
 
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
                 android:background="@color/white"
                 android:elevation="5dp"
                 app:cardCornerRadius="10dp">
@@ -376,17 +412,20 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
-                app:cardCornerRadius="10dp"
-                android:elevation="5dp">
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="5dp"
+                app:cardCornerRadius="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:textSize="13sp"
+                    android:text="Note: You have to pay $2300.00 Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard."
                     android:textColor="@color/black"
-                    android:text="Note: You have to pay $2300.00 Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard."/>
+                    android:textSize="13sp" />
 
             </androidx.cardview.widget.CardView>
 
