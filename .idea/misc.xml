@@ -15,6 +15,7 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.18981481481481483" />
         <entry key="app/src/main/res/layout/activity_book_now.xml" value="0.16757246376811594" />
         <entry key="app/src/main/res/layout/activity_booking_info.xml" value="0.16757246376811594" />
+        <entry key="app/src/main/res/layout/activity_driver_feedback.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_my_booking.xml" value="0.16168478260869565" />

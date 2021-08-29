@@ -6,6 +6,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Address
 import android.location.Location
 import android.os.Bundle
 import android.os.Handler
@@ -36,10 +37,14 @@ import kotlinx.android.synthetic.main.nav_header.view.*
 import kotlinx.android.synthetic.main.sheet_home_dashboard.*
 import org.relaxindia.R
 import org.relaxindia.model.getService.ServiceData
+import org.relaxindia.service.GpsTracker
 import org.relaxindia.util.App
 import org.relaxindia.util.toast
 import org.relaxindia.view.recyclerView.ServiceAdapter
 import org.relaxindia.viewModel.ApiCallViewModel
+import android.location.Geocoder
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -71,7 +76,21 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val apiKey = "AIzaSyCvH3N2o52hiCKM713rBd9aSX-O7ma0UVg"
+        val gpsTracker = GpsTracker(this)
+        val geocoder = Geocoder(this, Locale.getDefault())
+        var addresses: List<Address?> =
+            geocoder.getFromLocation(gpsTracker.latitude, gpsTracker.longitude, 1);
+        /*
+        String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+        String city = addresses.get(0).getLocality();
+        String state = addresses.get(0).getAdminArea();
+        String country = addresses.get(0).getCountryName();
+        String postalCode = addresses.get(0).getPostalCode();
+        String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
+        */
+        pickup_address.setText(addresses[0]?.getAddressLine(0))
+
+        val apiKey = App.googleApiKey
         if (!Places.isInitialized()) {
             Places.initialize(applicationContext, apiKey)
         }
@@ -79,16 +98,10 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         val autocompleteFragment =
             supportFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment?
         autocompleteFragment!!.setPlaceFields(
-            listOf(
-                Place.Field.ID,
-                Place.Field.NAME,
-                Place.Field.LAT_LNG,
-                Place.Field.ADDRESS
-            )
+            listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS)
         )
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
-                // TODO: Get info about the selected place.
                 //Log.i("TAG", "Place: " + place.getName() + ", " + place.getId());
                 //Toast.makeText(getApplicationContext(),"Success" + place.getName(),Toast.LENGTH_LONG).show();
                 val queriedLocation = place.latLng
@@ -103,7 +116,6 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
             }
 
             override fun onError(status: Status) {
-                // TODO: Handle the error.
                 Log.e("SEARCH_ERROR", status.toString())
             }
         })

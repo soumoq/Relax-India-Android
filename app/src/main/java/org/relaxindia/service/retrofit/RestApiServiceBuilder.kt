@@ -1,4 +1,4 @@
-package org.relaxindia.retrofit
+package org.relaxindia.service.retrofit
 
 import com.google.gson.*
 import okhttp3.OkHttpClient

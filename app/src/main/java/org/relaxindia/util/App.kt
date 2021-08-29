@@ -18,6 +18,9 @@ object App {
     //Payment key id
     const val paymentkeyId = "rzp_test_jbQerQj2ziorxg"
 
+    //google api key
+    const val googleApiKey = "AIzaSyCxn_36SpMjIwCuoUSqOOI4N9E_6XTdJJk"
+
     //API
     const val apiBaseUrl = "http://itmartsolution.com/demo/relaxindia.org/api/v1/user/"
     const val apiLogin = "login"

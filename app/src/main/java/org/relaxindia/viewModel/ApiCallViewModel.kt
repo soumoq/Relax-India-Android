@@ -7,12 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.relaxindia.model.GlobalResponse
 import org.relaxindia.model.getService.ServiceResponse
-import org.relaxindia.model.login.LoginData
 import org.relaxindia.model.login.LoginResponse
 import org.relaxindia.model.otp.OtpResponse
 import org.relaxindia.model.userProfile.ProfileResponse
-import org.relaxindia.retrofit.ApiCallService
-import org.relaxindia.retrofit.RestApiServiceBuilder
+import org.relaxindia.service.retrofit.ApiCallService
+import org.relaxindia.service.retrofit.RestApiServiceBuilder
 import org.relaxindia.util.App
 import retrofit2.Call
 import retrofit2.Callback
