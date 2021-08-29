@@ -27,21 +27,28 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
     //view-model
     lateinit var apiCallViewModel: ApiCallViewModel
 
+    var servicePrice = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_now)
 
         apiCallViewModel = ViewModelProvider(this).get(ApiCallViewModel::class.java)
         observeViewModel()
-        apiCallViewModel.serviceInfo(this,"Optional Service")
+        apiCallViewModel.serviceInfo(this, "Optional Service")
 
         //Payment check out
         Checkout.preload(applicationContext)
 
         des_location.text = intent.getStringExtra("des_loc")
         source_location.text = intent.getStringExtra("source_loc")
+        servicePrice = (((intent.getStringExtra("service_price"))?.toDouble())!! / 100).toInt()
+        total_amount.text = servicePrice.toString()
+
         book_now_amount.text =
-            "Pay now ${((intent.getStringExtra("service_price"))?.toDouble())!! / 100}"
+            "${App.rs}$servicePrice"
+        base_price.text =
+            "${App.rs}$servicePrice"
 
         pay_to_book.setOnClickListener {
             startPayment()
@@ -64,6 +71,22 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         })
     }
 
+    fun updatePrice(select: Boolean, amount: Int) {
+        var tempAmount: Int = 0
+        var tempServiceAmount: Int = 0
+
+        if (select) {
+            tempAmount = optional_service.text.toString().toInt() + amount
+            tempServiceAmount = total_amount.text.toString().toInt() + amount
+        } else {
+            tempAmount = optional_service.text.toString().toInt() - amount
+            tempServiceAmount = total_amount.text.toString().toInt() - amount
+        }
+        optional_service.text = tempAmount.toString()
+        total_amount.text = tempServiceAmount.toString()
+        book_now_amount.text = "${App.rs}${tempServiceAmount.toString()}"
+    }
+
 
     private fun startPayment() {
         val checkout = Checkout()
@@ -81,7 +104,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
             //options.put("order_id", "order_DBJOWzybf0sJbb") //from response of step 3.
             options.put("theme.color", "#3399cc")
             options.put("currency", "INR")
-            options.put("amount", intent.getStringExtra("service_price")) //500 * 100
+            options.put("amount", "${total_amount.text.toString().toDouble() * 100}") //500 * 100
             options.put("prefill.email", App.getUserEmail(this))
             options.put("prefill.contact", App.getUserPhone(this))
             val retryObj = JSONObject()

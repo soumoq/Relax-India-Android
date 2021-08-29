@@ -3,6 +3,7 @@ package org.relaxindia.view.recyclerView
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import org.relaxindia.R
 import org.relaxindia.model.getService.ServiceData
 import org.relaxindia.util.App
 import org.relaxindia.util.loadImage
+import org.relaxindia.view.activity.BookNowActivity
 
 
 class OptionalServiceAdapter(context: Context) :
@@ -54,13 +56,22 @@ class OptionalServiceAdapter(context: Context) :
             view.op_service_name.text = service.name
             view.op_service_price.text = "${App.rs}${service.price.toString()}"
 
+            if (service.select){
+                view.recycler_op_service_layout.setBackgroundColor(Color.parseColor("#EAECEE"))
+            }else{
+                view.recycler_op_service_layout.setBackgroundColor(Color.parseColor("#ffffff"))
+            }
+
             view.recycler_op_service_layout.setOnClickListener {
                 if (service.select) {
                     service.select = false
                     view.recycler_op_service_layout.setBackgroundColor(Color.parseColor("#ffffff"))
+                    (view.context as BookNowActivity).updatePrice(false,service.price.toInt())
                 } else {
                     service.select = true
                     view.recycler_op_service_layout.setBackgroundColor(Color.parseColor("#EAECEE"))
+                    (view.context as BookNowActivity).updatePrice(true,service.price.toInt())
+
                 }
             }
 
