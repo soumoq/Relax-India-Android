@@ -8,6 +8,7 @@ import kotlinx.android.synthetic.main.activity_book_now.*
 import org.json.JSONObject
 
 import android.app.Activity
+import android.location.Location
 
 import android.util.Log
 import androidx.lifecycle.Observer
@@ -16,6 +17,8 @@ import com.razorpay.PaymentResultListener
 import kotlinx.android.synthetic.main.sheet_home_dashboard.*
 import org.relaxindia.R
 import org.relaxindia.util.App
+import org.relaxindia.util.toast
+import org.relaxindia.view.recyclerView.DefaultServiceAdapter
 import org.relaxindia.view.recyclerView.OptionalServiceAdapter
 import org.relaxindia.view.recyclerView.ServiceAdapter
 import org.relaxindia.viewModel.ApiCallViewModel
@@ -26,6 +29,8 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
 
     //view-model
     lateinit var apiCallViewModel: ApiCallViewModel
+    lateinit var apiCallViewModelDefault: ApiCallViewModel
+
 
     var servicePrice = 0
 
@@ -34,12 +39,24 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         setContentView(R.layout.activity_book_now)
 
         apiCallViewModel = ViewModelProvider(this).get(ApiCallViewModel::class.java)
+        apiCallViewModelDefault = ViewModelProvider(this).get(ApiCallViewModel::class.java)
         observeViewModel()
         apiCallViewModel.serviceInfo(this, "Optional Service")
+        apiCallViewModelDefault.serviceInfo(this, "Default Service")
         //apiCallViewModel.selectedServiceInfo(this,"")
 
         //Payment check out
         Checkout.preload(applicationContext)
+
+        //Calculate distance
+        val startPoint = Location("SOURCE")
+        startPoint.latitude = "${intent.getStringExtra("sourceLat")}".toDouble()
+        startPoint.longitude = "${intent.getStringExtra("sourceLon")}".toDouble()
+        val endPoint = Location("DES")
+        endPoint.latitude = "${intent.getStringExtra("desLat")}".toDouble()
+        endPoint.longitude = "${intent.getStringExtra("desLon")}".toDouble()
+        val distance = startPoint.distanceTo(endPoint) / 1000
+        book_now_destance.text = "$distance K.M."
 
         des_location.text = intent.getStringExtra("des_loc")
         source_location.text = intent.getStringExtra("source_loc")
@@ -68,6 +85,14 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
                 val serviceAdapter = OptionalServiceAdapter(this)
                 op_service_recycler_view.adapter = serviceAdapter
                 serviceAdapter.updateData(it.data)
+            }
+        })
+
+        apiCallViewModelDefault.getService.observe(this, Observer {
+            if (!it.error) {
+                val defaultServiceAdapter = DefaultServiceAdapter(this)
+                default_service.adapter = defaultServiceAdapter
+                defaultServiceAdapter.updateData(it.data)
             }
         })
     }

@@ -161,11 +161,12 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="20dp"
+                android:letterSpacing="0"
                 android:shadowColor="@color/app_color"
                 android:shadowDx="0"
                 android:shadowDy="10"
                 android:text="update"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
         </RelativeLayout>
 

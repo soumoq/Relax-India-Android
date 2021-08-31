@@ -161,13 +161,7 @@ class ApiCallViewModel : ViewModel() {
     }
 
     fun serviceInfo(context: Context, serviceType: String = "Main Service") {
-        progressDialog = ProgressDialog(context)
-        progressDialog.setTitle("Please wait")
-        progressDialog.setMessage("Please wait we are fetching service")
-        //progressDialog.show()
         Log.e("$LOG-serviceInfo-value", "${App.getUserToken(context)}\t$serviceType")
-
-
         val response: Call<ServiceResponse> =
             restApiService.getService(App.getUserToken(context), serviceType)
         response.enqueue(object : Callback<ServiceResponse> {
@@ -175,7 +169,6 @@ class ApiCallViewModel : ViewModel() {
                 call: Call<ServiceResponse>,
                 response: Response<ServiceResponse>
             ) {
-                progressDialog.dismiss()
                 if (response.isSuccessful) {
                     Log.e("$LOG-serviceInfo-if", "success")
                     getService.value = response.body()
@@ -185,7 +178,6 @@ class ApiCallViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<ServiceResponse>, t: Throwable) {
-                progressDialog.dismiss()
                 Log.e("$LOG-serviceInfo-onFailure: ", t.message.toString())
 
             }
@@ -202,6 +194,7 @@ class ApiCallViewModel : ViewModel() {
         progressDialog = ProgressDialog(context)
         progressDialog.setTitle("Please wait")
         progressDialog.setMessage("Please wait we are calculating total")
+        progressDialog.show()
         val str = "{\n" +
                 "    \"service\" : [1,2]\n" +
                 "}"

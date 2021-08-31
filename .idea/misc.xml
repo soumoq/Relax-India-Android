@@ -14,7 +14,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_white_24.xml" value="0.18611111111111112" />
         <entry key="app/src/main/res/drawable/ic_baseline_keyboard_arrow_up_24.xml" value="0.18611111111111112" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.18981481481481483" />
-        <entry key="app/src/main/res/layout/activity_book_now.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_book_now.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_bookig_successful.xml" value="0.17889492753623187" />
         <entry key="app/src/main/res/layout/activity_booking_info.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_driver_feedback.xml" value="0.19322916666666667" />
@@ -26,10 +26,11 @@
         <entry key="app/src/main/res/layout/activity_otp.xml" value="0.1716485507246377" />
         <entry key="app/src/main/res/layout/activity_thank_you.xml" value="0.16168478260869565" />
         <entry key="app/src/main/res/layout/nav_header.xml" value="0.21" />
+        <entry key="app/src/main/res/layout/recycler_default.xml" value="0.18432971014492755" />
         <entry key="app/src/main/res/layout/recycler_my_order_list.xml" value="0.25" />
         <entry key="app/src/main/res/layout/recycler_opsonal_service.xml" value="0.192481884057971" />
         <entry key="app/src/main/res/layout/recycler_service.xml" value="0.12681159420289856" />
-        <entry key="app/src/main/res/layout/sheet_home_dashboard.xml" value="0.12681159420289856" />
+        <entry key="app/src/main/res/layout/sheet_home_dashboard.xml" value="0.33" />
         <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.33" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.18981481481481483" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.18981481481481483" />

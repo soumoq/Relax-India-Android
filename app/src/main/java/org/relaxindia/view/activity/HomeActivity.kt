@@ -73,6 +73,10 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
     var sourceLocation = ""
     var desLocation = ""
+    var sourceLat = ""
+    var sourceLon = ""
+    var desLat = ""
+    var desLon = ""
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,8 +94,12 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         homeDashboardSheet.book_now.setOnClickListener {
             val intent = Intent(this, BookNowActivity::class.java)
             intent.putExtra("service_price", servicePrice.toString())
-            intent.putExtra("source_loc",sourceLocation)
-            intent.putExtra("des_loc",desLocation)
+            intent.putExtra("source_loc", sourceLocation)
+            intent.putExtra("des_loc", desLocation)
+            intent.putExtra("sourceLat", sourceLat)
+            intent.putExtra("sourceLon", sourceLon)
+            intent.putExtra("desLat", desLat)
+            intent.putExtra("desLon", desLon)
             startActivity(intent)
         }
 
@@ -104,12 +112,13 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
         String city = addresses.get(0).getLocality();
         String state = addresses.get(0).getAdminArea();
-        String country = addresses.get(0).getCountryName();
+        String country = addresses.get(0).getCountryName();pickup_address
         String postalCode = addresses.get(0).getPostalCode();
         String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
         */
         sourceLocation = addresses[0]?.getAddressLine(0).toString();
-        pickup_address.setText(sourceLocation)
+        sourceLat = gpsTracker.latitude.toString()
+        sourceLon = gpsTracker.longitude.toString()
 
         val apiKey = App.googleApiKey
         if (!Places.isInitialized()) {
@@ -126,10 +135,14 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                 //Log.i("TAG", "Place: " + place.getName() + ", " + place.getId());
                 //Toast.makeText(getApplicationContext(),"Success" + place.getName(),Toast.LENGTH_LONG).show();
                 val queriedLocation = place.latLng
+                desLat = queriedLocation?.latitude.toString()
+                desLon = queriedLocation?.longitude.toString()
                 homeDashboardSheet.select_ambulance_layout.visibility = View.VISIBLE
                 apiCallViewModel.serviceInfo(this@HomeActivity)
                 homeDashboardSheet.show()
                 desLocation = place.address.toString()
+                homeDashboardSheet.sheet_des.text = desLocation
+                homeDashboardSheet.sheet_pickup.text = sourceLocation
                 //toast(queriedLocation!!.latitude.toString())
             }
 
