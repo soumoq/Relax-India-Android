@@ -21,6 +21,10 @@ class MyProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_profile)
 
+        profile_back.setOnClickListener {
+            onBackPressed()
+        }
+
         apiCallViewModel = ViewModelProvider(this).get(ApiCallViewModel::class.java)
         observeViewModel()
         apiCallViewModel.profileInfo(this)

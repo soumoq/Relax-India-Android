@@ -35,6 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="My Booking"
+                    android:textStyle="bold"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 

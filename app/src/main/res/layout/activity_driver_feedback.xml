@@ -67,25 +67,25 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Sadhu Mukherjee R.."
-                            android:textSize="14sp"
+                            android:textSize="12sp"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="6dp"
                             android:textColor="@color/black"/>
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginRight="6dp"
                             android:src="@drawable/ic_outline_arrow_right_alt_24"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="B.N Bose Hospital"
-                            android:textSize="14sp"
+                            android:textSize="12sp"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
                             android:textColor="@color/black"/>
 
                     </LinearLayout>
@@ -123,34 +123,11 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp">
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_baseline_star_24" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_baseline_star_24" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_baseline_star_24" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_baseline_star_24" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_baseline_star_24" />
+                    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        app:mrb_progressTint="@color/yellow"
+                        style="@style/Widget.MaterialRatingBar.RatingBar" />
 
                 </LinearLayout>
 
@@ -160,6 +137,7 @@
                     android:layout_height="150dp"
                     android:layout_marginTop="20dp"
                     android:textSize="14sp"
+                    android:padding="10dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginLeft="15dp"
                     android:hint="Tell us about your experience"

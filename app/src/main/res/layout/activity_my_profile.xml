@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".view.activity.MyProfileActivity">
-
 
 
     <LinearLayout
@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/notification_back"
+                    android:id="@+id/profile_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -37,7 +37,7 @@
                     android:layout_marginLeft="15dp"
                     android:text="Profile"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -49,9 +49,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
+            android:layout_margin="20dp"
             android:hint="Name"
             android:orientation="horizontal">
 
@@ -70,9 +68,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
             android:hint="Email"
             android:orientation="horizontal">
 
@@ -91,9 +89,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
             android:hint="Phone"
             android:orientation="horizontal">
 
@@ -112,9 +110,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
             android:hint="Address"
             android:orientation="horizontal">
 
@@ -133,9 +131,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
             android:hint="Pincode"
             android:orientation="horizontal">
 
@@ -151,17 +149,26 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <Button
-            android:id="@+id/update_profile"
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:text="update">
+            android:elevation="5dp">
 
+            <Button
+                android:id="@+id/update_profile"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:shadowColor="@color/app_color"
+                android:shadowDx="0"
+                android:shadowDy="10"
+                android:text="update"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
-        </Button>
 
     </LinearLayout>
 

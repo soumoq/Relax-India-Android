@@ -28,6 +28,7 @@ object App {
     const val apiCheckOtp = "verify-otp"
     const val apiProfile = "profile"
     const val getService = "get-services"
+    const val getSelectedService = "get-selected-services"
 
 
     //Share preference key

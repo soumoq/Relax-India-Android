@@ -32,22 +32,38 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Pick-up point"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="11sp" />
+
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:hint="Pickup Address"
                 android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="15dp"
+                app:boxCornerRadiusBottomEnd="5dp"
+                app:boxCornerRadiusBottomStart="5dp"
+                app:boxCornerRadiusTopEnd="5dp"
+                app:boxCornerRadiusTopStart="5dp"
                 app:hintEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/pickup_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
                     android:focusable="false"
+                    android:textSize="13sp"
                     android:imeOptions="actionNext"
-                    android:textSize="16sp" />
+                    android:maxLines="1" />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -55,15 +71,28 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="5dp"
                 android:text="Destination address"
-                android:textSize="13sp" />
+                android:textSize="11sp" />
 
-            <fragment
-                android:id="@+id/autocomplete_fragment"
-                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/des_background">
+
+                <fragment
+                    android:id="@+id/autocomplete_fragment"
+                    android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true" />
+
+            </RelativeLayout>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -78,8 +107,8 @@
 
                 <RelativeLayout
                     android:id="@+id/open_bottom_sheet"
-                    android:layout_width="60dp"
-                    android:layout_height="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/round_layout">

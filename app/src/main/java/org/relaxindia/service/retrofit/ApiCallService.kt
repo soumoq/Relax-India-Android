@@ -1,7 +1,13 @@
 package org.relaxindia.service.retrofit
 
 
+import android.annotation.SuppressLint
+import androidx.annotation.RawRes
+import com.google.gson.JsonObject
+import kotlinx.android.parcel.RawValue
+import org.json.JSONObject
 import org.relaxindia.model.GlobalResponse
+import org.relaxindia.model.getSelectedService.SelectedServiceResponse
 import org.relaxindia.model.getService.ServiceResponse
 import org.relaxindia.model.login.LoginResponse
 import org.relaxindia.model.otp.OtpResponse
@@ -57,6 +63,15 @@ interface ApiCallService {
         @Field("service_type")
         serviceType: String,
     ): Call<ServiceResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST(App.getSelectedService)
+    fun getSelectedService(
+        @Header("Authorization")
+        authHeader: String,
+        @Body
+        body : String
+    ):Call<SelectedServiceResponse>
 
 
 }

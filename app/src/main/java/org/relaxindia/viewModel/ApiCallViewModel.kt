@@ -5,7 +5,10 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.gson.JsonObject
+import org.json.JSONObject
 import org.relaxindia.model.GlobalResponse
+import org.relaxindia.model.getSelectedService.SelectedServiceResponse
 import org.relaxindia.model.getService.ServiceResponse
 import org.relaxindia.model.login.LoginResponse
 import org.relaxindia.model.otp.OtpResponse
@@ -24,6 +27,7 @@ class ApiCallViewModel : ViewModel() {
     val profileInfo = MutableLiveData<ProfileResponse>()
     val updateProfile = MutableLiveData<GlobalResponse>()
     val getService = MutableLiveData<ServiceResponse>()
+    val getSelectedService = MutableLiveData<SelectedServiceResponse>()
 
     lateinit var progressDialog: ProgressDialog
 
@@ -183,6 +187,46 @@ class ApiCallViewModel : ViewModel() {
             override fun onFailure(call: Call<ServiceResponse>, t: Throwable) {
                 progressDialog.dismiss()
                 Log.e("$LOG-serviceInfo-onFailure: ", t.message.toString())
+
+            }
+
+        })
+    }
+
+    fun selectedServiceInfo(
+        context: Context,
+        body: String,
+        contentType: String = "application/json",
+        accept: String = "application/json"
+    ) {
+        progressDialog = ProgressDialog(context)
+        progressDialog.setTitle("Please wait")
+        progressDialog.setMessage("Please wait we are calculating total")
+        val str = "{\n" +
+                "    \"service\" : [1,2]\n" +
+                "}"
+        Log.e("$LOG-selectedServiceInfo", App.getUserToken(context))
+
+        val response: Call<SelectedServiceResponse> =
+            restApiService.getSelectedService(App.getUserToken(context), str)
+        response.enqueue(object : Callback<SelectedServiceResponse> {
+            override fun onResponse(
+                call: Call<SelectedServiceResponse>,
+                response: Response<SelectedServiceResponse>
+            ) {
+                progressDialog.dismiss()
+                if (response.isSuccessful) {
+                    Log.e("$LOG-selectedServiceInfo-if", "success")
+                    getSelectedService.value = response.body()
+                } else {
+                    Log.e("$LOG-selectedServiceInfo-else", "error ${response.code()}")
+
+                }
+            }
+
+            override fun onFailure(call: Call<SelectedServiceResponse>, t: Throwable) {
+                progressDialog.dismiss()
+                Log.e("$LOG-selectedServiceInfo-onFailure: ", t.message.toString())
 
             }
 

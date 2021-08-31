@@ -36,6 +36,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         apiCallViewModel = ViewModelProvider(this).get(ApiCallViewModel::class.java)
         observeViewModel()
         apiCallViewModel.serviceInfo(this, "Optional Service")
+        //apiCallViewModel.selectedServiceInfo(this,"")
 
         //Payment check out
         Checkout.preload(applicationContext)

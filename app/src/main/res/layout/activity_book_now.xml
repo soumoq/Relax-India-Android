@@ -15,7 +15,7 @@
         <RelativeLayout
             android:id="@+id/pay_to_book"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:background="@color/app_color">
 
@@ -30,9 +30,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="Pay to book"
+                    android:textStyle="bold"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/book_now_amount"
@@ -41,7 +42,7 @@
                     android:layout_gravity="center"
                     android:text="Pay now $260.00"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
             </LinearLayout>
 
@@ -72,7 +73,8 @@
                     android:layout_marginLeft="10dp"
                     android:text="Cardiac Booking Service"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -83,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="55dp"
-            android:layout_marginBottom="45dp"
+            android:layout_marginBottom="55dp"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
@@ -93,7 +95,7 @@
                 android:layout_marginRight="15dp"
                 android:background="@color/white"
                 android:elevation="5dp"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="7dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -130,11 +132,7 @@
                             android:text="Relax India Cariac Ambulance"
                             android:textColor="@color/black" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="It contains: XXXXXX, YYYYYYY, FFFFFFFFFF, GGGGG, HHHHHHH"
-                            android:textSize="12sp" />
+
 
 
                         <TextView
@@ -142,6 +140,7 @@
                             android:layout_height="wrap_content"
                             android:text="ETA: mins"
                             android:textSize="12sp" />
+
 
                     </LinearLayout>
 
@@ -153,7 +152,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="15dp"
                 android:text="Optional Service"
@@ -181,8 +180,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:text="Journey" />
 
@@ -194,7 +192,7 @@
                 android:layout_marginRight="15dp"
                 android:background="@color/white"
                 android:elevation="5dp"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="7dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -233,8 +231,7 @@
                             android:layout_marginTop="5dp"
                             android:text="My current location"
                             android:textColor="@color/black"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
+                            android:textSize="13sp" />
 
 
                     </LinearLayout>
@@ -264,8 +261,7 @@
                             android:layout_marginLeft="15dp"
                             android:text="B.N. Bose Hospital"
                             android:textColor="@color/black"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
+                            android:textSize="13sp" />
 
 
                     </LinearLayout>
@@ -294,7 +290,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="15dp"
                 android:text="Price Details" />
@@ -308,7 +304,7 @@
                 android:layout_marginRight="15dp"
                 android:background="@color/white"
                 android:elevation="5dp"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="7dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -420,7 +416,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="10dp"
                 android:elevation="5dp"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="7dp">
 
                 <TextView
                     android:layout_width="wrap_content"
