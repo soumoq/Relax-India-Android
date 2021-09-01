@@ -12,6 +12,7 @@ import org.relaxindia.model.getSelectedService.SelectedServiceResponse
 import org.relaxindia.model.getService.ServiceResponse
 import org.relaxindia.model.login.LoginResponse
 import org.relaxindia.model.otp.OtpResponse
+import org.relaxindia.model.saveBooking.SaveBooking
 import org.relaxindia.model.userProfile.ProfileResponse
 import org.relaxindia.util.App
 import retrofit2.Call
@@ -81,7 +82,7 @@ interface ApiCallService {
         authHeader: String,
         @Body
         body: RequestBody
-    ): Call<GlobalResponse>
+    ): Call<SaveBooking>
 
 
 }

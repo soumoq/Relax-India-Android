@@ -20,6 +20,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import okhttp3.RequestBody
+import org.relaxindia.model.saveBooking.SaveBooking
 
 
 class ApiCallViewModel : ViewModel() {
@@ -30,7 +31,7 @@ class ApiCallViewModel : ViewModel() {
     val updateProfile = MutableLiveData<GlobalResponse>()
     val getService = MutableLiveData<ServiceResponse>()
     val getSelectedService = MutableLiveData<SelectedServiceResponse>()
-    val getSaveService = MutableLiveData<GlobalResponse>()
+    val getSaveService = MutableLiveData<SaveBooking>()
 
     lateinit var progressDialog: ProgressDialog
 
@@ -237,12 +238,12 @@ class ApiCallViewModel : ViewModel() {
             JSONObject(jsonStr).toString()
         )
 
-        val response: Call<GlobalResponse> =
+        val response: Call<SaveBooking> =
             restApiService.getSaveBooking(App.getUserToken(context), body)
-        response.enqueue(object : Callback<GlobalResponse> {
+        response.enqueue(object : Callback<SaveBooking> {
             override fun onResponse(
-                call: Call<GlobalResponse>,
-                response: Response<GlobalResponse>
+                call: Call<SaveBooking>,
+                response: Response<SaveBooking>
             ) {
                 progressDialog.dismiss()
                 if (response.isSuccessful) {
@@ -254,7 +255,7 @@ class ApiCallViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<GlobalResponse>, t: Throwable) {
+            override fun onFailure(call: Call<SaveBooking>, t: Throwable) {
                 progressDialog.dismiss()
                 Log.e("$LOG-saveServiceInfo-onFailure: ", t.message.toString())
             }
