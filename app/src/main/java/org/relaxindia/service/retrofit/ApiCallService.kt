@@ -71,8 +71,17 @@ interface ApiCallService {
         @Header("Authorization")
         authHeader: String,
         @Body
-        body : RequestBody
-    ):Call<SelectedServiceResponse>
+        body: RequestBody
+    ): Call<SelectedServiceResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST(App.getSaveBooking)
+    fun getSaveBooking(
+        @Header("Authorization")
+        authHeader: String,
+        @Body
+        body: RequestBody
+    ): Call<GlobalResponse>
 
 
 }

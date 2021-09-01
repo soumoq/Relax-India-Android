@@ -17,7 +17,6 @@ import com.razorpay.PaymentResultListener
 import org.json.JSONArray
 import org.relaxindia.R
 import org.relaxindia.util.App
-import org.relaxindia.util.toast
 import org.relaxindia.view.recyclerView.DefaultServiceAdapter
 import org.relaxindia.view.recyclerView.OptionalServiceAdapter
 import org.relaxindia.viewModel.ApiCallViewModel
@@ -34,7 +33,9 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
     private val arr = JSONArray()
     private val serviceIdList = ArrayList<Int>()
 
-    private var servicePrice = 0.0
+    //Booking details
+    private var payableAmount = 0.0
+    private var totalAmount = 0.0;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,9 +102,17 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
             if (!it.error) {
                 base_price.text = "${App.rs}${(it.data.payable_amount + it.data.rest_amount)}"
                 book_now_amount.text = "Pay now ${App.rs}${it.data.payable_amount}"
-                servicePrice = it.data.payable_amount
+                payableAmount = it.data.payable_amount
+                totalAmount = it.data.payable_amount + it.data.rest_amount
                 partial_pay.text = "${App.rs}${it.data.payable_amount}"
                 payto_driver.text = "${App.rs}${it.data.rest_amount}"
+            }
+        })
+
+        apiCallViewModel.getSaveService.observe(this, Observer {
+            if (!it.error) {
+                val intent = Intent(this, BookingSuccessfulActivity::class.java)
+                startActivity(intent)
             }
         })
 
@@ -146,7 +155,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
             //options.put("order_id", "order_DBJOWzybf0sJbb") //from response of step 3.
             options.put("theme.color", "#3399cc")
             options.put("currency", "INR")
-            options.put("amount", "${servicePrice * 100}") //500 * 100
+            options.put("amount", "${payableAmount * 100}") //500 * 100
             options.put("prefill.email", App.getUserEmail(this))
             options.put("prefill.contact", App.getUserPhone(this))
             val retryObj = JSONObject()
@@ -160,9 +169,19 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
     }
 
     override fun onPaymentSuccess(p0: String?) {
-        Log.e("PAYMRNT_INFO", p0.toString())
-        val intent = Intent(this, BookingSuccessfulActivity::class.java)
-        startActivity(intent)
+        val bookingDetails = JSONObject()
+        bookingDetails.put("booking_amount", payableAmount)
+        bookingDetails.put("total_amount", totalAmount)
+        bookingDetails.put("payable_amount", payableAmount)
+        bookingDetails.put("wallet_amount", "0.00")
+        bookingDetails.put("from_location", intent.getStringExtra("source_loc"))
+        bookingDetails.put("to_location", intent.getStringExtra("des_loc"))
+        bookingDetails.put("tx_id", p0.toString())
+        bookingDetails.put("service", arr)
+        Log.e("JSONRES", bookingDetails.toString())
+        apiCallViewModel.saveServiceInfo(this, bookingDetails.toString())
+        observeViewModel()
+
     }
 
     override fun onPaymentError(p0: Int, p1: String?) {

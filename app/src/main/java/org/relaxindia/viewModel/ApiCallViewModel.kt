@@ -5,7 +5,6 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.gson.JsonObject
 import okhttp3.MediaType
 import org.json.JSONObject
 import org.relaxindia.model.GlobalResponse
@@ -31,6 +30,7 @@ class ApiCallViewModel : ViewModel() {
     val updateProfile = MutableLiveData<GlobalResponse>()
     val getService = MutableLiveData<ServiceResponse>()
     val getSelectedService = MutableLiveData<SelectedServiceResponse>()
+    val getSaveService = MutableLiveData<GlobalResponse>()
 
     lateinit var progressDialog: ProgressDialog
 
@@ -188,17 +188,15 @@ class ApiCallViewModel : ViewModel() {
         })
     }
 
-    fun selectedServiceInfo(context: Context, str: String) {
+    fun selectedServiceInfo(context: Context, jsonStr: String) {
         progressDialog = ProgressDialog(context)
         progressDialog.setTitle("Please wait")
         progressDialog.setMessage("Please wait we are calculating total")
         progressDialog.show()
-        Log.e("CONVAERJKJDAJ", str)
-
 
         val body: RequestBody = RequestBody.create(
             MediaType.parse("application/json; charset=utf-8"),
-            JSONObject(str).toString()
+            JSONObject(jsonStr).toString()
         )
 
         val response: Call<SelectedServiceResponse> =
@@ -225,6 +223,44 @@ class ApiCallViewModel : ViewModel() {
             }
 
         })
+    }
+
+
+    fun saveServiceInfo(context: Context, jsonStr: String) {
+        progressDialog = ProgressDialog(context)
+        progressDialog.setTitle("Please wait")
+        progressDialog.setMessage("Please wait we saving your booking")
+        progressDialog.show()
+
+        val body: RequestBody = RequestBody.create(
+            MediaType.parse("application/json; charset=utf-8"),
+            JSONObject(jsonStr).toString()
+        )
+
+        val response: Call<GlobalResponse> =
+            restApiService.getSaveBooking(App.getUserToken(context), body)
+        response.enqueue(object : Callback<GlobalResponse> {
+            override fun onResponse(
+                call: Call<GlobalResponse>,
+                response: Response<GlobalResponse>
+            ) {
+                progressDialog.dismiss()
+                if (response.isSuccessful) {
+                    Log.e("$LOG-saveServiceInfo-if", "success")
+                    getSaveService.value = response.body()
+                } else {
+                    Log.e("$LOG-saveServiceInfo-else", "error ${response.code()}")
+
+                }
+            }
+
+            override fun onFailure(call: Call<GlobalResponse>, t: Throwable) {
+                progressDialog.dismiss()
+                Log.e("$LOG-saveServiceInfo-onFailure: ", t.message.toString())
+            }
+
+        })
+
     }
 
 }

@@ -29,6 +29,7 @@ object App {
     const val apiProfile = "profile"
     const val getService = "get-services"
     const val getSelectedService = "get-selected-services"
+    const val getSaveBooking = "save-booking"
 
 
     //Share preference key
