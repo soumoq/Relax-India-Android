@@ -14,13 +14,12 @@ import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.razorpay.PaymentResultListener
-import kotlinx.android.synthetic.main.sheet_home_dashboard.*
+import org.json.JSONArray
 import org.relaxindia.R
 import org.relaxindia.util.App
 import org.relaxindia.util.toast
 import org.relaxindia.view.recyclerView.DefaultServiceAdapter
 import org.relaxindia.view.recyclerView.OptionalServiceAdapter
-import org.relaxindia.view.recyclerView.ServiceAdapter
 import org.relaxindia.viewModel.ApiCallViewModel
 import java.lang.Exception
 
@@ -28,22 +27,31 @@ import java.lang.Exception
 class BookNowActivity : AppCompatActivity(), PaymentResultListener {
 
     //view-model
-    lateinit var apiCallViewModel: ApiCallViewModel
-    lateinit var apiCallViewModelDefault: ApiCallViewModel
+    private lateinit var apiCallViewModel: ApiCallViewModel
 
+    //Create Json
+    private val serviceJson = JSONObject()
+    private val arr = JSONArray()
+    private val serviceIdList = ArrayList<Int>()
 
-    var servicePrice = 0
+    private var servicePrice = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_now)
 
         apiCallViewModel = ViewModelProvider(this).get(ApiCallViewModel::class.java)
-        apiCallViewModelDefault = ViewModelProvider(this).get(ApiCallViewModel::class.java)
-        observeViewModel()
         apiCallViewModel.serviceInfo(this, "Optional Service")
-        apiCallViewModelDefault.serviceInfo(this, "Default Service")
-        //apiCallViewModel.selectedServiceInfo(this,"")
+        apiCallViewModel.serviceInfo(this, "Default Service")
+        observeViewModel()
+
+        serviceIdList.add(intent.getStringExtra("service_id")?.toInt()!!)
+        for (i in 0 until serviceIdList.size) {
+            arr.put(serviceIdList[i])
+        }
+        serviceJson.put("service", arr)
+        //Log.e("CONVAERJKJDAJ", serviceJson.toString())
+        apiCallViewModel.selectedServiceInfo(this, serviceJson.toString())
 
         //Payment check out
         Checkout.preload(applicationContext)
@@ -60,13 +68,8 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
 
         des_location.text = intent.getStringExtra("des_loc")
         source_location.text = intent.getStringExtra("source_loc")
-        servicePrice = (((intent.getStringExtra("service_price"))?.toDouble())!! / 100).toInt()
-        total_amount.text = servicePrice.toString()
 
-        book_now_amount.text =
-            "${App.rs}$servicePrice"
-        base_price.text =
-            "${App.rs}$servicePrice"
+
 
         pay_to_book.setOnClickListener {
             startPayment()
@@ -82,35 +85,48 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
     private fun observeViewModel() {
         apiCallViewModel.getService.observe(this, Observer {
             if (!it.error) {
-                val serviceAdapter = OptionalServiceAdapter(this)
-                op_service_recycler_view.adapter = serviceAdapter
-                serviceAdapter.updateData(it.data)
+                if (it.message == "Optional Service") {
+                    val serviceAdapter = OptionalServiceAdapter(this)
+                    op_service_recycler_view.adapter = serviceAdapter
+                    serviceAdapter.updateData(it.data)
+                } else if (it.message == "Default Service") {
+                    val defaultServiceAdapter = DefaultServiceAdapter(this)
+                    default_service.adapter = defaultServiceAdapter
+                    defaultServiceAdapter.updateData(it.data)
+                }
             }
         })
 
-        apiCallViewModelDefault.getService.observe(this, Observer {
+        apiCallViewModel.getSelectedService.observe(this, Observer {
             if (!it.error) {
-                val defaultServiceAdapter = DefaultServiceAdapter(this)
-                default_service.adapter = defaultServiceAdapter
-                defaultServiceAdapter.updateData(it.data)
+                base_price.text = "${App.rs}${(it.data.payable_amount + it.data.rest_amount)}"
+                book_now_amount.text = "Pay now ${App.rs}${it.data.payable_amount}"
+                servicePrice = it.data.payable_amount
+                partial_pay.text = "${App.rs}${it.data.payable_amount}"
+                payto_driver.text = "${App.rs}${it.data.rest_amount}"
             }
         })
+
+
     }
 
-    fun updatePrice(select: Boolean, amount: Int) {
-        var tempAmount: Int = 0
-        var tempServiceAmount: Int = 0
-
+    fun updatePrice(select: Boolean, serviceId: Int) {
         if (select) {
-            tempAmount = optional_service.text.toString().toInt() + amount
-            tempServiceAmount = total_amount.text.toString().toInt() + amount
+            serviceIdList.add(serviceId)
         } else {
-            tempAmount = optional_service.text.toString().toInt() - amount
-            tempServiceAmount = total_amount.text.toString().toInt() - amount
+            serviceIdList.remove(serviceId)
         }
-        optional_service.text = tempAmount.toString()
-        total_amount.text = tempServiceAmount.toString()
-        book_now_amount.text = "${App.rs}${tempServiceAmount.toString()}"
+        for (i in 0 until arr.length()) {
+            arr.remove(i)
+        }
+        for (i in 0 until serviceIdList.size) {
+            arr.put(serviceIdList[i])
+        }
+        serviceJson.put("service", arr)
+        //Log.e("CONVAERJKJDAJ", serviceJson.toString())
+        apiCallViewModel.selectedServiceInfo(this, serviceJson.toString())
+        observeViewModel()
+
     }
 
 
@@ -130,7 +146,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
             //options.put("order_id", "order_DBJOWzybf0sJbb") //from response of step 3.
             options.put("theme.color", "#3399cc")
             options.put("currency", "INR")
-            options.put("amount", "${total_amount.text.toString().toDouble() * 100}") //500 * 100
+            options.put("amount", "${servicePrice * 100}") //500 * 100
             options.put("prefill.email", App.getUserEmail(this))
             options.put("prefill.contact", App.getUserPhone(this))
             val retryObj = JSONObject()

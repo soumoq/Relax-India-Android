@@ -66,11 +66,11 @@ class OptionalServiceAdapter(context: Context) :
                 if (service.select) {
                     service.select = false
                     view.recycler_op_service_layout.setBackgroundColor(Color.parseColor("#ffffff"))
-                    (view.context as BookNowActivity).updatePrice(false,service.price.toInt())
+                    (view.context as BookNowActivity).updatePrice(false,service.id)
                 } else {
                     service.select = true
                     view.recycler_op_service_layout.setBackgroundColor(Color.parseColor("#EAECEE"))
-                    (view.context as BookNowActivity).updatePrice(true,service.price.toInt())
+                    (view.context as BookNowActivity).updatePrice(true,service.id)
 
                 }
             }

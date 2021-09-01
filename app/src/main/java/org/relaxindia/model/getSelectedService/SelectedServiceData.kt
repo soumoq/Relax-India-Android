@@ -16,6 +16,6 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 data class SelectedServiceData (
 
-	@SerializedName("payable_amount") val payable_amount : Int,
-	@SerializedName("rest_amount") val rest_amount : Int
+	@SerializedName("payable_amount") val payable_amount : Double,
+	@SerializedName("rest_amount") val rest_amount : Double
 )

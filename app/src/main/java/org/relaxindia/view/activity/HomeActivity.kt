@@ -11,7 +11,6 @@ import android.location.Location
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -39,7 +38,6 @@ import org.relaxindia.R
 import org.relaxindia.model.getService.ServiceData
 import org.relaxindia.service.GpsTracker
 import org.relaxindia.util.App
-import org.relaxindia.util.toast
 import org.relaxindia.view.recyclerView.ServiceAdapter
 import org.relaxindia.viewModel.ApiCallViewModel
 import android.location.Geocoder
@@ -70,6 +68,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
     //Service Price
     var servicePrice: Double = 0.0
+    var serviceId = -1
 
     var sourceLocation = ""
     var desLocation = ""
@@ -94,6 +93,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         homeDashboardSheet.book_now.setOnClickListener {
             val intent = Intent(this, BookNowActivity::class.java)
             intent.putExtra("service_price", servicePrice.toString())
+            intent.putExtra("service_id", serviceId.toString())
             intent.putExtra("source_loc", sourceLocation)
             intent.putExtra("des_loc", desLocation)
             intent.putExtra("sourceLat", sourceLat)
@@ -116,7 +116,11 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         String postalCode = addresses.get(0).getPostalCode();
         String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
         */
-        sourceLocation = addresses[0]?.getAddressLine(0).toString();
+        if (addresses[0]?.maxAddressLineIndex!! > 0) {
+            sourceLocation = addresses[0]?.getAddressLine(0).toString();
+        } else {
+            sourceLocation = "No Address Found"
+        }
         sourceLat = gpsTracker.latitude.toString()
         sourceLon = gpsTracker.longitude.toString()
 
@@ -226,8 +230,9 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         })
     }
 
-    fun changeBackGround(position: Int, price: Double) {
+    fun changeBackGround(position: Int, price: Double, serviceId : Int) {
         servicePrice = price * 100
+        this.serviceId = serviceId
         homeDashboardSheet.book_now.visibility = View.VISIBLE
         val serviceInfo = ArrayList<ServiceData>()
         serviceInfo.addAll(apiCallViewModel.getService.value?.data!!)

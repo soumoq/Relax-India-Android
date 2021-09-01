@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonObject
+import okhttp3.MediaType
 import org.json.JSONObject
 import org.relaxindia.model.GlobalResponse
 import org.relaxindia.model.getSelectedService.SelectedServiceResponse
@@ -19,6 +20,8 @@ import org.relaxindia.util.App
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import okhttp3.RequestBody
+
 
 class ApiCallViewModel : ViewModel() {
     val LOG = "ApiCallViewModel"
@@ -185,23 +188,21 @@ class ApiCallViewModel : ViewModel() {
         })
     }
 
-    fun selectedServiceInfo(
-        context: Context,
-        body: String,
-        contentType: String = "application/json",
-        accept: String = "application/json"
-    ) {
+    fun selectedServiceInfo(context: Context, str: String) {
         progressDialog = ProgressDialog(context)
         progressDialog.setTitle("Please wait")
         progressDialog.setMessage("Please wait we are calculating total")
         progressDialog.show()
-        val str = "{\n" +
-                "    \"service\" : [1,2]\n" +
-                "}"
-        Log.e("$LOG-selectedServiceInfo", App.getUserToken(context))
+        Log.e("CONVAERJKJDAJ", str)
+
+
+        val body: RequestBody = RequestBody.create(
+            MediaType.parse("application/json; charset=utf-8"),
+            JSONObject(str).toString()
+        )
 
         val response: Call<SelectedServiceResponse> =
-            restApiService.getSelectedService(App.getUserToken(context), str)
+            restApiService.getSelectedService(App.getUserToken(context), body)
         response.enqueue(object : Callback<SelectedServiceResponse> {
             override fun onResponse(
                 call: Call<SelectedServiceResponse>,

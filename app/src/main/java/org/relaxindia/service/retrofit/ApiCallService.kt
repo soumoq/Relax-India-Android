@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import androidx.annotation.RawRes
 import com.google.gson.JsonObject
 import kotlinx.android.parcel.RawValue
+import okhttp3.RequestBody
 import org.json.JSONObject
 import org.relaxindia.model.GlobalResponse
 import org.relaxindia.model.getSelectedService.SelectedServiceResponse
@@ -70,7 +71,7 @@ interface ApiCallService {
         @Header("Authorization")
         authHeader: String,
         @Body
-        body : String
+        body : RequestBody
     ):Call<SelectedServiceResponse>
 
 

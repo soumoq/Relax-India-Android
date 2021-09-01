@@ -10,8 +10,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:layout_marginBottom="50dp">
+        android:layout_marginBottom="50dp"
+        android:fillViewport="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -126,8 +126,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
                             android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
                             android:text="Default Service" />
 
@@ -135,7 +135,7 @@
                             android:id="@+id/default_service"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
                     </LinearLayout>
@@ -327,7 +327,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
-                                android:text="$ 2560.00"
+                                android:text="0"
                                 android:textColor="@color/black"
 
                                 android:textSize="14sp"
@@ -342,17 +342,28 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginRight="10dp">
 
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Optional Service"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Confirm Booking"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text=" (Partial Pay)"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
 
 
                             <TextView
-                                android:id="@+id/optional_service"
+                                android:id="@+id/partial_pay"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -388,7 +399,7 @@
 
 
                             <TextView
-                                android:id="@+id/total_amount"
+                                android:id="@+id/payto_driver"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
