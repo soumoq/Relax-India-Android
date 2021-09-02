@@ -73,16 +73,17 @@ class OptionalServiceAdapter(context: Context) :
                     service.select = false
                     view.recycler_op_service_layout.setBackgroundColor(Color.parseColor("#ffffff"))
                     (view.context as BookNowActivity).updatePrice(false, service.id)
-                    view.service_add.visibility = View.GONE
-                    view.op_service_name.setTextColor(Color.WHITE)
-                    view.op_service_price.setTextColor(Color.WHITE)
+                    view.service_add.visibility = View.VISIBLE
+                    view.op_service_name.setTextColor(Color.parseColor("#757575"))
+                    view.op_service_price.setTextColor(Color.parseColor("#757575"))
+
                 } else {
                     service.select = true
                     view.recycler_op_service_layout.setBackgroundColor(Color.parseColor("#00b0ec"))
                     (view.context as BookNowActivity).updatePrice(true, service.id)
-                    view.service_add.visibility = View.VISIBLE
-                    view.op_service_name.setTextColor(Color.parseColor("#757575"))
-                    view.op_service_price.setTextColor(Color.parseColor("#757575"))
+                    view.service_add.visibility = View.GONE
+                    view.op_service_name.setTextColor(Color.WHITE)
+                    view.op_service_price.setTextColor(Color.WHITE)
 
                 }
             }
