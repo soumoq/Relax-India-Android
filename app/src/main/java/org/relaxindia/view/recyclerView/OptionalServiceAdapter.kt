@@ -56,21 +56,33 @@ class OptionalServiceAdapter(context: Context) :
             view.op_service_name.text = service.name
             view.op_service_price.text = "${App.rs}${service.price.toString()}"
 
-            if (service.select){
-                view.recycler_op_service_layout.setBackgroundColor(Color.parseColor("#EAECEE"))
-            }else{
+            if (service.select) {
+                view.recycler_op_service_layout.setBackgroundColor(Color.parseColor("#00b0ec"))
+                view.service_add.visibility = View.GONE
+                view.op_service_name.setTextColor(Color.WHITE)
+                view.op_service_price.setTextColor(Color.WHITE)
+            } else {
                 view.recycler_op_service_layout.setBackgroundColor(Color.parseColor("#ffffff"))
+                view.service_add.visibility = View.VISIBLE
+                view.op_service_name.setTextColor(Color.parseColor("#757575"))
+                view.op_service_price.setTextColor(Color.parseColor("#757575"))
             }
 
             view.recycler_op_service_layout.setOnClickListener {
                 if (service.select) {
                     service.select = false
                     view.recycler_op_service_layout.setBackgroundColor(Color.parseColor("#ffffff"))
-                    (view.context as BookNowActivity).updatePrice(false,service.id)
+                    (view.context as BookNowActivity).updatePrice(false, service.id)
+                    view.service_add.visibility = View.GONE
+                    view.op_service_name.setTextColor(Color.WHITE)
+                    view.op_service_price.setTextColor(Color.WHITE)
                 } else {
                     service.select = true
-                    view.recycler_op_service_layout.setBackgroundColor(Color.parseColor("#EAECEE"))
-                    (view.context as BookNowActivity).updatePrice(true,service.id)
+                    view.recycler_op_service_layout.setBackgroundColor(Color.parseColor("#00b0ec"))
+                    (view.context as BookNowActivity).updatePrice(true, service.id)
+                    view.service_add.visibility = View.VISIBLE
+                    view.op_service_name.setTextColor(Color.parseColor("#757575"))
+                    view.op_service_price.setTextColor(Color.parseColor("#757575"))
 
                 }
             }

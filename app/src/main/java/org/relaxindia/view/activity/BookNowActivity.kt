@@ -13,6 +13,8 @@ import android.location.Location
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.razorpay.PaymentResultListener
 import org.json.JSONArray
 import org.relaxindia.R
@@ -93,6 +95,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
                     serviceAdapter.updateData(it.data)
                 } else if (it.message == "Default Service") {
                     val defaultServiceAdapter = DefaultServiceAdapter(this)
+                    default_service.layoutManager = GridLayoutManager(this, 3)
                     default_service.adapter = defaultServiceAdapter
                     defaultServiceAdapter.updateData(it.data)
                 }
@@ -107,6 +110,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
                 totalAmount = it.data.payable_amount + it.data.rest_amount
                 partial_pay.text = "${App.rs}${it.data.payable_amount}"
                 payto_driver.text = "${App.rs}${it.data.rest_amount}"
+                note_text.text = App.setNoteText(it.data.rest_amount.toString())
             }
         })
 

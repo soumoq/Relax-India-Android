@@ -39,7 +39,6 @@ object App {
     const val preferenceUserName = "user_name"
 
 
-
     fun getUserToken(context: Context): String {
         val sp = context.getSharedPreferences("user_info", AppCompatActivity.MODE_PRIVATE)
         return "Bearer ${(sp.getString(App.preferenceUserToken, "").toString())}"
@@ -118,6 +117,11 @@ object App {
         // create and show the alert dialog
         val dialog = builder.create()
         dialog.show()
+    }
+
+
+    fun setNoteText(amount: String): String {
+        return "Note: You have to pay $rs$amount Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard."
     }
 
 }
