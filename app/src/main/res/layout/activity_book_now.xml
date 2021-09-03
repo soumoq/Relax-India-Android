@@ -121,20 +121,25 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:background="@color/light_gray" />
+                            android:background="#dadada" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="15dp"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
                             android:layout_marginBottom="5dp"
                             android:text="Default Service" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/default_service"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_gravity="center"/>
 
 
                     </LinearLayout>
@@ -221,7 +226,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="15dp"
-                                android:layout_marginTop="5dp"
+                                android:layout_gravity="center"
                                 android:text="My current location"
                                 android:textColor="@color/black"
                                 android:textSize="13sp" />
@@ -230,9 +235,12 @@
                         </LinearLayout>
 
                         <View
-                            android:layout_width="1dp"
-                            android:layout_height="30dp"
-                            android:layout_marginLeft="22dp" />
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="45dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:background="#dadada"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -264,13 +272,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_marginTop="15dp"
-                            android:background="@color/line_color" />
+                            android:background="#dadada" />
 
                         <TextView
                             android:id="@+id/book_now_destance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="15dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
                             android:text="5.0 KM" />
@@ -308,9 +316,9 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="15dp"
                             android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp">
+                            android:layout_marginRight="15dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -337,9 +345,9 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="15dp"
                             android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp">
+                            android:layout_marginRight="15dp">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -378,14 +386,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_marginTop="15dp"
-                            android:background="@color/line_color" />
+                            android:background="#dadada" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="15dp"
                             android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginRight="15dp"
                             android:layout_marginBottom="10dp">
 
                             <TextView
@@ -443,10 +451,11 @@
                             android:id="@+id/note_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
+                            android:layout_margin="15dp"
+                            android:lineHeight="18dp"
                             android:text="Note: You have to pay $2300.00 Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard."
                             android:textColor="@color/black"
-                            android:textSize="13sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
 

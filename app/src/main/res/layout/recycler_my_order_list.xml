@@ -52,12 +52,26 @@
 
         </LinearLayout>
 
-        <View
-            android:id="@+id/home_vertical_line"
-            android:layout_width="1dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="22dp"
-            android:background="@drawable/doted_line" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp">
+
+            <View
+                android:id="@+id/home_vertical_line"
+                android:layout_width="1dp"
+                android:layout_height="30dp"
+                android:background="@drawable/doted_line" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dadada"
+                android:layout_marginLeft="25dp"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="wrap_content"

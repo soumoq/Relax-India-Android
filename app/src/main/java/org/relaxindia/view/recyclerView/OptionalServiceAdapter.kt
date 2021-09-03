@@ -58,7 +58,7 @@ class OptionalServiceAdapter(context: Context) :
 
             if (service.select) {
                 view.recycler_op_service_layout.setBackgroundColor(Color.parseColor("#00b0ec"))
-                view.service_add.visibility = View.GONE
+                view.service_add.visibility = View.INVISIBLE
                 view.op_service_name.setTextColor(Color.WHITE)
                 view.op_service_price.setTextColor(Color.WHITE)
             } else {
@@ -81,7 +81,7 @@ class OptionalServiceAdapter(context: Context) :
                     service.select = true
                     view.recycler_op_service_layout.setBackgroundColor(Color.parseColor("#00b0ec"))
                     (view.context as BookNowActivity).updatePrice(true, service.id)
-                    view.service_add.visibility = View.GONE
+                    view.service_add.visibility = View.INVISIBLE
                     view.op_service_name.setTextColor(Color.WHITE)
                     view.op_service_price.setTextColor(Color.WHITE)
 
