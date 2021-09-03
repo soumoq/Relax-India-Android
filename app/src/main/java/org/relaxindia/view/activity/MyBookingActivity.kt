@@ -3,30 +3,42 @@ package org.relaxindia.view.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_my_booking.*
 import org.relaxindia.R
+import org.relaxindia.util.toast
 import org.relaxindia.view.recyclerView.MyOrderListAdapter
+import org.relaxindia.viewModel.ApiCallViewModel
 
 class MyBookingActivity : AppCompatActivity() {
+
+    lateinit var apiCallViewModel: ApiCallViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_booking)
 
+        apiCallViewModel = ViewModelProvider(this).get(ApiCallViewModel::class.java)
+        observeViewModel()
+        apiCallViewModel.getBookingInfo(this)
+
+
         my_booking_back.setOnClickListener {
             onBackPressed()
         }
 
-        val myOrderListAdapter = MyOrderListAdapter(this)
-        my_booking_list.adapter = myOrderListAdapter
 
-        val arrayList = ArrayList<String>()
-        arrayList.add("")
-        arrayList.add("")
-        arrayList.add("")
-        arrayList.add("")
-        myOrderListAdapter.updateData(arrayList)
+    }
 
+    private fun observeViewModel() {
+        apiCallViewModel.getBookingHistory.observe(this, Observer {
+            if (!it.error){
+                val myOrderListAdapter = MyOrderListAdapter(this)
+                my_booking_list.adapter = myOrderListAdapter
+                myOrderListAdapter.updateData(it.data)
+            }
+        })
     }
 
     override fun startActivity(intent: Intent?) {

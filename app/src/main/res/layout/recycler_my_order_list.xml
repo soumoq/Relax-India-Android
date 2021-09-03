@@ -40,6 +40,7 @@
 
 
             <TextView
+                android:id="@+id/order_list_source_loc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -66,9 +67,9 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#dadada"
+                android:layout_gravity="center"
                 android:layout_marginLeft="25dp"
-                android:layout_gravity="center"/>
+                android:background="#dadada" />
 
         </LinearLayout>
 
@@ -87,6 +88,7 @@
 
 
             <TextView
+                android:id="@+id/order_list_des_loc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -118,7 +120,7 @@
                 android:layout_marginLeft="15dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/profile_image"
+                    android:id="@+id/order_list_driver_image"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:src="@drawable/ic_baseline_account_black_circle_24" />
@@ -130,6 +132,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/order_list_driver_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Satya Roy"
@@ -157,6 +160,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/order_list_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="date 24 June 2021"

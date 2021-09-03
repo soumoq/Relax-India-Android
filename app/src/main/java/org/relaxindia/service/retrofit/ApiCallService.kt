@@ -8,6 +8,7 @@ import kotlinx.android.parcel.RawValue
 import okhttp3.RequestBody
 import org.json.JSONObject
 import org.relaxindia.model.GlobalResponse
+import org.relaxindia.model.bookingHistory.BookingList
 import org.relaxindia.model.getSelectedService.SelectedServiceResponse
 import org.relaxindia.model.getService.ServiceResponse
 import org.relaxindia.model.login.LoginResponse
@@ -83,6 +84,12 @@ interface ApiCallService {
         @Body
         body: RequestBody
     ): Call<SaveBooking>
+
+    @POST(App.getBookingHistory)
+    fun getBookingHistory(
+        @Header("Authorization")
+        authHeader: String,
+    ): Call<BookingList>
 
 
 }

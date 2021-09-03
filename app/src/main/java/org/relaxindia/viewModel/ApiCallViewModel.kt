@@ -20,6 +20,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import okhttp3.RequestBody
+import org.relaxindia.model.bookingHistory.BookingList
 import org.relaxindia.model.saveBooking.SaveBooking
 
 
@@ -32,6 +33,7 @@ class ApiCallViewModel : ViewModel() {
     val getService = MutableLiveData<ServiceResponse>()
     val getSelectedService = MutableLiveData<SelectedServiceResponse>()
     val getSaveService = MutableLiveData<SaveBooking>()
+    val getBookingHistory = MutableLiveData<BookingList>()
 
     lateinit var progressDialog: ProgressDialog
 
@@ -258,6 +260,36 @@ class ApiCallViewModel : ViewModel() {
             override fun onFailure(call: Call<SaveBooking>, t: Throwable) {
                 progressDialog.dismiss()
                 Log.e("$LOG-saveServiceInfo-onFailure: ", t.message.toString())
+            }
+
+        })
+
+    }
+
+
+    fun getBookingInfo(context: Context) {
+        progressDialog = ProgressDialog(context)
+        progressDialog.setTitle("Please wait")
+        progressDialog.setMessage("Please wait we saving your booking")
+        progressDialog.show()
+
+        val response: Call<BookingList> =
+            restApiService.getBookingHistory(App.getUserToken(context))
+        response.enqueue(object : Callback<BookingList> {
+            override fun onResponse(call: Call<BookingList>, response: Response<BookingList>) {
+                progressDialog.dismiss()
+                if (response.isSuccessful) {
+                    Log.e("$LOG-getBookingInfo-if", "success")
+                    getBookingHistory.value = response.body()
+                } else {
+                    Log.e("$LOG-getBookingInfo-else", "error ${response.code()}")
+
+                }
+            }
+
+            override fun onFailure(call: Call<BookingList>, t: Throwable) {
+                progressDialog.dismiss()
+                Log.e("$LOG-getBookingInfo-onFailure: ", t.message.toString())
             }
 
         })
