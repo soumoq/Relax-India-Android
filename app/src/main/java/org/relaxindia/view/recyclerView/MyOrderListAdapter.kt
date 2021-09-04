@@ -64,6 +64,8 @@ class MyOrderListAdapter(context: Context) : RecyclerView.Adapter<MyOrderListAda
                 intent.putExtra("to_location", booking.to_location)
                 intent.putExtra("driver_image", booking.driver_image)
                 intent.putExtra("date", booking.date)
+                intent.putExtra("booking_amount", booking.booking_amount)
+                intent.putExtra("total_amount", booking.total_amount.toString())
 
 
                 view.context.startActivity(intent)

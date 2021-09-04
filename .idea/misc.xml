@@ -30,6 +30,7 @@
         <entry key="app/src/main/res/layout/recycler_default_service.xml" value="0.17481884057971014" />
         <entry key="app/src/main/res/layout/recycler_my_order_list.xml" value="0.25" />
         <entry key="app/src/main/res/layout/recycler_opsonal_service.xml" value="0.192481884057971" />
+        <entry key="app/src/main/res/layout/recycler_other_service.xml" value="0.1539855072463768" />
         <entry key="app/src/main/res/layout/recycler_service.xml" value="0.2" />
         <entry key="app/src/main/res/layout/sheet_home_dashboard.xml" value="0.22" />
         <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.33" />

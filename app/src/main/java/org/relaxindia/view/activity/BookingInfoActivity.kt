@@ -6,9 +6,10 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_booking_info.*
 import org.json.JSONArray
-import org.json.JSONObject
 import org.relaxindia.R
+import org.relaxindia.util.App
 import org.relaxindia.util.loadImage
+import org.relaxindia.view.recyclerView.OtherServiceAdapter
 
 class BookingInfoActivity : AppCompatActivity() {
 
@@ -19,6 +20,8 @@ class BookingInfoActivity : AppCompatActivity() {
     private var serviceDetails = ""
     private var driverImage = ""
     private var date = ""
+    private var bookingAmount = ""
+    private var totalAmount = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,15 +37,23 @@ class BookingInfoActivity : AppCompatActivity() {
         serviceDetails = intent.getStringExtra("service_details")!!
         driverImage = intent.getStringExtra("driver_image")!!
         date = intent.getStringExtra("date")!!
+        bookingAmount = intent.getStringExtra("booking_amount")!!
+        totalAmount = intent.getStringExtra("total_amount")!!
 
         booking_info_from_loc.text = fromLocation
         booking_info_des_loc.text = toLocation
         booking_info_driver_name.text = driverName
         booking_info_driver_image.loadImage(driverImage)
         booking_info_date.text = date
+        booking_info_booking_amt.text = "${App.rs}$bookingAmount"
+        booking_info_total_amt.text = "${App.rs}$totalAmount"
+        booking_info_driver_amt.text = "${App.rs}${totalAmount.toDouble() - bookingAmount.toDouble()}"
 
-        val jsonObj = JSONArray(serviceDetails)
-        Log.e("JSONDATA", jsonObj.toString())
+        val jsonArr = JSONArray(serviceDetails)
+        Log.e("JSONDATA",jsonArr.getJSONObject(0).getString("name"))
+        val otherServiceAdapter = OtherServiceAdapter(this)
+        other_service_list.adapter = otherServiceAdapter
+        otherServiceAdapter.updateData(jsonArr)
 
     }
 

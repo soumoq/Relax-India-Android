@@ -271,12 +271,14 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:visibility="gone"
                                 android:text="It contains: XXXXXX, YYYYYYY, FFFFFFFFFF, GGGGG, HHHHHHH"
                                 android:textSize="12sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:visibility="gone"
                                 android:text="Extra Service: Doctor, PPE Kit"
                                 android:textSize="12sp" />
 
@@ -284,6 +286,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="5.0 KM"
+                                android:visibility="gone"
                                 android:textSize="14sp" />
 
                         </LinearLayout>
@@ -298,91 +301,11 @@
                         android:text="Price Details"
                         android:textSize="14sp" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/other_service_list"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Base Price"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:text="$ 2560.00"
-                            android:textColor="@color/black"
-
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Doctor"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-
-                            android:textStyle="bold" />
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:text="$ 200.00"
-                            android:textColor="@color/black"
-
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                    </RelativeLayout>
-
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="PPE Kit"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-
-                            android:textStyle="bold" />
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:text="$ 100.00"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                    </RelativeLayout>
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -402,7 +325,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Booking Time"
+                            android:text="Booking Amount"
                             android:textColor="@color/black"
                             android:textSize="14sp"
 
@@ -410,12 +333,12 @@
 
 
                         <TextView
+                            android:id="@+id/booking_info_booking_amt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="$ 260.00"
+                            android:text="0"
                             android:textColor="@color/black"
-
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
@@ -439,10 +362,11 @@
 
 
                         <TextView
+                            android:id="@+id/booking_info_driver_amt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="$ 2600.00"
+                            android:text="0"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -474,6 +398,7 @@
 
 
                         <TextView
+                            android:id="@+id/booking_info_total_amt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
