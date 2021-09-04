@@ -195,6 +195,10 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                     val intent = Intent(this, MyProfileActivity::class.java)
                     startActivity(intent)
                 }
+                R.id.menu_wallet -> {
+                    val intent = Intent(this, WalletActivity::class.java)
+                    startActivity(intent)
+                }
             }
             true
         }
@@ -230,7 +234,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         })
     }
 
-    fun changeBackGround(position: Int, price: Double, serviceId : Int) {
+    fun changeBackGround(position: Int, price: Double, serviceId: Int) {
         servicePrice = price * 100
         this.serviceId = serviceId
         homeDashboardSheet.book_now.visibility = View.VISIBLE

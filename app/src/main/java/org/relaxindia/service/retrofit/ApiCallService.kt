@@ -85,6 +85,19 @@ interface ApiCallService {
         body: RequestBody
     ): Call<SaveBooking>
 
+
+    @FormUrlEncoded
+    @PATCH(App.updateBooking)
+    fun updateBooking(
+        @Header("Authorization")
+        authHeader: String,
+        @Field("id")
+        id: String,
+        @Field("driver_id")
+        driver_id: String,
+    ): Call<GlobalResponse>
+
+
     @POST(App.getBookingHistory)
     fun getBookingHistory(
         @Header("Authorization")

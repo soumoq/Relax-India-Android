@@ -30,6 +30,7 @@ object App {
     const val getService = "get-services"
     const val getSelectedService = "get-selected-services"
     const val getSaveBooking = "save-booking"
+    const val updateBooking  = "update-booking"
     const val getBookingHistory = "get-bookings"
 
 

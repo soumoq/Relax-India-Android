@@ -25,6 +25,7 @@
         <entry key="app/src/main/res/layout/activity_my_profile.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_otp.xml" value="0.1716485507246377" />
         <entry key="app/src/main/res/layout/activity_thank_you.xml" value="0.16168478260869565" />
+        <entry key="app/src/main/res/layout/activity_wallet.xml" value="0.18" />
         <entry key="app/src/main/res/layout/nav_header.xml" value="0.21" />
         <entry key="app/src/main/res/layout/recycler_default.xml" value="0.18432971014492755" />
         <entry key="app/src/main/res/layout/recycler_default_service.xml" value="0.17481884057971014" />
@@ -44,5 +45,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1" />
+      </ProjectState>
+    </option>
   </component>
 </project>

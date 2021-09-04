@@ -33,6 +33,7 @@ class ApiCallViewModel : ViewModel() {
     val getService = MutableLiveData<ServiceResponse>()
     val getSelectedService = MutableLiveData<SelectedServiceResponse>()
     val getSaveService = MutableLiveData<SaveBooking>()
+    val updateBooking = MutableLiveData<GlobalResponse>()
     val getBookingHistory = MutableLiveData<BookingList>()
 
     lateinit var progressDialog: ProgressDialog
@@ -260,6 +261,39 @@ class ApiCallViewModel : ViewModel() {
             override fun onFailure(call: Call<SaveBooking>, t: Throwable) {
                 progressDialog.dismiss()
                 Log.e("$LOG-saveServiceInfo-onFailure: ", t.message.toString())
+            }
+
+        })
+
+    }
+
+    fun updateBookingInfo(context: Context, id: String) {
+        progressDialog = ProgressDialog(context)
+        progressDialog.setTitle("Please wait")
+        progressDialog.setMessage("Please wait we updating your booking")
+        progressDialog.show()
+
+        val response: Call<GlobalResponse> =
+            restApiService.updateBooking(App.getUserToken(context),id, "1")
+        response.enqueue(object : Callback<GlobalResponse> {
+            override fun onResponse(
+                call: Call<GlobalResponse>,
+                response: Response<GlobalResponse>
+            ) {
+                progressDialog.dismiss()
+                if (response.isSuccessful) {
+                    Log.e("$LOG-updateBookingInfo-if", "success")
+                    updateBooking.value = response.body()
+                } else {
+                    progressDialog.dismiss()
+                    Log.e("$LOG-updateBookingInfo-else", "error ${response.code()}")
+
+                }
+            }
+
+            override fun onFailure(call: Call<GlobalResponse>, t: Throwable) {
+                progressDialog.dismiss()
+                Log.e("$LOG-updateBookingInfo-onFailure: ", t.message.toString() + "\t$id")
             }
 
         })

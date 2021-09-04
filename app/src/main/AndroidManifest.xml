@@ -17,11 +17,17 @@
         android:theme="@style/Theme.RelaxIndia"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.activity.WalletActivity"
+            android:exported="true" />
+        <activity
             android:name=".view.activity.MyProfileActivity"
             android:exported="true" />
         <activity android:name=".view.activity.ThankYouActivity" />
         <activity android:name=".view.activity.DriverFeedbackActivity" />
-        <activity android:name=".view.activity.BookingSuccessfulActivity" />
+        <activity
+            android:name=".view.activity.BookingSuccessfulActivity"
+            android:exported="true"
+            android:launchMode="singleTop" />
         <activity android:name=".view.activity.HomeActivity" />
         <activity android:name=".view.activity.OtpActivity" />
         <activity android:name=".view.activity.MyBookingActivity" />
