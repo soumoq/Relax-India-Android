@@ -9,6 +9,26 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.location.LocationSettingsStatusCodes
+
+import android.content.IntentSender
+import android.content.IntentSender.SendIntentException
+
+import org.relaxindia.view.activity.MainActivity
+
+import com.google.android.gms.location.LocationSettingsResult
+
+import com.google.android.gms.location.LocationServices
+
+import com.google.android.gms.location.LocationSettingsRequest
+
+import com.google.android.gms.location.LocationRequest
+
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.common.api.PendingResult
+import com.google.android.gms.common.api.ResultCallback
+import com.google.android.gms.common.api.Status
+
 
 object App {
 
@@ -82,7 +102,7 @@ object App {
         }
     }
 
-    fun openLocationDialog(context: Context, title: String, message: String) {
+    /*fun openLocationDialog(context: Context, title: String, message: String) {
         // setup the alert builder
         val builder = AlertDialog.Builder(context)
         builder.setTitle(title)
@@ -96,7 +116,7 @@ object App {
 
         val dialog = builder.create()
         dialog.show()
-    }
+    }*/
 
     fun openDialog(context: Context, title: String, message: String) {
         //val intent = Intent(context, TripAnalyzeActivity::class.java)
@@ -120,6 +140,7 @@ object App {
         val dialog = builder.create()
         dialog.show()
     }
+
 
 
     fun setNoteText(amount: String): String {

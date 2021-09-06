@@ -1,21 +1,43 @@
 package org.relaxindia.view.activity
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.IntentSender
+import android.content.IntentSender.SendIntentException
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatDelegate
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.common.api.PendingResult
+import com.google.android.gms.common.api.ResultCallback
+import com.google.android.gms.common.api.Status
+import com.google.android.gms.location.*
 import org.relaxindia.R
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
+import com.google.android.gms.location.LocationSettingsStatusCodes
+
+import com.google.android.gms.location.LocationSettingsResult
+
+import com.google.android.gms.location.LocationServices
+
+import com.google.android.gms.location.LocationSettingsRequest
+
+import com.google.android.gms.location.LocationRequest
+
+
+
 
 class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -46,6 +68,8 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         }
 
     }
+
+
 
     override fun onBackPressed() {
         //super.onBackPressed()

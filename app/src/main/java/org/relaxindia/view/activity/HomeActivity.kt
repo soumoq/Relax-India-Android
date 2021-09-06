@@ -311,7 +311,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                 LocationServices.getFusedLocationProviderClient(this)
             fetchLocation()
         } else {
-            App.openLocationDialog(this, "Enable Location", App.locationAlert)
+            //App.openLocationDialog(this, "Enable Location", App.locationAlert)
         }
     }
 
