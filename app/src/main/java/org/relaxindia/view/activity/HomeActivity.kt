@@ -116,8 +116,8 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         String postalCode = addresses.get(0).getPostalCode();
         String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
         */
-        if (addresses[0]?.maxAddressLineIndex!! > 0) {
-            sourceLocation = addresses[0]?.getAddressLine(0).toString();
+        if (addresses.isNotEmpty()) {
+            sourceLocation = addresses[0]?.getAddressLine(0).toString()
         } else {
             sourceLocation = "No Address Found"
         }
