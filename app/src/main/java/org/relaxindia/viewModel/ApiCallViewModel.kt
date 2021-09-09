@@ -84,6 +84,7 @@ class ApiCallViewModel : ViewModel() {
 
                 } else {
                     Log.e("$LOG-otpInfo-else", "Else")
+                    App.openDialog(context, "Error", "Something went wrong with otp.")
                 }
             }
 

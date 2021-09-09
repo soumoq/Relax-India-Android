@@ -58,7 +58,7 @@ dependencies {
     implementation 'com.github.poovamraj:PinEditTextField:1.2.6' //Pin view
     implementation 'de.hdodenhof:circleimageview:3.1.0' //circleimageview
     implementation 'com.razorpay:checkout:1.6.11' //payment getway
-    implementation 'me.zhanghai.android.materialratingbar:library:1.4.0' //Start reating
+    implementation 'me.zhanghai.android.materialratingbar:library:1.4.0' //Start rating
 
     //lifecycle components
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.3.1"
