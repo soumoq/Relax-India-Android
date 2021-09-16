@@ -15,9 +15,13 @@ class BookingSuccessfulActivity : AppCompatActivity() {
     //view-model
     private lateinit var apiCallViewModel: ApiCallViewModel
 
+    private var bookingId = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bookig_successful)
+
+        bookingId = intent.getStringExtra("booking_id")!!
 
         apiCallViewModel = ViewModelProvider(this).get(ApiCallViewModel::class.java)
         apiCallViewModel.getDriverListInfo(this)
@@ -35,7 +39,7 @@ class BookingSuccessfulActivity : AppCompatActivity() {
                         deviceIdArr.add(it.data[i].device_token)
                     }
                 }
-                App.sendNotification(this, deviceIdArr, App.getUserID(this))
+                App.sendNotification(this, deviceIdArr, bookingId)
             }
         })
     }

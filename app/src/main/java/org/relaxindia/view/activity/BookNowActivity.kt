@@ -117,6 +117,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         apiCallViewModel.getSaveService.observe(this, Observer {
             if (!it.error) {
                 val intent = Intent(this, BookingSuccessfulActivity::class.java)
+                intent.putExtra("booking_id",it.data.booking_id)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             }

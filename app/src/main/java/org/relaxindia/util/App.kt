@@ -2,38 +2,18 @@ package org.relaxindia.util
 
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Build
 import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.location.LocationSettingsStatusCodes
 
-import android.content.IntentSender
-import android.content.IntentSender.SendIntentException
-import android.widget.Toast
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 
-import org.relaxindia.view.activity.MainActivity
-
-import com.google.android.gms.location.LocationSettingsResult
-
-import com.google.android.gms.location.LocationServices
-
-import com.google.android.gms.location.LocationSettingsRequest
-
-import com.google.android.gms.location.LocationRequest
-
-import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.common.api.PendingResult
-import com.google.android.gms.common.api.ResultCallback
-import com.google.android.gms.common.api.Status
-import com.google.firebase.messaging.FirebaseMessaging
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -77,7 +57,7 @@ object App {
     const val contentType = "application/json"
     const val FCM_API = "https://fcm.googleapis.com/fcm/send"
 
-    fun sendNotification(context: Context, array : ArrayList<String>,userId : String){
+    fun sendNotification(context: Context, array : ArrayList<String>, bookingId : String){
 
         val requestQueue: RequestQueue by lazy {
             Volley.newRequestQueue(context)
@@ -87,7 +67,7 @@ object App {
         val notifcationBody = JSONObject()
         notifcationBody.put("title", "New Request")
         notifcationBody.put("message", "A new patient found. Please accept or reject to click hare.") //Enter your notification message
-        notifcationBody.put("data_body", userId) //Enter your notification message
+        notifcationBody.put("data_body", bookingId) //Enter your notification message
         notification.put("registration_ids", JSONArray(array))
         notification.put("data", notifcationBody)
 
