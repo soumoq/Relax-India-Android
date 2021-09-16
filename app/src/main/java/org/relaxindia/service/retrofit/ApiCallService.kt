@@ -9,6 +9,7 @@ import okhttp3.RequestBody
 import org.json.JSONObject
 import org.relaxindia.model.GlobalResponse
 import org.relaxindia.model.bookingHistory.BookingList
+import org.relaxindia.model.driverList.DriverList
 import org.relaxindia.model.getSelectedService.SelectedServiceResponse
 import org.relaxindia.model.getService.ServiceResponse
 import org.relaxindia.model.login.LoginResponse
@@ -55,7 +56,9 @@ interface ApiCallService {
         @Field("address")
         address: String,
         @Field("pincode")
-        pincode: String
+        pincode: String,
+        @Field("device_token")
+        device_token: String,
     ): Call<GlobalResponse>
 
     @FormUrlEncoded
@@ -103,6 +106,13 @@ interface ApiCallService {
         @Header("Authorization")
         authHeader: String,
     ): Call<BookingList>
+
+    @Headers("Content-Type: application/json")
+    @POST(App.getAllDrivers)
+    fun getDriverList(
+        @Header("Authorization")
+        authHeader: String,
+    ): Call<DriverList>
 
 
 }

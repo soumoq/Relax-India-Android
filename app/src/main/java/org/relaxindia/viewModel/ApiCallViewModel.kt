@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.messaging.FirebaseMessaging
 import okhttp3.MediaType
 import org.json.JSONObject
 import org.relaxindia.model.GlobalResponse
@@ -21,7 +22,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import okhttp3.RequestBody
 import org.relaxindia.model.bookingHistory.BookingList
+import org.relaxindia.model.driverList.DriverList
 import org.relaxindia.model.saveBooking.SaveBooking
+import org.relaxindia.util.toast
 
 
 class ApiCallViewModel : ViewModel() {
@@ -35,6 +38,7 @@ class ApiCallViewModel : ViewModel() {
     val getSaveService = MutableLiveData<SaveBooking>()
     val updateBooking = MutableLiveData<GlobalResponse>()
     val getBookingHistory = MutableLiveData<BookingList>()
+    val getDriverList = MutableLiveData<DriverList>()
 
     lateinit var progressDialog: ProgressDialog
 
@@ -142,29 +146,41 @@ class ApiCallViewModel : ViewModel() {
         progressDialog.setMessage("Please wait we are updating your profile")
         progressDialog.show()
 
-        val response: Call<GlobalResponse> =
-            restApiService.updateProfile(App.getUserToken(context), name, email, address, pinCode)
-        response.enqueue(object : Callback<GlobalResponse> {
-            override fun onResponse(
-                call: Call<GlobalResponse>,
-                response: Response<GlobalResponse>
-            ) {
-                progressDialog.dismiss()
-                if (response.isSuccessful) {
-                    Log.e("$LOG-updateProfileInfo-if", "success")
-                    updateProfile.value = response.body()
-                } else {
-                    Log.e("$LOG-updateProfileInfo-else", "else")
+        FirebaseMessaging.getInstance().token.addOnSuccessListener {
+            val deviceToken = it
+            val response: Call<GlobalResponse> =
+                restApiService.updateProfile(
+                    App.getUserToken(context),
+                    name,
+                    email,
+                    address,
+                    pinCode,
+                    deviceToken
+                )
+
+            response.enqueue(object : Callback<GlobalResponse> {
+                override fun onResponse(
+                    call: Call<GlobalResponse>,
+                    response: Response<GlobalResponse>
+                ) {
+                    progressDialog.dismiss()
+                    if (response.isSuccessful) {
+                        Log.e("$LOG-updateProfileInfo-if", "success")
+                        updateProfile.value = response.body()
+                    } else {
+                        Log.e("$LOG-updateProfileInfo-else", "else")
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<GlobalResponse>, t: Throwable) {
-                progressDialog.dismiss()
-                Log.e("$LOG-updateProfileInfo-onFailure", "${t}")
+                override fun onFailure(call: Call<GlobalResponse>, t: Throwable) {
+                    progressDialog.dismiss()
+                    Log.e("$LOG-updateProfileInfo-onFailure", "${t}")
 
-            }
+                }
 
-        })
+            })
+        }
+
 
     }
 
@@ -275,7 +291,7 @@ class ApiCallViewModel : ViewModel() {
         progressDialog.show()
 
         val response: Call<GlobalResponse> =
-            restApiService.updateBooking(App.getUserToken(context),id, "1")
+            restApiService.updateBooking(App.getUserToken(context), id, "1")
         response.enqueue(object : Callback<GlobalResponse> {
             override fun onResponse(
                 call: Call<GlobalResponse>,
@@ -325,6 +341,42 @@ class ApiCallViewModel : ViewModel() {
             override fun onFailure(call: Call<BookingList>, t: Throwable) {
                 progressDialog.dismiss()
                 Log.e("$LOG-getBookingInfo-onFailure: ", t.message.toString())
+            }
+
+        })
+
+    }
+
+
+    fun getDriverListInfo(context: Context) {
+        progressDialog = ProgressDialog(context)
+        progressDialog.setTitle("Please wait")
+        progressDialog.setMessage("Please wait we saving your booking")
+        progressDialog.show()
+
+
+        val response: Call<DriverList> =
+            restApiService.getDriverList(App.getUserToken(context))
+
+        response.enqueue(object : Callback<DriverList> {
+            override fun onResponse(
+                call: Call<DriverList>,
+                response: Response<DriverList>
+            ) {
+                progressDialog.dismiss()
+                if (response.isSuccessful) {
+                    Log.e("$LOG-getDriverListInfo-if", "success")
+                    getDriverList.value = response.body()
+                } else {
+                    progressDialog.dismiss()
+                    Log.e("$LOG-getDriverListInfo-else", "error ${response.code()}")
+
+                }
+            }
+
+            override fun onFailure(call: Call<DriverList>, t: Throwable) {
+                progressDialog.dismiss()
+                Log.e("$LOG-getDriverListInfo-onFailure: ", t.message.toString())
             }
 
         })

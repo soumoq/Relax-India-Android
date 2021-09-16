@@ -40,33 +40,13 @@ class LoginActivity : AppCompatActivity() {
         "eCxHepHNQOWTQoAoS3mLSp:APA91bHQefWuBWhZPPA83KhTdzDBa-NhAh-DC0ET2qji7h--aURAepKuvOwVzm5BpnWO0jI3IFsKUojRyhn6mFoSOuG4SYcgsHIEsnTCUMH9pqJr-9WPFJUlrkk-_rdgXCPimC-cMenK"
     private var deviceId1 =
         "fncKu-mwQC-9FIP1Ec4sK1:APA91bET7aT0VQ_ekJScP9C3BV_xOXcwdpK4ko0VDTSEH0I5z2-62MRsGXK0MDfKOwqjV2QGhJwm6BWGHj9Uthl0RZleTjZpMuggYGB1RMWOn6DGb13JxDouAx-sKYQLNPmooNpmnbEK"
-    private val FCM_API = "https://fcm.googleapis.com/fcm/send"
-    private val serverKey =
-        "key=" + "AAAA1CWxbXI:APA91bGbT-na_V9dGiYNbIHUY7xj2g7GEJaZV3yCYoaqqIkVGzzutKBDWCjt5QeEAGF4tv5WaqcNB3KXrJ4rxGzXg8iMpdKAc5Q1pfHTWlNe4JV9JWRqndlw7FpE1tB-Dkn0tyEFuLLv"
-    private val contentType = "application/json"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        FirebaseMessaging.getInstance().token.addOnSuccessListener {
-            Log.e("FCM_TOKEN", it)
-        }
-
         FirebaseMessaging.getInstance().subscribeToTopic("/topics/relaxIndia")
-        val array = ArrayList<String>()
-        array.add(deviceId)
-        array.add(deviceId1)
-
-        val notification = JSONObject()
-        val notifcationBody = JSONObject()
-        notifcationBody.put("title", "New Request")
-        notifcationBody.put("message", "A new patient found. Please accept or reject to click hare.") //Enter your notification message
-        notifcationBody.put("data_body", "45") //Enter your notification message
-        notification.put("registration_ids", JSONArray(array))
-
-        notification.put("data", notifcationBody)
-        sendNotification(notification)
 
         if (App.isLocationEnabled(this)) {
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
@@ -112,31 +92,7 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-    private val requestQueue: RequestQueue by lazy {
-        Volley.newRequestQueue(this.applicationContext)
-    }
 
-    private fun sendNotification(notification: JSONObject) {
-        Log.e("TAG", "sendNotification")
-        val jsonObjectRequest = object : JsonObjectRequest(FCM_API, notification,
-            Response.Listener<JSONObject> { response ->
-                Log.i("TAG", "onResponse: $response")
-                //msg.setText("")
-            },
-            Response.ErrorListener {
-                Toast.makeText(this, "Request error", Toast.LENGTH_LONG).show()
-                Log.i("TAG", "onErrorResponse: Didn't work")
-            }) {
-
-            override fun getHeaders(): Map<String, String> {
-                val params = HashMap<String, String>()
-                params["Authorization"] = serverKey
-                params["Content-Type"] = contentType
-                return params
-            }
-        }
-        requestQueue.add(jsonObjectRequest)
-    }
 
 
     override fun onResume() {

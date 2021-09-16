@@ -13,6 +13,11 @@ import com.google.android.gms.location.LocationSettingsStatusCodes
 
 import android.content.IntentSender
 import android.content.IntentSender.SendIntentException
+import android.widget.Toast
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 
 import org.relaxindia.view.activity.MainActivity
 
@@ -28,6 +33,9 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.PendingResult
 import com.google.android.gms.common.api.ResultCallback
 import com.google.android.gms.common.api.Status
+import com.google.firebase.messaging.FirebaseMessaging
+import org.json.JSONArray
+import org.json.JSONObject
 
 
 object App {
@@ -50,8 +58,9 @@ object App {
     const val getService = "get-services"
     const val getSelectedService = "get-selected-services"
     const val getSaveBooking = "save-booking"
-    const val updateBooking  = "update-booking"
+    const val updateBooking = "update-booking"
     const val getBookingHistory = "get-bookings"
+    const val getAllDrivers = "get-all-drivers"
 
 
     //Share preference key
@@ -59,11 +68,61 @@ object App {
     const val preferenceUserPhone = "user_phone"
     const val preferenceUserEmail = "user_email"
     const val preferenceUserName = "user_name"
+    const val preferenceUserId = "user_id"
+
+
+    //Notification
+    const val serverKey =
+        "key=" + "AAAA1CWxbXI:APA91bGbT-na_V9dGiYNbIHUY7xj2g7GEJaZV3yCYoaqqIkVGzzutKBDWCjt5QeEAGF4tv5WaqcNB3KXrJ4rxGzXg8iMpdKAc5Q1pfHTWlNe4JV9JWRqndlw7FpE1tB-Dkn0tyEFuLLv"
+    const val contentType = "application/json"
+    const val FCM_API = "https://fcm.googleapis.com/fcm/send"
+
+    fun sendNotification(context: Context, array : ArrayList<String>,userId : String){
+
+        val requestQueue: RequestQueue by lazy {
+            Volley.newRequestQueue(context)
+        }
+
+        val notification = JSONObject()
+        val notifcationBody = JSONObject()
+        notifcationBody.put("title", "New Request")
+        notifcationBody.put("message", "A new patient found. Please accept or reject to click hare.") //Enter your notification message
+        notifcationBody.put("data_body", userId) //Enter your notification message
+        notification.put("registration_ids", JSONArray(array))
+        notification.put("data", notifcationBody)
+
+        Log.e("TAG", "sendNotification")
+        val jsonObjectRequest = object : JsonObjectRequest(FCM_API, notification,
+            Response.Listener<JSONObject> { response ->
+                Log.i("TAG", "onResponse: $response")
+                //msg.setText("")
+            },
+            Response.ErrorListener {
+                context.toast("Request error")
+                Log.i("TAG", "onErrorResponse: Didn't work")
+            }) {
+
+            override fun getHeaders(): Map<String, String> {
+                val params = HashMap<String, String>()
+                params["Authorization"] = serverKey
+                params["Content-Type"] = contentType
+                return params
+            }
+        }
+        requestQueue.add(jsonObjectRequest)
+    }
+
+
 
 
     fun getUserToken(context: Context): String {
         val sp = context.getSharedPreferences("user_info", AppCompatActivity.MODE_PRIVATE)
         return "Bearer ${(sp.getString(App.preferenceUserToken, "").toString())}"
+    }
+
+    fun getUserID(context: Context): String {
+        val sp = context.getSharedPreferences("user_info", AppCompatActivity.MODE_PRIVATE)
+        return sp.getString(App.preferenceUserId, "")!!
     }
 
     fun getUserPhone(context: Context): String {
@@ -102,29 +161,8 @@ object App {
         }
     }
 
-    /*fun openLocationDialog(context: Context, title: String, message: String) {
-        // setup the alert builder
-        val builder = AlertDialog.Builder(context)
-        builder.setTitle(title)
-        builder.setMessage(message)
-
-        // add a button
-        builder.setPositiveButton("Allow Access", DialogInterface.OnClickListener { dialog, which ->
-            context.startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-        })
-
-
-        val dialog = builder.create()
-        dialog.show()
-    }*/
 
     fun openDialog(context: Context, title: String, message: String) {
-        //val intent = Intent(context, TripAnalyzeActivity::class.java)
-        //intent.putExtra("fileName", fileName)
-        //context.startActivity(intent)
-
-
-        // setup the alert builder
         val builder = AlertDialog.Builder(context)
         builder.setTitle(title)
         builder.setMessage(message)
@@ -134,13 +172,9 @@ object App {
 
         })
 
-        // create and show the alert dialog
-
-        // create and show the alert dialog
         val dialog = builder.create()
         dialog.show()
     }
-
 
 
     fun setNoteText(amount: String): String {

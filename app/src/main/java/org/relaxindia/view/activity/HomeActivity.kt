@@ -214,6 +214,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
             } else {
                 val sp = getSharedPreferences("user_info", Context.MODE_PRIVATE)
                 val editor = sp.edit()
+                editor.putString(App.preferenceUserId,it.data.id)
                 editor.putString(App.preferenceUserPhone, it.data.phone)
                 editor.putString(App.preferenceUserEmail, it.data.email)
                 editor.putString(App.preferenceUserName, it.data.email)
