@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import org.relaxindia.R
+import org.relaxindia.model.NotificationDataModel
 import org.relaxindia.util.App
 import org.relaxindia.viewModel.ApiCallViewModel
 
@@ -15,13 +16,21 @@ class BookingSuccessfulActivity : AppCompatActivity() {
     //view-model
     private lateinit var apiCallViewModel: ApiCallViewModel
 
+    //Local var
     private var bookingId = ""
+    private var sourceLoc = ""
+    private var desLoc = ""
+    private var amount = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bookig_successful)
 
         bookingId = intent.getStringExtra("booking_id")!!
+        sourceLoc = intent.getStringExtra("source_loc")!!
+        desLoc = intent.getStringExtra("des_loc")!!
+        amount = intent.getStringExtra("amount")!!
 
         apiCallViewModel = ViewModelProvider(this).get(ApiCallViewModel::class.java)
         apiCallViewModel.getDriverListInfo(this)
@@ -33,13 +42,17 @@ class BookingSuccessfulActivity : AppCompatActivity() {
         apiCallViewModel.getDriverList.observe(this, Observer {
             if (!it.error) {
                 val deviceIdArr = ArrayList<String>()
-                for (i in 0 until it.data.size) {
+                for (i in it.data.indices) {
                     if (it.data[i].device_token != null) {
                         Log.e("CHECK_NULL", "device - ${it.data[i].device_token}")
                         deviceIdArr.add(it.data[i].device_token)
                     }
                 }
-                App.sendNotification(this, deviceIdArr, bookingId)
+                App.sendNotification(
+                    this,
+                    deviceIdArr,
+                    NotificationDataModel(bookingId, sourceLoc, desLoc, amount)
+                )
             }
         })
     }

@@ -40,6 +40,10 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
     private var payableAmount = 0.0
     private var totalAmount = 0.0;
 
+    //location val
+    var sourceLoc = ""
+    var desLoc = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_now)
@@ -70,8 +74,11 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         val distance = startPoint.distanceTo(endPoint) / 1000
         book_now_destance.text = "$distance K.M."
 
-        des_location.text = intent.getStringExtra("des_loc")
-        source_location.text = intent.getStringExtra("source_loc")
+        sourceLoc = intent.getStringExtra("source_loc")!!
+        desLoc = intent.getStringExtra("des_loc")!!
+
+        des_location.text = desLoc
+        source_location.text = sourceLoc
 
 
 
@@ -117,7 +124,10 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         apiCallViewModel.getSaveService.observe(this, Observer {
             if (!it.error) {
                 val intent = Intent(this, BookingSuccessfulActivity::class.java)
-                intent.putExtra("booking_id",it.data.booking_id)
+                intent.putExtra("booking_id", it.data.booking_id)
+                intent.putExtra("source_loc", sourceLoc)
+                intent.putExtra("des_loc", desLoc)
+                intent.putExtra("amount", payto_driver.text.toString())
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             }
@@ -181,7 +191,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         bookingDetails.put("total_amount", totalAmount)
         bookingDetails.put("payable_amount", payableAmount)
         bookingDetails.put("wallet_amount", "0.00")
-        bookingDetails.put("from_location", intent.getStringExtra("source_loc"))
+        bookingDetails.put("from_location", source_location)
         bookingDetails.put("to_location", intent.getStringExtra("des_loc"))
         bookingDetails.put("tx_id", p0.toString())
         bookingDetails.put("service", arr)

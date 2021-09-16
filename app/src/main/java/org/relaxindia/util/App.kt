@@ -16,6 +16,7 @@ import com.android.volley.toolbox.Volley
 
 import org.json.JSONArray
 import org.json.JSONObject
+import org.relaxindia.model.NotificationDataModel
 
 
 object App {
@@ -57,7 +58,11 @@ object App {
     const val contentType = "application/json"
     const val FCM_API = "https://fcm.googleapis.com/fcm/send"
 
-    fun sendNotification(context: Context, array : ArrayList<String>, bookingId : String){
+    fun sendNotification(
+        context: Context,
+        array: ArrayList<String>,
+        notificationData: NotificationDataModel
+    ) {
 
         val requestQueue: RequestQueue by lazy {
             Volley.newRequestQueue(context)
@@ -66,8 +71,16 @@ object App {
         val notification = JSONObject()
         val notifcationBody = JSONObject()
         notifcationBody.put("title", "New Request")
-        notifcationBody.put("message", "A new patient found. Please accept or reject to click hare.") //Enter your notification message
-        notifcationBody.put("data_body", bookingId) //Enter your notification message
+        notifcationBody.put(
+            "message",
+            "A new patient found. Please accept or reject to click hare."
+        )
+        // notification message
+        notifcationBody.put("booking_id", notificationData.bookingId)
+        notifcationBody.put("source_loc", notificationData.sourceLoc)
+        notifcationBody.put("des_loc", notificationData.desLoc)
+        notifcationBody.put("amount", notificationData.amount)
+
         notification.put("registration_ids", JSONArray(array))
         notification.put("data", notifcationBody)
 
@@ -91,8 +104,6 @@ object App {
         }
         requestQueue.add(jsonObjectRequest)
     }
-
-
 
 
     fun getUserToken(context: Context): String {
