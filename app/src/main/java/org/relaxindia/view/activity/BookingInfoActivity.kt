@@ -55,6 +55,10 @@ class BookingInfoActivity : AppCompatActivity() {
         other_service_list.adapter = otherServiceAdapter
         otherServiceAdapter.updateData(jsonArr)
 
+        track_booking.setOnClickListener {
+
+        }
+
     }
 
     override fun startActivity(intent: Intent?) {

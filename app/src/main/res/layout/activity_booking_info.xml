@@ -56,8 +56,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:layout_marginBottom="10dp"
+                android:background="@color/white"
                 app:cardCornerRadius="7dp">
 
                 <LinearLayout
@@ -186,6 +186,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/track_booking"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -207,9 +208,9 @@
 
                                 <TextView
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="20dp"
                                     android:layout_gravity="center"
-                                    android:text="details"
+                                    android:text="track"
                                     android:textAllCaps="true"
                                     android:textColor="@color/black"
                                     android:textSize="12sp" />
@@ -271,23 +272,23 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:visibility="gone"
                                 android:text="It contains: XXXXXX, YYYYYYY, FFFFFFFFFF, GGGGG, HHHHHHH"
-                                android:textSize="12sp" />
+                                android:textSize="12sp"
+                                android:visibility="gone" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:visibility="gone"
                                 android:text="Extra Service: Doctor, PPE Kit"
-                                android:textSize="12sp" />
+                                android:textSize="12sp"
+                                android:visibility="gone" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="5.0 KM"
-                                android:visibility="gone"
-                                android:textSize="14sp" />
+                                android:textSize="14sp"
+                                android:visibility="gone" />
 
                         </LinearLayout>
 
@@ -301,11 +302,11 @@
                         android:text="Price Details"
                         android:textSize="14sp" />
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/other_service_list"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/other_service_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                     <TextView
                         android:layout_width="wrap_content"

@@ -34,7 +34,7 @@ object VollyApi {
                     }
                 },
                 Response.ErrorListener { error ->
-                    context.toast("Device id not updated: $error")
+                    context.toast("Something went wrong: $error")
                 }) {
 
                 @Throws(AuthFailureError::class)

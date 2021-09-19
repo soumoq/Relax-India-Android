@@ -50,8 +50,8 @@ class MyOrderListAdapter(context: Context) : RecyclerView.Adapter<MyOrderListAda
         @SuppressLint("SetTextI18n")
         fun bind(booking: BookingListData) {
 
-            view.order_list_des_loc.text = booking.from_location
-            view.order_list_source_loc.text = booking.to_location
+            view.order_list_des_loc.text = booking.to_location
+            view.order_list_source_loc.text = booking.from_location
             view.order_list_driver_name.text = booking.driver_name
             view.order_list_date.text = booking.date
             view.order_list_driver_image.loadImage(booking.driver_image)
@@ -66,8 +66,6 @@ class MyOrderListAdapter(context: Context) : RecyclerView.Adapter<MyOrderListAda
                 intent.putExtra("date", booking.date)
                 intent.putExtra("booking_amount", booking.booking_amount)
                 intent.putExtra("total_amount", booking.total_amount.toString())
-
-
                 view.context.startActivity(intent)
             }
 
