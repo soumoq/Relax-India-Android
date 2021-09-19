@@ -6,6 +6,7 @@ data class NotificationDataModel(
     val bookingId: String,
     val sourceLoc: String,
     val desLoc: String,
-    val amount: String
+    val amount: String,
+    val deviceId : String
 
 )

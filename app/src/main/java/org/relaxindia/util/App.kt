@@ -42,6 +42,7 @@ object App {
     const val updateBooking = "update-booking"
     const val getBookingHistory = "get-bookings"
     const val getAllDrivers = "get-all-drivers"
+    const val UPDATE_DEVICE_TOKEN = "update-device-token"
 
 
     //Share preference key
@@ -80,6 +81,8 @@ object App {
         notifcationBody.put("source_loc", notificationData.sourceLoc)
         notifcationBody.put("des_loc", notificationData.desLoc)
         notifcationBody.put("amount", notificationData.amount)
+        notifcationBody.put("device_id", notificationData.deviceId)
+
 
         notification.put("registration_ids", JSONArray(array))
         notification.put("data", notifcationBody)

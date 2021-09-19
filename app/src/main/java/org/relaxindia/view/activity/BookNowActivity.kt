@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.razorpay.PaymentResultListener
 import org.json.JSONArray
 import org.relaxindia.R
+import org.relaxindia.service.GpsTracker
 import org.relaxindia.util.App
 import org.relaxindia.util.toast
 import org.relaxindia.view.recyclerView.DefaultServiceAdapter
@@ -187,6 +188,8 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
 
     override fun onPaymentSuccess(p0: String?) {
         val bookingDetails = JSONObject()
+
+        val gpsThread = GpsTracker(this)
         bookingDetails.put("booking_amount", payableAmount)
         bookingDetails.put("total_amount", totalAmount)
         bookingDetails.put("payable_amount", payableAmount)
@@ -195,6 +198,8 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         bookingDetails.put("to_location", intent.getStringExtra("des_loc"))
         bookingDetails.put("tx_id", p0.toString())
         bookingDetails.put("service", arr)
+        bookingDetails.put("user_latitude", gpsThread.latitude.toString())
+        bookingDetails.put("user_longitude", gpsThread.longitude.toString())
         Log.e("JSONRES", bookingDetails.toString())
         apiCallViewModel.saveServiceInfo(this, bookingDetails.toString())
         observeViewModel()

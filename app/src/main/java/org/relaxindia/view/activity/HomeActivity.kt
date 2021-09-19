@@ -41,6 +41,8 @@ import org.relaxindia.util.App
 import org.relaxindia.view.recyclerView.ServiceAdapter
 import org.relaxindia.viewModel.ApiCallViewModel
 import android.location.Geocoder
+import com.google.firebase.messaging.FirebaseMessaging
+import org.relaxindia.service.VollyApi
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -81,6 +83,10 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        FirebaseMessaging.getInstance().token.addOnSuccessListener {
+            VollyApi.updateDeviceToken(this, it)
+        }
 
         //Buttom sheet
         homeDashboardSheet = BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme)
@@ -162,14 +168,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         home_logout.setOnClickListener {
-            val sp = applicationContext.getSharedPreferences("user_info", MODE_PRIVATE)
-            val editor = sp.edit()
-            editor.clear()
-            editor.apply()
-
-            val intent = Intent(this, LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
+            VollyApi.updateDeviceToken(this,"")
         }
 
 
@@ -206,6 +205,17 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
+    fun logout() {
+        val sp = applicationContext.getSharedPreferences("user_info", MODE_PRIVATE)
+        val editor = sp.edit()
+        editor.clear()
+        editor.apply()
+
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
     private fun observeViewModel() {
         apiCallViewModel.profileInfo.observe(this, Observer {
             if (it.data.name == null) {
@@ -214,7 +224,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
             } else {
                 val sp = getSharedPreferences("user_info", Context.MODE_PRIVATE)
                 val editor = sp.edit()
-                editor.putString(App.preferenceUserId,it.data.id)
+                editor.putString(App.preferenceUserId, it.data.id)
                 editor.putString(App.preferenceUserPhone, it.data.phone)
                 editor.putString(App.preferenceUserEmail, it.data.email)
                 editor.putString(App.preferenceUserName, it.data.name)

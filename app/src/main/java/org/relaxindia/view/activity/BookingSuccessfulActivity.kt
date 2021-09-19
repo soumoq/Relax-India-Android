@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.messaging.FirebaseMessaging
 import org.relaxindia.R
 import org.relaxindia.model.NotificationDataModel
 import org.relaxindia.util.App
@@ -48,11 +49,14 @@ class BookingSuccessfulActivity : AppCompatActivity() {
                         deviceIdArr.add(it.data[i].device_token)
                     }
                 }
-                App.sendNotification(
-                    this,
-                    deviceIdArr,
-                    NotificationDataModel(bookingId, sourceLoc, desLoc, amount)
-                )
+                Log.e("CHECK_LOG", "$bookingId\n$sourceLoc\n$desLoc\n$amount")
+                FirebaseMessaging.getInstance().token.addOnSuccessListener {
+                    App.sendNotification(
+                        this,
+                        deviceIdArr,
+                        NotificationDataModel(bookingId, sourceLoc, desLoc, amount, it)
+                    )
+                }
             }
         })
     }
