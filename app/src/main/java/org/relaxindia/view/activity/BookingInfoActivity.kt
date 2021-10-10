@@ -56,7 +56,8 @@ class BookingInfoActivity : AppCompatActivity() {
         otherServiceAdapter.updateData(jsonArr)
 
         track_booking.setOnClickListener {
-
+            val intent = Intent(this,TrackActivity::class.java)
+            startActivity(intent)
         }
 
     }

@@ -14,13 +14,11 @@ import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.razorpay.PaymentResultListener
 import org.json.JSONArray
 import org.relaxindia.R
-import org.relaxindia.service.GpsTracker
+import org.relaxindia.service.location.GpsTracker
 import org.relaxindia.util.App
-import org.relaxindia.util.toast
 import org.relaxindia.view.recyclerView.DefaultServiceAdapter
 import org.relaxindia.view.recyclerView.OptionalServiceAdapter
 import org.relaxindia.viewModel.ApiCallViewModel

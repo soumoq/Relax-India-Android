@@ -36,7 +36,7 @@ import kotlinx.android.synthetic.main.nav_header.view.*
 import kotlinx.android.synthetic.main.sheet_home_dashboard.*
 import org.relaxindia.R
 import org.relaxindia.model.getService.ServiceData
-import org.relaxindia.service.GpsTracker
+import org.relaxindia.service.location.GpsTracker
 import org.relaxindia.util.App
 import org.relaxindia.view.recyclerView.ServiceAdapter
 import org.relaxindia.viewModel.ApiCallViewModel

@@ -68,6 +68,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-messaging-ktx:22.0.0'
     implementation 'com.google.firebase:firebase-core:19.0.1'
+    implementation 'com.google.firebase:firebase-firestore:23.0.3'
 
     //lifecycle components
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.3.1"
@@ -82,7 +83,7 @@ dependencies {
 
 
     //Map
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:16.0.0'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
     implementation 'com.google.android.libraries.places:places:2.4.0'  //location
 

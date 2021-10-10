@@ -1,4 +1,4 @@
-package org.relaxindia.service;
+package org.relaxindia.service.location;
 
 import android.Manifest;
 import android.app.Activity;
