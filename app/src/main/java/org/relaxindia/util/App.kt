@@ -43,6 +43,7 @@ object App {
     const val getBookingHistory = "get-bookings"
     const val getAllDrivers = "get-all-drivers"
     const val UPDATE_DEVICE_TOKEN = "update-device-token"
+    const val FIND_AMBULANCE = "find-ambulance"
 
 
     //Share preference key

@@ -11,12 +11,18 @@ import android.app.Activity
 import android.location.Location
 
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.razorpay.PaymentResultListener
+import kotlinx.android.synthetic.main.sheet_book_driver.*
 import org.json.JSONArray
 import org.relaxindia.R
+import org.relaxindia.service.VollyApi
 import org.relaxindia.service.location.GpsTracker
 import org.relaxindia.util.App
 import org.relaxindia.view.recyclerView.DefaultServiceAdapter
@@ -42,6 +48,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
     //location val
     var sourceLoc = ""
     var desLoc = ""
+    var bookNowAmountSheet = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,7 +89,9 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
 
 
         pay_to_book.setOnClickListener {
-            startPayment()
+            //startPayment()
+            //VollyApi.findAmbulance(this, App.getUserToken(this))
+            findDriverSheet()
         }
 
         book_now_back.setOnClickListener {
@@ -111,7 +120,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         apiCallViewModel.getSelectedService.observe(this, Observer {
             if (!it.error) {
                 base_price.text = "${App.rs}${(it.data.payable_amount + it.data.rest_amount)}"
-                book_now_amount.text = "Pay now ${App.rs}${it.data.payable_amount}"
+                bookNowAmountSheet = "Pay now ${App.rs}${it.data.payable_amount}"
                 payableAmount = it.data.payable_amount
                 totalAmount = it.data.payable_amount + it.data.rest_amount
                 partial_pay.text = "${App.rs}${it.data.payable_amount}"
@@ -198,10 +207,58 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         bookingDetails.put("service", arr)
         bookingDetails.put("user_latitude", gpsThread.latitude.toString())
         bookingDetails.put("user_longitude", gpsThread.longitude.toString())
+        bookingDetails.put("radius", sheetDialog.range.selectedItem.toString())
         Log.e("JSONRES", bookingDetails.toString())
         apiCallViewModel.saveServiceInfo(this, bookingDetails.toString())
         observeViewModel()
 
+    }
+
+
+    private lateinit var sheetDialog: BottomSheetDialog
+    private fun findDriverSheet() {
+        sheetDialog = BottomSheetDialog(this)
+        //App.openDialog(this,"SUCCESS","$driverCount found on your area")
+        sheetDialog.setContentView(R.layout.sheet_book_driver)
+        sheetDialog.show()
+
+        val rangeList = ArrayList<String>()
+        rangeList.add("2")
+        rangeList.add("4")
+        rangeList.add("6")
+        rangeList.add("8")
+        rangeList.add("10")
+
+        val rangeListAdapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, rangeList)
+        sheetDialog.range.adapter = rangeListAdapter
+
+        sheetDialog.range.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                VollyApi.findAmbulance(
+                    this@BookNowActivity,
+                    sheetDialog.range.selectedItem.toString()
+                )
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+
+        }
+    }
+
+    fun driverFindStatus(driverCount: Int) {
+        if (driverCount == 0) {
+            sheetDialog.pay_to_book_sheet.visibility = View.GONE
+            App.openDialog(this, "Alert", "No driver found please search again.")
+        } else {
+            sheetDialog.pay_to_book_sheet.visibility = View.VISIBLE
+            sheetDialog.book_now_amount_sheet.text = bookNowAmountSheet
+            sheetDialog.pay_to_book_sheet.setOnClickListener {
+                startPayment()
+            }
+        }
     }
 
     override fun onPaymentError(p0: Int, p1: String?) {
