@@ -26,6 +26,10 @@ data class BookingListData(
     @SerializedName("total_amount") val total_amount: Double,
     @SerializedName("driver_image") val driver_image: String,
     @SerializedName("date") val date: String,
+    @SerializedName("from_latitude") val from_latitude: String,
+    @SerializedName("from_longitude") val from_longitude: String,
+    @SerializedName("to_latitude") val to_latitude: String,
+    @SerializedName("to_longitude") val to_longitude: String,
 
 
     )

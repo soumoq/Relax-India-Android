@@ -66,6 +66,11 @@ class MyOrderListAdapter(context: Context) : RecyclerView.Adapter<MyOrderListAda
                 intent.putExtra("date", booking.date)
                 intent.putExtra("booking_amount", booking.booking_amount)
                 intent.putExtra("total_amount", booking.total_amount.toString())
+                intent.putExtra("from_latitude", booking.from_latitude.toString())
+                intent.putExtra("from_longitude", booking.from_longitude.toString())
+                intent.putExtra("to_latitude", booking.to_latitude.toString())
+                intent.putExtra("to_longitude", booking.to_longitude.toString())
+
                 view.context.startActivity(intent)
             }
 

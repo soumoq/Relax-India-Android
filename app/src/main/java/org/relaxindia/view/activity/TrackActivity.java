@@ -2,6 +2,7 @@ package org.relaxindia.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -29,30 +30,38 @@ import com.google.firebase.firestore.GeoPoint;
 import org.relaxindia.R;
 import org.relaxindia.service.location.FetchURL;
 import org.relaxindia.service.location.TaskLoadedCallback;
+import org.relaxindia.util.App;
 
-public class TrackActivity extends AppCompatActivity implements OnMapReadyCallback, TaskLoadedCallback {
+public class TrackActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private MarkerOptions place1, place2;
     Button getDirection;
     private Polyline currentPolyline;
 
+    //Intent Val
+    private Double fromLatitude = 0.0;
+    private Double fromLongitude = 0.0;
+    private Double toLatitude = 0.0;
+    private Double toLongitude = 0.0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track);
 
-        getDirection = findViewById(R.id.btnGetDirection);
-        getDirection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new FetchURL(TrackActivity.this).execute(getUrl(place1.getPosition(), place2.getPosition(), "driving"), "driving");
-            }
-        });
+        Intent intent = getIntent();
+        fromLatitude = Double.valueOf(intent.getStringExtra("from_latitude"));
+        fromLongitude = Double.valueOf(intent.getStringExtra("from_longitude"));
+        toLatitude = Double.valueOf(intent.getStringExtra("to_latitude"));
+        toLongitude = Double.valueOf(intent.getStringExtra("to_longitude"));
+
+        //App.INSTANCE.openDialog(this, "T", fromLatitude + " : " + fromLongitude + " : " + toLatitude + " : " + toLongitude);
+
         //27.658143,85.3199503
         //27.667491,85.3208583
-        place1 = new MarkerOptions().position(new LatLng(22.878654, 88.014297)).title("Location 1");
-        place2 = new MarkerOptions().position(new LatLng(22.817217, 88.104729)).title("Location 2");
+        place1 = new MarkerOptions().position(new LatLng(fromLatitude, fromLongitude)).title("Location 1");
+        place2 = new MarkerOptions().position(new LatLng(toLatitude, toLongitude)).title("Location 2");
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.mapNearBy);
         mapFragment.getMapAsync(this);
@@ -66,8 +75,8 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
         mMap.addMarker(place2);
 
         CameraPosition googlePlex = CameraPosition.builder()
-                .target(new LatLng(22.878654, 88.014297))
-                .zoom(16f)
+                .target(new LatLng(fromLatitude, fromLongitude))
+                .zoom(12f)
                 .bearing(0)
                 .tilt(45)
                 .build();
@@ -75,37 +84,15 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
         Polyline polyline1 = googleMap.addPolyline(new PolylineOptions()
                 .clickable(true)
                 .add(
-                        new LatLng(-35.016, 143.321),
-                        new LatLng(-34.747, 145.592)));
+                        new LatLng(fromLatitude, fromLongitude),
+                        new LatLng(toLatitude, toLongitude)));
 
         // Position the map's camera near Alice Springs in the center of Australia,
         // and set the zoom factor so most of Australia shows on the screen.
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-23.684, 133.903), 4));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(fromLatitude, fromLongitude), 4));
 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 5000, null);
     }
 
-    private String getUrl(LatLng origin, LatLng dest, String directionMode) {
-        // Origin of route
-        String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
-        // Destination of route
-        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
-        // Mode
-        String mode = "mode=" + directionMode;
-        // Building the parameters to the web service
-        String parameters = str_origin + "&" + str_dest + "&" + mode;
-        // Output format
-        String output = "json";
-        // Building the url to the web service
-        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters + "&key=" + getString(R.string.google_maps_key);
-        Log.e("GOOGLEAPI", url);
-        return url;
-    }
 
-    @Override
-    public void onTaskDone(Object... values) {
-        if (currentPolyline != null)
-            currentPolyline.remove();
-        currentPolyline = mMap.addPolyline((PolylineOptions) values[0]);
-    }
 }

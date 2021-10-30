@@ -22,6 +22,10 @@ class BookingInfoActivity : AppCompatActivity() {
     private var date = ""
     private var bookingAmount = ""
     private var totalAmount = ""
+    private var fromLatitude = ""
+    private var fromLongitude = ""
+    private var toLatitude = ""
+    private var toLongitude = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +43,11 @@ class BookingInfoActivity : AppCompatActivity() {
         date = intent.getStringExtra("date")!!
         bookingAmount = intent.getStringExtra("booking_amount")!!
         totalAmount = intent.getStringExtra("total_amount")!!
+        fromLatitude = intent.getStringExtra("from_latitude")!!
+        fromLongitude = intent.getStringExtra("from_longitude")!!
+        toLatitude = intent.getStringExtra("to_latitude")!!
+        toLongitude = intent.getStringExtra("to_longitude")!!
+
 
         booking_info_from_loc.text = fromLocation
         booking_info_des_loc.text = toLocation
@@ -47,16 +56,22 @@ class BookingInfoActivity : AppCompatActivity() {
         booking_info_date.text = date
         booking_info_booking_amt.text = "${App.rs}$bookingAmount"
         booking_info_total_amt.text = "${App.rs}$totalAmount"
-        booking_info_driver_amt.text = "${App.rs}${totalAmount.toDouble() - bookingAmount.toDouble()}"
+        booking_info_driver_amt.text =
+            "${App.rs}${totalAmount.toDouble() - bookingAmount.toDouble()}"
 
         val jsonArr = JSONArray(serviceDetails)
-        Log.e("JSONDATA",jsonArr.getJSONObject(0).getString("name"))
+        Log.e("JSONDATA", jsonArr.getJSONObject(0).getString("name"))
         val otherServiceAdapter = OtherServiceAdapter(this)
         other_service_list.adapter = otherServiceAdapter
         otherServiceAdapter.updateData(jsonArr)
 
         track_booking.setOnClickListener {
-            val intent = Intent(this,TrackActivity::class.java)
+            val intent = Intent(this, TrackActivity::class.java)
+            intent.putExtra("from_latitude", fromLatitude)
+            intent.putExtra("from_longitude", fromLongitude)
+            intent.putExtra("to_latitude", toLatitude)
+            intent.putExtra("to_longitude", toLongitude)
+
             startActivity(intent)
         }
 
