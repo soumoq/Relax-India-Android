@@ -49,6 +49,10 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
     var sourceLoc = ""
     var desLoc = ""
     var bookNowAmountSheet = ""
+    var sourceLat = ""
+    var sourceLon = ""
+    var desLat = ""
+    var desLon = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +62,11 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         apiCallViewModel.serviceInfo(this, "Optional Service")
         apiCallViewModel.serviceInfo(this, "Default Service")
         observeViewModel()
+
+        sourceLat = intent.getStringExtra("sourceLat").toString()
+        sourceLon = intent.getStringExtra("sourceLon").toString()
+        desLat = intent.getStringExtra("desLat").toString()
+        desLon = intent.getStringExtra("desLon").toString()
 
         serviceIdList.add(intent.getStringExtra("service_id")?.toInt()!!)
         for (i in 0 until serviceIdList.size) {
@@ -208,6 +217,11 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         bookingDetails.put("user_latitude", gpsThread.latitude.toString())
         bookingDetails.put("user_longitude", gpsThread.longitude.toString())
         bookingDetails.put("radius", sheetDialog.range.selectedItem.toString())
+        bookingDetails.put("from_latitude", sourceLat)
+        bookingDetails.put("from_longitude", sourceLon)
+        bookingDetails.put("to_latitude", desLat)
+        bookingDetails.put("to_longitude", desLon)
+
         Log.e("JSONRES", bookingDetails.toString())
         apiCallViewModel.saveServiceInfo(this, bookingDetails.toString())
         observeViewModel()
