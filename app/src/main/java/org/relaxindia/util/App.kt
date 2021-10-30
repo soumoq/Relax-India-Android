@@ -44,6 +44,7 @@ object App {
     const val getAllDrivers = "get-all-drivers"
     const val UPDATE_DEVICE_TOKEN = "update-device-token"
     const val FIND_AMBULANCE = "find-ambulance"
+    const val CANCEL_BOOKING = "cancel-booking"
 
 
     //Share preference key
@@ -112,6 +113,7 @@ object App {
 
     fun getUserToken(context: Context): String {
         val sp = context.getSharedPreferences("user_info", AppCompatActivity.MODE_PRIVATE)
+        Log.e("BARRER_TOKEN","Bearer ${(sp.getString(App.preferenceUserToken, "").toString())}")
         return "Bearer ${(sp.getString(App.preferenceUserToken, "").toString())}"
     }
 

@@ -103,4 +103,51 @@ object VollyApi {
         requestQueue.add(stringRequest)
     }
 
+    fun cancelBooking(context: Context, bookingId : String){
+        context.toast("Please wait...")
+        val URL = "${App.apiBaseUrl}${App.CANCEL_BOOKING}"
+        val requestQueue = Volley.newRequestQueue(context)
+
+        val stringRequest: StringRequest =
+            object : StringRequest(
+                Request.Method.PATCH, URL,
+                Response.Listener<String?> { response ->
+                    try {
+                        val jsonObj = JSONObject(response)
+                        val error = jsonObj.getBoolean("error")
+                        if (!error) {
+                            val driverArr = jsonObj.getJSONArray("data")
+                            //context.toast("Device token update successful")
+                            (context as BookNowActivity).driverFindStatus(driverArr.length())
+
+                        }
+                    } catch (e: JSONException) {
+                        App.openDialog(context, "Error", e.message!!)
+                    }
+                },
+                Response.ErrorListener { error ->
+                    context.toast("Something went wrong: $error")
+                }) {
+
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): MutableMap<String, String> {
+                    val header: MutableMap<String, String> = HashMap()
+                    header["Authorization"] = App.getUserToken(context)
+                    return header
+                }
+
+                @Throws(AuthFailureError::class)
+                override fun getParams(): Map<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["booking_id"] = bookingId
+
+                    return params
+                }
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
+
+    }
+
+
 }

@@ -11,6 +11,11 @@ import org.relaxindia.R
 import org.relaxindia.model.NotificationDataModel
 import org.relaxindia.util.App
 import org.relaxindia.viewModel.ApiCallViewModel
+import android.os.CountDownTimer
+import android.view.View
+import kotlinx.android.synthetic.main.activity_bookig_successful.*
+import org.relaxindia.service.VollyApi
+
 
 class BookingSuccessfulActivity : AppCompatActivity() {
 
@@ -36,6 +41,31 @@ class BookingSuccessfulActivity : AppCompatActivity() {
         apiCallViewModel = ViewModelProvider(this).get(ApiCallViewModel::class.java)
         apiCallViewModel.getDriverListInfo(this)
         observeViewModel()
+
+
+        val cT: CountDownTimer = object : CountDownTimer(100000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val v = String.format("%02d", millisUntilFinished / 60000)
+                val va = (millisUntilFinished % 120000 / 1000).toInt()
+                back_time.text = v + ":" + String.format("%02d", va)
+            }
+
+            override fun onFinish() {
+                cancel_booking_view.visibility = View.GONE
+            }
+        }
+        cT.start()
+
+        cancel_booking.setOnClickListener {
+            VollyApi.cancelBooking(this,bookingId)
+        }
+
+        go_to_home.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+
     }
 
 
@@ -51,11 +81,11 @@ class BookingSuccessfulActivity : AppCompatActivity() {
                 }
                 Log.e("CHECK_LOG", "$bookingId\n$sourceLoc\n$desLoc\n$amount")
                 FirebaseMessaging.getInstance().token.addOnSuccessListener {
-                    App.sendNotification(
-                        this,
-                        deviceIdArr,
-                        NotificationDataModel(bookingId, sourceLoc, desLoc, amount, it)
-                    )
+//                    App.sendNotification(
+//                        this,
+//                        deviceIdArr,
+//                        NotificationDataModel(bookingId, sourceLoc, desLoc, amount, it)
+//                    )
                 }
             }
         })

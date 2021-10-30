@@ -85,6 +85,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(R.layout.activity_home)
 
         FirebaseMessaging.getInstance().token.addOnSuccessListener {
+            Log.e("DEVICE_TOLEN",it)
             VollyApi.updateDeviceToken(this, it)
         }
 
