@@ -69,6 +69,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging-ktx:22.0.0'
     implementation 'com.google.firebase:firebase-core:19.0.1'
     implementation 'com.google.firebase:firebase-firestore:23.0.3'
+    implementation 'com.google.firebase:firebase-database:20.0.2'
 
     //lifecycle components
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.3.1"
