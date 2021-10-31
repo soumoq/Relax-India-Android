@@ -30,6 +30,8 @@ data class BookingListData(
     @SerializedName("from_longitude") val from_longitude: String,
     @SerializedName("to_latitude") val to_latitude: String,
     @SerializedName("to_longitude") val to_longitude: String,
+    @SerializedName("driver_id") val driver_id: Int,
+
 
 
     )

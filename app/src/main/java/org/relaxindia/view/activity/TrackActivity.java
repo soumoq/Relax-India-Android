@@ -55,6 +55,7 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
     private Double fromLongitude = 0.0;
     private Double toLatitude = 0.0;
     private Double toLongitude = 0.0;
+    private String driverId = "";
 
     //Firebase
     private DatabaseReference mDatabase;
@@ -71,6 +72,7 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
         fromLongitude = Double.valueOf(intent.getStringExtra("from_longitude"));
         toLatitude = Double.valueOf(intent.getStringExtra("to_latitude"));
         toLongitude = Double.valueOf(intent.getStringExtra("to_longitude"));
+        driverId = intent.getStringExtra("driver_id");
 
         //App.INSTANCE.openDialog(this, "T", fromLatitude + " : " + fromLongitude + " : " + toLatitude + " : " + toLongitude);
 
@@ -93,7 +95,7 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
         mMap.addMarker(place2);
 
         //Add driver
-        mDatabase.child("driver_data").child("8").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.child("driver_data").child(driverId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {

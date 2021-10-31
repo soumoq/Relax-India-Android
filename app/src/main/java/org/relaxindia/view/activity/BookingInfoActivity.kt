@@ -26,6 +26,8 @@ class BookingInfoActivity : AppCompatActivity() {
     private var fromLongitude = ""
     private var toLatitude = ""
     private var toLongitude = ""
+    private var driverId = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +49,7 @@ class BookingInfoActivity : AppCompatActivity() {
         fromLongitude = intent.getStringExtra("from_longitude")!!
         toLatitude = intent.getStringExtra("to_latitude")!!
         toLongitude = intent.getStringExtra("to_longitude")!!
+        driverId = intent.getStringExtra("driver_id")!!
 
 
         booking_info_from_loc.text = fromLocation
@@ -71,6 +74,8 @@ class BookingInfoActivity : AppCompatActivity() {
             intent.putExtra("from_longitude", fromLongitude)
             intent.putExtra("to_latitude", toLatitude)
             intent.putExtra("to_longitude", toLongitude)
+            intent.putExtra("driver_id", driverId)
+
 
             startActivity(intent)
         }
