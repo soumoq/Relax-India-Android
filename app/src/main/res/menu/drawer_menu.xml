@@ -15,6 +15,7 @@
 
         <item
             android:id="@+id/menu_wallet"
+            android:visible="false"
             android:title="Wallet" />
 
         <item

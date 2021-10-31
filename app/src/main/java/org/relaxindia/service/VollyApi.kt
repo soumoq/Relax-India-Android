@@ -1,6 +1,7 @@
 package org.relaxindia.service
 
 import android.content.Context
+import android.util.Log
 import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Response
@@ -58,6 +59,7 @@ object VollyApi {
     }
 
     fun findAmbulance(context: Context, range: String) {
+        val gpsTracker = GpsTracker(context)
         context.toast("Please wait...")
         val URL = "${App.apiBaseUrl}${App.FIND_AMBULANCE}"
         val requestQueue = Volley.newRequestQueue(context)
@@ -93,7 +95,7 @@ object VollyApi {
                 @Throws(AuthFailureError::class)
                 override fun getParams(): Map<String, String>? {
                     val params: MutableMap<String, String> = HashMap()
-                    val gpsTracker = GpsTracker(context)
+                    Log.e("FIND_LAT_LON", "${ gpsTracker.latitude} : ${ gpsTracker.longitude}")
                     params["radius"] = range
                     params["user_latitude"] = "${gpsTracker.latitude}"
                     params["user_longitude"] = "${gpsTracker.longitude}"
