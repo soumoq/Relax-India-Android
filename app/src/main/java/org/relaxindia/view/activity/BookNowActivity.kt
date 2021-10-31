@@ -157,7 +157,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
     }
 
     fun updatePrice(select: Boolean, serviceId: Int) {
-        toast(serviceId.toString() + " : " + select)
+        //toast(serviceId.toString() + " : " + select)
         if (select) {
             serviceIdList.add(serviceId)
         } else {

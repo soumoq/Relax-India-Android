@@ -29,31 +29,32 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:textSize="15sp"
-                    android:text="Select range in K.M" />
+                    android:text="Select range in K.M"
+                    android:textSize="15sp" />
 
-                <Spinner
+                <androidx.appcompat.widget.AppCompatSpinner
                     android:id="@+id/range"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp" />
 
 
             </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/pay_to_book_sheet"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_alignParentBottom="true"
-                android:background="@color/app_color">
+                android:background="@color/app_color"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -84,8 +85,6 @@
 
 
             </RelativeLayout>
-
-
 
 
         </LinearLayout>
