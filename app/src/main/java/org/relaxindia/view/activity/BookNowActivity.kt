@@ -25,10 +25,13 @@ import org.relaxindia.R
 import org.relaxindia.service.VollyApi
 import org.relaxindia.service.location.GpsTracker
 import org.relaxindia.util.App
+import org.relaxindia.util.toast
 import org.relaxindia.view.recyclerView.DefaultServiceAdapter
 import org.relaxindia.view.recyclerView.OptionalServiceAdapter
 import org.relaxindia.viewModel.ApiCallViewModel
 import java.lang.Exception
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class BookNowActivity : AppCompatActivity(), PaymentResultListener {
@@ -38,7 +41,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
 
     //Create Json
     private val serviceJson = JSONObject()
-    private val arr = JSONArray()
+    private var arr = JSONArray()
     private val serviceIdList = ArrayList<Int>()
 
     //Booking details
@@ -154,19 +157,18 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
     }
 
     fun updatePrice(select: Boolean, serviceId: Int) {
+        toast(serviceId.toString() + " : " + select)
         if (select) {
             serviceIdList.add(serviceId)
         } else {
-            serviceIdList.remove(serviceId)
+            serviceIdList.removeAll(listOf(serviceId));
         }
-        for (i in 0 until arr.length()) {
-            arr.remove(i)
-        }
-        for (i in 0 until serviceIdList.size) {
-            arr.put(serviceIdList[i])
-        }
+
+        arr = JSONArray(serviceIdList)
+
+
         serviceJson.put("service", arr)
-        //Log.e("CONVAERJKJDAJ", serviceJson.toString())
+        Log.e("CONVAERJKJDAJ", serviceJson.toString())
         apiCallViewModel.selectedServiceInfo(this, serviceJson.toString())
         observeViewModel()
 
