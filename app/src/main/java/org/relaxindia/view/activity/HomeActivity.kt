@@ -85,7 +85,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(R.layout.activity_home)
 
         FirebaseMessaging.getInstance().token.addOnSuccessListener {
-            Log.e("DEVICE_TOLEN",it)
+            Log.e("DEVICE_TOLEN", it)
             VollyApi.updateDeviceToken(this, it)
         }
 
@@ -169,7 +169,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         home_logout.setOnClickListener {
-            VollyApi.updateDeviceToken(this,"")
+            VollyApi.updateDeviceToken(this, "")
         }
 
 
@@ -197,6 +197,10 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
                 R.id.menu_wallet -> {
                     val intent = Intent(this, WalletActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.menu_schedule_booking -> {
+                    val intent = Intent(this, ScheduleBookingActivity::class.java)
                     startActivity(intent)
                 }
             }
