@@ -9,11 +9,14 @@ import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.activity_schedule_booking.*
+import kotlinx.android.synthetic.main.booking_list_sheet.*
 import org.relaxindia.R
 import org.relaxindia.model.ScheduleReq
 import org.relaxindia.service.VollyApi
 import org.relaxindia.util.toast
+import org.relaxindia.view.recyclerView.ScheduleBookingAdapter
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -25,6 +28,9 @@ class ScheduleBookingActivity : AppCompatActivity() {
 
     //calender
     val myCalendar = Calendar.getInstance()
+
+    //Button sheet
+    lateinit var bookingListSheet: BottomSheetDialog
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -124,6 +130,14 @@ class ScheduleBookingActivity : AppCompatActivity() {
 
     fun setScheduleBookingList(bookingList: ArrayList<ScheduleReq>) {
         toast(bookingList.size.toString())
+        bookingListSheet = BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme)
+        bookingListSheet.setContentView(R.layout.booking_list_sheet)
+        bookingListSheet.show()
+
+        val scheduleAdapter = ScheduleBookingAdapter(this)
+        bookingListSheet.schedule_booking_list.adapter = scheduleAdapter
+
+        scheduleAdapter.updateData(bookingList)
     }
 
 

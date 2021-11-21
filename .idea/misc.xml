@@ -28,6 +28,7 @@
         <entry key="app/src/main/res/layout/activity_thank_you.xml" value="0.16168478260869565" />
         <entry key="app/src/main/res/layout/activity_track.xml" value="0.1598731884057971" />
         <entry key="app/src/main/res/layout/activity_wallet.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/booking_list_sheet.xml" value="0.1644021739130435" />
         <entry key="app/src/main/res/layout/nav_header.xml" value="0.21" />
         <entry key="app/src/main/res/layout/recycler_default.xml" value="0.18432971014492755" />
         <entry key="app/src/main/res/layout/recycler_default_service.xml" value="0.17481884057971014" />
@@ -35,6 +36,7 @@
         <entry key="app/src/main/res/layout/recycler_opsonal_service.xml" value="0.192481884057971" />
         <entry key="app/src/main/res/layout/recycler_other_service.xml" value="0.1539855072463768" />
         <entry key="app/src/main/res/layout/recycler_service.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/schedule_booking_list.xml" value="0.1644021739130435" />
         <entry key="app/src/main/res/layout/sheet_book_driver.xml" value="0.14719202898550723" />
         <entry key="app/src/main/res/layout/sheet_home_dashboard.xml" value="0.22" />
         <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.33" />
