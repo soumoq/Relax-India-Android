@@ -11,9 +11,12 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import kotlinx.android.synthetic.main.activity_schedule_booking.*
 import org.relaxindia.R
+import org.relaxindia.model.ScheduleReq
+import org.relaxindia.service.VollyApi
 import org.relaxindia.util.toast
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ScheduleBookingActivity : AppCompatActivity() {
 
@@ -27,6 +30,10 @@ class ScheduleBookingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule_booking)
+
+        schedule_booking_back.setOnClickListener {
+            onBackPressed()
+        }
 
         //FROM LOCATION
         val autocompleteFragmentFrom =
@@ -85,19 +92,38 @@ class ScheduleBookingActivity : AppCompatActivity() {
                 select_date_et.text.toString().isNotEmpty() &&
                 schedule_time.text.toString().isNotEmpty()
             ) {
-                toast("$fromAddress $toAddress ${select_date_et.text.toString()} ${schedule_time.text.toString()} ${user_comment.text.toString()}")
-            }else{
+                VollyApi.scheduleBookingReq(
+                    this, fromAddress, toAddress,
+                    "${select_date_et.text.toString()} ${
+                        schedule_time.text.toString().isNotEmpty()
+                    }",
+                    user_comment.text.toString()
+                )
+            } else {
                 toast("Invalid input!!")
             }
         }
 
+        schedule_req.setOnClickListener {
+            VollyApi.getAllScheduleReq(this)
+        }
 
+
+    }
+
+    fun reloadActivity() {
+        finish();
+        startActivity(intent);
     }
 
     private fun selectDate() {
         val myFormat = "dd-MM-yy" //In which you need put here
         val sdf = SimpleDateFormat(myFormat, Locale.US)
         select_date_et.setText(sdf.format(myCalendar.time))
+    }
+
+    fun setScheduleBookingList(bookingList: ArrayList<ScheduleReq>) {
+        toast(bookingList.size.toString())
     }
 
 

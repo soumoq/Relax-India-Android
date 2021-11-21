@@ -45,6 +45,9 @@ object App {
     const val UPDATE_DEVICE_TOKEN = "update-device-token"
     const val FIND_AMBULANCE = "find-ambulance"
     const val CANCEL_BOOKING = "cancel-booking"
+    const val SCHEDULE_REQUEST = "schedule-request"
+    const val ALL_SCHEDULE_REQ = "get-schedule-requests"
+
 
 
     //Share preference key

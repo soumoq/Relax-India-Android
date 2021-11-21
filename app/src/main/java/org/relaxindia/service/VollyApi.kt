@@ -9,11 +9,13 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONException
 import org.json.JSONObject
+import org.relaxindia.model.ScheduleReq
 import org.relaxindia.service.location.GpsTracker
 import org.relaxindia.util.App
 import org.relaxindia.util.toast
 import org.relaxindia.view.activity.BookNowActivity
 import org.relaxindia.view.activity.HomeActivity
+import org.relaxindia.view.activity.ScheduleBookingActivity
 
 object VollyApi {
     fun updateDeviceToken(context: Context, deviceToken: String) {
@@ -95,7 +97,7 @@ object VollyApi {
                 @Throws(AuthFailureError::class)
                 override fun getParams(): Map<String, String>? {
                     val params: MutableMap<String, String> = HashMap()
-                    Log.e("FIND_LAT_LON", "${ gpsTracker.latitude} : ${ gpsTracker.longitude}")
+                    Log.e("FIND_LAT_LON", "${gpsTracker.latitude} : ${gpsTracker.longitude}")
                     params["radius"] = range
                     params["user_latitude"] = "${gpsTracker.latitude}"
                     params["user_longitude"] = "${gpsTracker.longitude}"
@@ -153,5 +155,117 @@ object VollyApi {
 
     }
 
+    fun scheduleBookingReq(
+        context: Context,
+        from: String,
+        to: String,
+        dateTime: String,
+        comment: String
+    ) {
+        context.toast("Please wait...")
+        val URL = "${App.apiBaseUrl}${App.SCHEDULE_REQUEST}"
+        val requestQueue = Volley.newRequestQueue(context)
+
+        val stringRequest: StringRequest =
+            object : StringRequest(
+                Request.Method.POST, URL,
+                Response.Listener<String?> { response ->
+                    try {
+                        val jsonObj = JSONObject(response)
+                        val error = jsonObj.getBoolean("error")
+                        if (error) {
+                            context.toast("Something went wrong!!!")
+                        } else {
+                            context.toast("Booking request successful...")
+                            (context as ScheduleBookingActivity).reloadActivity()
+                        }
+                    } catch (e: JSONException) {
+                        App.openDialog(context, "Error", e.message!!)
+                    }
+                },
+                Response.ErrorListener { error ->
+                    context.toast("Something went wrong: $error")
+                }) {
+
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): MutableMap<String, String> {
+                    val header: MutableMap<String, String> = HashMap()
+                    header["Authorization"] = App.getUserToken(context)
+                    return header
+                }
+
+                @Throws(AuthFailureError::class)
+                override fun getParams(): Map<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["from_location"] = from
+                    params["to_location"] = to
+                    params["schedule_date_time"] = dateTime
+                    params["user_comment"] = comment
+
+                    return params
+                }
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
+
+    }
+
+    fun getAllScheduleReq(context: Context) {
+        context.toast("Please wait...")
+        val URL = "${App.apiBaseUrl}${App.ALL_SCHEDULE_REQ}"
+        val requestQueue = Volley.newRequestQueue(context)
+
+        val stringRequest: StringRequest =
+            object : StringRequest(
+                Request.Method.POST, URL,
+                Response.Listener<String?> { response ->
+                    try {
+                        val jsonObj = JSONObject(response)
+                        val error = jsonObj.getBoolean("error")
+                        if (error) {
+                            context.toast("Something went wrong!!!")
+                        } else {
+                            val jsonArr = jsonObj.getJSONArray("data")
+                            if (jsonArr.length() > 0) {
+                                val objList = ArrayList<ScheduleReq>()
+                                for (i in 0 until jsonArr.length()) {
+                                    val obj = jsonArr.getJSONObject(i)
+                                    objList.add(
+                                        ScheduleReq(
+                                            obj.getInt("booking_id"),
+                                            obj.getDouble("booking_amount"),
+                                            obj.getDouble("total_amount"),
+                                            obj.getString("from_location"),
+                                            obj.getString("to_location"),
+                                            obj.getString("schedule_date_time"),
+                                            obj.getString("user_comment"),
+                                            obj.getString("status")
+                                        )
+                                    )
+                                }
+                                (context as ScheduleBookingActivity).setScheduleBookingList(objList)
+                            } else {
+                                context.toast("Schedule Booking is not Requested Yet...")
+                            }
+                        }
+                    } catch (e: JSONException) {
+                        App.openDialog(context, "Error", e.message!!)
+                    }
+                },
+                Response.ErrorListener { error ->
+                    context.toast("Something went wrong: $error")
+                }) {
+
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): MutableMap<String, String> {
+                    val header: MutableMap<String, String> = HashMap()
+                    header["Authorization"] = App.getUserToken(context)
+                    return header
+                }
+
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
+    }
 
 }
