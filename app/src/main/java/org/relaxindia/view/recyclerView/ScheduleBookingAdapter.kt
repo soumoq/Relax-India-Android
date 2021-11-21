@@ -2,19 +2,15 @@ package org.relaxindia.view.recyclerView
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.recycler_my_order_list.view.*
 import kotlinx.android.synthetic.main.schedule_booking_list.view.*
 
 import org.relaxindia.R
 import org.relaxindia.model.ScheduleReq
-import org.relaxindia.util.loadImage
-import org.relaxindia.view.activity.BookingInfoActivity
-import org.relaxindia.view.activity.DriverFeedbackActivity
+import org.relaxindia.view.activity.ScheduleBookingActivity
 
 
 class ScheduleBookingAdapter(context: Context) :
@@ -42,7 +38,7 @@ class ScheduleBookingAdapter(context: Context) :
     )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(booking.get(position))
+        holder.bind(booking.get(position), context)
     }
 
     override fun getItemCount() = booking.size
@@ -50,7 +46,7 @@ class ScheduleBookingAdapter(context: Context) :
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(booking: ScheduleReq) {
+        fun bind(booking: ScheduleReq, context: Context) {
 
             view.schedule_source_loc.text = booking.from_location
             view.schedule_des_loc.text = booking.to_location
@@ -68,6 +64,13 @@ class ScheduleBookingAdapter(context: Context) :
             } else {
                 view.payment_layout.visibility = View.GONE
                 view.pay_now_button.visibility = View.GONE
+            }
+
+            view.pay_now_button.setOnClickListener {
+                (context as ScheduleBookingActivity).startPayment(
+                    booking.booking_amount,
+                    booking.booking_id.toString()
+                )
             }
         }
     }

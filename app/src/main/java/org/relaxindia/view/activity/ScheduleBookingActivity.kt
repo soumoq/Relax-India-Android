@@ -1,5 +1,6 @@
 package org.relaxindia.view.activity
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,21 +11,30 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.razorpay.Checkout
+import com.razorpay.PaymentResultListener
 import kotlinx.android.synthetic.main.activity_schedule_booking.*
-import kotlinx.android.synthetic.main.booking_list_sheet.*
+import kotlinx.android.synthetic.main.sheet_booking_list.*
+import org.json.JSONObject
 import org.relaxindia.R
 import org.relaxindia.model.ScheduleReq
 import org.relaxindia.service.VollyApi
+import org.relaxindia.util.App
 import org.relaxindia.util.toast
 import org.relaxindia.view.recyclerView.ScheduleBookingAdapter
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ScheduleBookingActivity : AppCompatActivity() {
+class ScheduleBookingActivity : AppCompatActivity(), PaymentResultListener {
 
     var fromAddress: String = ""
     var toAddress: String = ""
+
+    //updateBookinf
+    var bookingId: String = ""
+    var amount: String = ""
 
     //calender
     val myCalendar = Calendar.getInstance()
@@ -40,6 +50,9 @@ class ScheduleBookingActivity : AppCompatActivity() {
         schedule_booking_back.setOnClickListener {
             onBackPressed()
         }
+
+        //Payment check out
+        Checkout.preload(applicationContext)
 
         //FROM LOCATION
         val autocompleteFragmentFrom =
@@ -129,15 +142,65 @@ class ScheduleBookingActivity : AppCompatActivity() {
     }
 
     fun setScheduleBookingList(bookingList: ArrayList<ScheduleReq>) {
-        toast(bookingList.size.toString())
+        //toast(bookingList.size.toString())
         bookingListSheet = BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme)
-        bookingListSheet.setContentView(R.layout.booking_list_sheet)
+        bookingListSheet.setContentView(R.layout.sheet_booking_list)
         bookingListSheet.show()
 
         val scheduleAdapter = ScheduleBookingAdapter(this)
         bookingListSheet.schedule_booking_list.adapter = scheduleAdapter
 
+        bookingListSheet.back_sheet_schedule.setOnClickListener {
+            bookingListSheet.dismiss()
+        }
+
         scheduleAdapter.updateData(bookingList)
+    }
+
+
+    fun startPayment(payableAmount: Double, bookingId: String) {
+        this.bookingId = bookingId;
+        this.amount = payableAmount.toString()
+        val checkout = Checkout()
+        checkout.setKeyID(App.paymentkeyId)
+
+        checkout.setImage(R.drawable.logo)
+
+        val activity: Activity = this
+
+        try {
+            val options = JSONObject()
+            options.put("name", App.getUserName(this))
+            options.put("description", "Reference No. #123456")
+            options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png")
+            //options.put("order_id", "order_DBJOWzybf0sJbb") //from response of step 3.
+            options.put("theme.color", "#3399cc")
+            options.put("currency", "INR")
+            options.put("amount", "${payableAmount * 100}") //500 * 100
+            options.put("prefill.email", App.getUserEmail(this))
+            options.put("prefill.contact", App.getUserPhone(this))
+            val retryObj = JSONObject()
+            retryObj.put("enabled", true)
+            retryObj.put("max_count", 4)
+            options.put("retry", retryObj)
+            checkout.open(activity, options)
+        } catch (e: Exception) {
+            Log.e("BookNowActivity_payment", "Error in starting Razorpay Checkout", e)
+        }
+    }
+
+    override fun onPaymentSuccess(p0: String?) {
+        toast("Payment successful $p0")
+        if (bookingId != "") {
+            Log.e("BOOKING_INFO_UP", "$bookingId $p0 $amount")
+            //VollyApi.updateScheduleBooking(this, bookingId, p0!!, amount)
+        } else {
+            toast("Error : Booking id not found")
+        }
+    }
+
+    override fun onPaymentError(p0: Int, p1: String?) {
+        toast("Something went wrong with payment : $p1")
     }
 
 

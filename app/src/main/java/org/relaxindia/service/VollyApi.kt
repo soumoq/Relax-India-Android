@@ -16,6 +16,7 @@ import org.relaxindia.util.toast
 import org.relaxindia.view.activity.BookNowActivity
 import org.relaxindia.view.activity.HomeActivity
 import org.relaxindia.view.activity.ScheduleBookingActivity
+import java.time.temporal.TemporalAmount
 
 object VollyApi {
     fun updateDeviceToken(context: Context, deviceToken: String) {
@@ -263,6 +264,57 @@ object VollyApi {
                     return header
                 }
 
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
+    }
+
+    fun updateScheduleBooking(
+        context: Context,
+        bookingId: String,
+        txId: String,
+        amount: String
+    ) {
+        context.toast("Please wait... Updating payment")
+        val URL = "${App.apiBaseUrl}${App.UPDATE_SCHEDULE_REQ}"
+        val requestQueue = Volley.newRequestQueue(context)
+
+        val stringRequest: StringRequest =
+            object : StringRequest(
+                Request.Method.PATCH, URL,
+                Response.Listener<String?> { response ->
+                    try {
+                        val jsonObj = JSONObject(response)
+                        val error = jsonObj.getBoolean("error")
+                        if (error) {
+                            context.toast("Something went wrong!!!")
+                        } else {
+                            context.toast("Booking successfully done!!!")
+                        }
+                    } catch (e: JSONException) {
+                        App.openDialog(context, "Error", e.message!!)
+                    }
+                },
+                Response.ErrorListener { error ->
+                    context.toast("Something went wrong: $error")
+                }) {
+
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): MutableMap<String, String> {
+                    val header: MutableMap<String, String> = HashMap()
+                    header["Authorization"] = App.getUserToken(context)
+                    return header
+                }
+
+                @Throws(AuthFailureError::class)
+                override fun getParams(): Map<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["booking_id"] = bookingId
+                    params["tx_id"] = txId
+                    params["payable_amount"] = amount
+
+                    return params
+                }
             }
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)
