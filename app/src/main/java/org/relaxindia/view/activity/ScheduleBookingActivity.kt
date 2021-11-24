@@ -17,11 +17,13 @@ import kotlinx.android.synthetic.main.activity_schedule_booking.*
 import kotlinx.android.synthetic.main.sheet_booking_list.*
 import org.json.JSONObject
 import org.relaxindia.R
+import org.relaxindia.SuccessScheduleReq
 import org.relaxindia.model.ScheduleReq
 import org.relaxindia.service.VollyApi
 import org.relaxindia.util.App
 import org.relaxindia.util.toast
 import org.relaxindia.view.recyclerView.ScheduleBookingAdapter
+import org.relaxindia.view.recyclerView.SuccessScheduleBookingAdapter
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
@@ -46,6 +48,12 @@ class ScheduleBookingActivity : AppCompatActivity(), PaymentResultListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule_booking)
+
+        bookingListSheet = BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme)
+        bookingListSheet.setContentView(R.layout.sheet_booking_list)
+        bookingListSheet.back_sheet_schedule.setOnClickListener {
+            bookingListSheet.dismiss()
+        }
 
         schedule_booking_back.setOnClickListener {
             onBackPressed()
@@ -127,6 +135,10 @@ class ScheduleBookingActivity : AppCompatActivity(), PaymentResultListener {
             VollyApi.getAllScheduleReq(this)
         }
 
+        get_schedule_req.setOnClickListener {
+            VollyApi.getScheduleBooking(this)
+        }
+
 
     }
 
@@ -143,18 +155,17 @@ class ScheduleBookingActivity : AppCompatActivity(), PaymentResultListener {
 
     fun setScheduleBookingList(bookingList: ArrayList<ScheduleReq>) {
         //toast(bookingList.size.toString())
-        bookingListSheet = BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme)
-        bookingListSheet.setContentView(R.layout.sheet_booking_list)
         bookingListSheet.show()
-
         val scheduleAdapter = ScheduleBookingAdapter(this)
         bookingListSheet.schedule_booking_list.adapter = scheduleAdapter
-
-        bookingListSheet.back_sheet_schedule.setOnClickListener {
-            bookingListSheet.dismiss()
-        }
-
         scheduleAdapter.updateData(bookingList)
+    }
+
+    fun setGetScheduleBookingList(successScheduleList: ArrayList<SuccessScheduleReq>) {
+        bookingListSheet.show()
+        val successScheduleAdapter = SuccessScheduleBookingAdapter(this)
+        bookingListSheet.schedule_booking_list.adapter = successScheduleAdapter
+        successScheduleAdapter.updateData(successScheduleList)
     }
 
 
@@ -190,10 +201,11 @@ class ScheduleBookingActivity : AppCompatActivity(), PaymentResultListener {
     }
 
     override fun onPaymentSuccess(p0: String?) {
-        toast("Payment successful $p0")
+        toast("Payment successful.")
         if (bookingId != "") {
             Log.e("BOOKING_INFO_UP", "$bookingId $p0 $amount")
-            //VollyApi.updateScheduleBooking(this, bookingId, p0!!, amount)
+            bookingListSheet.dismiss()
+            VollyApi.updateScheduleBooking(this, bookingId, p0!!, amount)
         } else {
             toast("Error : Booking id not found")
         }

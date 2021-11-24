@@ -58,11 +58,15 @@ class ScheduleBookingAdapter(context: Context) :
             view.schedule_booking_driver_pay.text =
                 "${booking.total_amount - booking.booking_amount}"
 
-            if (booking.status == "Pay") {
+            if (booking.status == "Awaiting") {
+                view.payment_layout.visibility = View.GONE
+                view.pay_now_button.visibility = View.GONE
+
+            } else if (booking.status == "Pay") {
                 view.payment_layout.visibility = View.VISIBLE
                 view.pay_now_button.visibility = View.VISIBLE
             } else {
-                view.payment_layout.visibility = View.GONE
+                view.payment_layout.visibility = View.VISIBLE
                 view.pay_now_button.visibility = View.GONE
             }
 

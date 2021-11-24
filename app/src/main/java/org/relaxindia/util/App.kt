@@ -48,6 +48,7 @@ object App {
     const val SCHEDULE_REQUEST = "schedule-request"
     const val ALL_SCHEDULE_REQ = "get-schedule-requests"
     const val UPDATE_SCHEDULE_REQ = "save-schedule-booking"
+    const val GET_SCHEDULE_BOOKING = "get-schedule-bookings"
 
 
 

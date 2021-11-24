@@ -9,6 +9,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONException
 import org.json.JSONObject
+import org.relaxindia.SuccessScheduleReq
 import org.relaxindia.model.ScheduleReq
 import org.relaxindia.service.location.GpsTracker
 import org.relaxindia.util.App
@@ -314,6 +315,70 @@ object VollyApi {
                     params["payable_amount"] = amount
 
                     return params
+                }
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
+    }
+
+    fun getScheduleBooking(context: Context) {
+        context.toast("Please wait...")
+        val URL = "${App.apiBaseUrl}${App.GET_SCHEDULE_BOOKING}"
+        val requestQueue = Volley.newRequestQueue(context)
+
+        val stringRequest: StringRequest =
+            object : StringRequest(
+                Request.Method.POST, URL,
+                Response.Listener<String?> { response ->
+                    try {
+                        val jsonObj = JSONObject(response)
+                        val error = jsonObj.getBoolean("error")
+                        if (error) {
+                            context.toast("Something went wrong!!!")
+                        } else {
+                            val jsonArr = jsonObj.getJSONArray("data")
+                            if (jsonArr.length() > 0) {
+                                val objList = ArrayList<SuccessScheduleReq>()
+                                for (i in 0 until jsonArr.length()) {
+                                    val obj = jsonArr.getJSONObject(i)
+                                    objList.add(
+                                        SuccessScheduleReq(
+                                            obj.getInt("driver_id"),
+                                            obj.getString("driver_name"),
+                                            obj.getString("driver_phone"),
+                                            obj.getString("driver_image"),
+                                            obj.getString("driver_secondary_phone"),
+                                            obj.getDouble("driver_avg_rating"),
+                                            obj.getString("from_location"),
+                                            obj.getString("to_location"),
+                                            obj.getString("schedule_date_time"),
+                                            obj.getString("user_comment"),
+                                            obj.getDouble("booking_amount"),
+                                            obj.getDouble("total_amount"),
+                                            obj.getString("status"),
+                                            obj.getString("date"),
+                                        )
+
+                                    )
+                                }
+                                (context as ScheduleBookingActivity).setGetScheduleBookingList(objList)
+                            } else {
+                                context.toast("Schedule Booking is not Requested Yet...")
+                            }
+                        }
+                    } catch (e: JSONException) {
+                        App.openDialog(context, "Error", e.message!!)
+                    }
+                },
+                Response.ErrorListener { error ->
+                    context.toast("Something went wrong: $error")
+                }) {
+
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): MutableMap<String, String> {
+                    val header: MutableMap<String, String> = HashMap()
+                    header["Authorization"] = App.getUserToken(context)
+                    return header
                 }
             }
         requestQueue.cache.clear()
