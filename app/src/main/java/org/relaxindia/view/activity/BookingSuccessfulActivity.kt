@@ -57,7 +57,7 @@ class BookingSuccessfulActivity : AppCompatActivity() {
         cT.start()
 
         cancel_booking.setOnClickListener {
-            VollyApi.cancelBooking(this,bookingId)
+            VollyApi.cancelBooking(this, bookingId)
         }
 
         go_to_home.setOnClickListener {
@@ -66,6 +66,12 @@ class BookingSuccessfulActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+    }
+
+    fun gotoHomeActivity() {
+        val intent = Intent(this, HomeActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
 

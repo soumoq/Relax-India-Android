@@ -15,9 +15,9 @@ import org.relaxindia.service.location.GpsTracker
 import org.relaxindia.util.App
 import org.relaxindia.util.toast
 import org.relaxindia.view.activity.BookNowActivity
+import org.relaxindia.view.activity.BookingSuccessfulActivity
 import org.relaxindia.view.activity.HomeActivity
 import org.relaxindia.view.activity.ScheduleBookingActivity
-import java.time.temporal.TemporalAmount
 
 object VollyApi {
     fun updateDeviceToken(context: Context, deviceToken: String) {
@@ -64,7 +64,7 @@ object VollyApi {
 
     fun findAmbulance(context: Context, range: String) {
         val gpsTracker = GpsTracker(context)
-        context.toast("Please wait... Searching Ambulance ${App.ambulanceSearchRedis}")
+        context.toast("Please wait... Searching Ambulance")
         val URL = "${App.apiBaseUrl}${App.FIND_AMBULANCE}"
         val requestQueue = Volley.newRequestQueue(context)
 
@@ -126,9 +126,8 @@ object VollyApi {
                         val jsonObj = JSONObject(response)
                         val error = jsonObj.getBoolean("error")
                         if (!error) {
-                            val driverArr = jsonObj.getJSONArray("data")
-                            //context.toast("Device token update successful")
-                            (context as BookNowActivity).driverFindStatus(driverArr.length())
+                            context.toast("Ambulance cancel successful.")
+                            (context as BookingSuccessfulActivity).gotoHomeActivity()
 
                         }
                     } catch (e: JSONException) {
