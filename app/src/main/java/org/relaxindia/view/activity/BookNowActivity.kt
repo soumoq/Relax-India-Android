@@ -218,7 +218,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         bookingDetails.put("service", arr)
         bookingDetails.put("user_latitude", gpsThread.latitude.toString())
         bookingDetails.put("user_longitude", gpsThread.longitude.toString())
-        bookingDetails.put("radius", sheetDialog.range.selectedItem.toString())
+        bookingDetails.put("radius", App.ambulanceSearchRedis)
         bookingDetails.put("from_latitude", sourceLat)
         bookingDetails.put("from_longitude", sourceLon)
         bookingDetails.put("to_latitude", desLat)
@@ -238,30 +238,11 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         sheetDialog.setContentView(R.layout.sheet_book_driver)
         sheetDialog.show()
 
-        val rangeList = ArrayList<String>()
-        rangeList.add("2")
-        rangeList.add("4")
-        rangeList.add("6")
-        rangeList.add("8")
-        rangeList.add("10")
+        VollyApi.findAmbulance(
+            this@BookNowActivity,
+            App.ambulanceSearchRedis
+        )
 
-        val rangeListAdapter: ArrayAdapter<String> =
-            ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, rangeList)
-        sheetDialog.range.adapter = rangeListAdapter
-
-        sheetDialog.range.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                VollyApi.findAmbulance(
-                    this@BookNowActivity,
-                    sheetDialog.range.selectedItem.toString()
-                )
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-
-            }
-
-        }
     }
 
     fun driverFindStatus(driverCount: Int) {

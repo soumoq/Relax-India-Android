@@ -64,7 +64,7 @@ object VollyApi {
 
     fun findAmbulance(context: Context, range: String) {
         val gpsTracker = GpsTracker(context)
-        context.toast("Please wait...")
+        context.toast("Please wait... Searching Ambulance ${App.ambulanceSearchRedis}")
         val URL = "${App.apiBaseUrl}${App.FIND_AMBULANCE}"
         val requestQueue = Volley.newRequestQueue(context)
 
@@ -80,6 +80,8 @@ object VollyApi {
                             //context.toast("Device token update successful")
                             (context as BookNowActivity).driverFindStatus(driverArr.length())
 
+                        } else {
+                            App.ambulanceSearchRedis = "10"
                         }
                     } catch (e: JSONException) {
                         App.openDialog(context, "Error", e.message!!)
@@ -361,7 +363,9 @@ object VollyApi {
 
                                     )
                                 }
-                                (context as ScheduleBookingActivity).setGetScheduleBookingList(objList)
+                                (context as ScheduleBookingActivity).setGetScheduleBookingList(
+                                    objList
+                                )
                             } else {
                                 context.toast("Schedule Booking is not Requested Yet...")
                             }

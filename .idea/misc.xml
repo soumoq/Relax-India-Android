@@ -38,6 +38,7 @@
         <entry key="app/src/main/res/layout/recycler_service.xml" value="0.2" />
         <entry key="app/src/main/res/layout/schedule_booking_list.xml" value="0.1644021739130435" />
         <entry key="app/src/main/res/layout/sheet_book_driver.xml" value="0.14719202898550723" />
+        <entry key="app/src/main/res/layout/sheet_booking_list.xml" value="0.15353260869565216" />
         <entry key="app/src/main/res/layout/sheet_home_dashboard.xml" value="0.22" />
         <entry key="app/src/main/res/layout/success_schedule_booking_list.xml" value="0.1644021739130435" />
         <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.33" />

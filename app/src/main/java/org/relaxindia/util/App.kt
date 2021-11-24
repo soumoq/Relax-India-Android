@@ -21,6 +21,8 @@ import org.relaxindia.model.NotificationDataModel
 
 object App {
 
+    var ambulanceSearchRedis : String = "5"
+
     const val rs = "₹"
     const val locationAlert =
         "We'll only use your location to show available delivery option. You can change this preference in settings at any time"
