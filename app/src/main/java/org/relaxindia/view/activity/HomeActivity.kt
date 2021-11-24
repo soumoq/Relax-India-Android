@@ -4,6 +4,7 @@ package org.relaxindia.view.activity
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
@@ -41,10 +42,14 @@ import org.relaxindia.util.App
 import org.relaxindia.view.recyclerView.ServiceAdapter
 import org.relaxindia.viewModel.ApiCallViewModel
 import android.location.Geocoder
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.messaging.FirebaseMessaging
 import org.relaxindia.service.VollyApi
 import java.util.*
 import kotlin.collections.ArrayList
+import android.widget.LinearLayout
+import android.widget.EditText
+import org.relaxindia.util.toast
 
 
 class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -203,6 +208,9 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                     val intent = Intent(this, ScheduleBookingActivity::class.java)
                     startActivity(intent)
                 }
+                R.id.menu_support -> {
+                    getSupportDialog()
+                }
             }
             true
         }
@@ -262,6 +270,40 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         serviceInfo[position].select = true
         apiCallViewModel.getService.value!!.data = serviceInfo
         serviceAdapter.notifyDataSetChanged()
+    }
+
+    private fun getSupportDialog() {
+        val layout = LinearLayout(this)
+        layout.orientation = LinearLayout.VERTICAL;
+
+        val topic = EditText(this)
+        topic.hint = "Topic"
+        layout.addView(topic)
+
+        val descriptionBox = EditText(this)
+        descriptionBox.hint = "Description"
+        layout.addView(descriptionBox)
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Support")
+
+        // add a button
+        builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+            if (topic.text.isNotEmpty() && descriptionBox.text.isNotEmpty()) {
+                VollyApi.raiseToken(this, topic.text.toString(), descriptionBox.text.toString())
+            } else {
+                toast("Please enter valid input!!!")
+            }
+        })
+
+        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
+
+        })
+
+        val dialog = builder.create()
+        dialog.setView(layout)
+        dialog.setCancelable(false)
+        dialog.show()
     }
 
 

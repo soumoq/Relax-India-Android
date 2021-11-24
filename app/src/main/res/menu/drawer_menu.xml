@@ -30,6 +30,7 @@
             android:title="Share App" />
 
         <item
+            android:id="@+id/menu_support"
             android:title="Support" />
 
 
