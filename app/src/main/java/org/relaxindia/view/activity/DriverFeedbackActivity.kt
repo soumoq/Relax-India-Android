@@ -3,6 +3,7 @@ package org.relaxindia.view.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import kotlinx.android.synthetic.main.activity_driver_feedback.*
 import org.relaxindia.R
 import org.relaxindia.service.VollyApi
@@ -23,6 +24,7 @@ class DriverFeedbackActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_driver_feedback)
 
+
         bookingId = intent.getStringExtra("booking_id").toString()
         driverName = intent.getStringExtra("driver_name").toString()
         driverId = intent.getStringExtra("driver_id").toString()
@@ -30,17 +32,20 @@ class DriverFeedbackActivity : AppCompatActivity() {
         toLocation = intent.getStringExtra("to_location").toString()
         driverImage = intent.getStringExtra("driver_image").toString()
 
+        VollyApi.getRating(this, bookingId)
+
+
+        //toast(bookingId)
+
         driver_name_feedback.text = driverName
         from_location_feedback.text = fromLocation
         to_location_feedback.text = toLocation
         profile_image_feedback.loadImage(driverImage)
 
-
-
         feedback_submit.button.setOnClickListener {
             //toast("${feedback_rating.rating.toInt()}" + " " + bookingId)
             if (feedback_rating.rating.toInt() != 0) {
-                VollyApi.giveReating(
+                VollyApi.giveRating(
                     this,
                     bookingId,
                     feedback_rating.rating.toString(),
@@ -50,6 +55,24 @@ class DriverFeedbackActivity : AppCompatActivity() {
                 toast("Invalid input!!!")
             }
 
+        }
+
+    }
+
+    fun getRating(rating: Double, review: String) {
+        if (rating.toInt() != 0) {
+            feedback_rating.rating = rating.toFloat()
+            if (review == "null") {
+            } else {
+                feedback_review.setText(review)
+            }
+
+            feedback_submit.visibility = View.GONE
+            feedback_review.isFocusable = false
+            feedback_rating.isEnabled = false
+
+        } else {
+            //toast("NOT   ALready $rating")
         }
 
     }

@@ -488,7 +488,7 @@ object VollyApi {
     }
 
 
-    fun giveReating(context: Context, bookingId: String, rating: String, review: String) {
+    fun giveRating(context: Context, bookingId: String, rating: String, review: String) {
         context.toast("Please wait...")
         val URL = "${App.apiBaseUrl}${App.RATE_DRIVER}"
         val requestQueue = Volley.newRequestQueue(context)
@@ -535,5 +535,51 @@ object VollyApi {
         requestQueue.add(stringRequest)
     }
 
+    fun getRating(context: Context, bookingId: String) {
+        //context.toast("Please wait...")
+        val URL = "${App.apiBaseUrl}${App.GET_REATING}"
+        val requestQueue = Volley.newRequestQueue(context)
+
+        val stringRequest: StringRequest =
+            object : StringRequest(
+                Request.Method.POST, URL,
+                Response.Listener<String?> { response ->
+                    try {
+                        val jsonObj = JSONObject(response)
+                        val error = jsonObj.getBoolean("error")
+                        if (error) {
+                            context.toast("Something went wrong!!!")
+                        } else {
+                            val obj = jsonObj.getJSONObject("data")
+                            (context as DriverFeedbackActivity).getRating(
+                                obj.getDouble("rating"),
+                                obj.getString("review")
+                            )
+                        }
+                    } catch (e: JSONException) {
+                        App.openDialog(context, "Error", e.message!!)
+                    }
+                },
+                Response.ErrorListener { error ->
+                    context.toast("Something went wrong: $error")
+                }) {
+
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): MutableMap<String, String> {
+                    val header: MutableMap<String, String> = HashMap()
+                    header["Authorization"] = App.getUserToken(context)
+                    return header
+                }
+
+                @Throws(AuthFailureError::class)
+                override fun getParams(): Map<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["booking_id"] = bookingId
+                    return params
+                }
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
+    }
 
 }
