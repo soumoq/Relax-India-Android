@@ -16,6 +16,7 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 data class BookingListData(
 
+    @SerializedName("booking_id") val booking_id: Int,
     @SerializedName("driver_name") val driver_name: String,
     @SerializedName("driver_phone") val driver_phone: String,
     @SerializedName("driver_secondary_phone") val driver_secondary_phone: String,

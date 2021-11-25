@@ -77,6 +77,12 @@ class MyOrderListAdapter(context: Context) : RecyclerView.Adapter<MyOrderListAda
 
             view.driver_info.setOnClickListener {
                 val intent = Intent(view.context, DriverFeedbackActivity::class.java)
+                intent.putExtra("booking_id", booking.booking_id.toString())
+                intent.putExtra("driver_name", booking.driver_name)
+                intent.putExtra("driver_id", booking.driver_id.toString())
+                intent.putExtra("from_location", booking.from_location)
+                intent.putExtra("to_location", booking.to_location)
+                intent.putExtra("driver_image", booking.driver_image)
                 view.context.startActivity(intent)
             }
 

@@ -53,6 +53,7 @@ object App {
     const val GET_SCHEDULE_BOOKING = "get-schedule-bookings"
     const val RAISE_TOKEN = "raise-ticket"
     const val GET_TICKETS = "get-tickets"
+    const val RATE_DRIVER = "rate-driver"
 
 
     //Share preference key

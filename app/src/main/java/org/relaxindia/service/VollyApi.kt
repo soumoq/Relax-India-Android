@@ -15,10 +15,7 @@ import org.relaxindia.model.SupportList
 import org.relaxindia.service.location.GpsTracker
 import org.relaxindia.util.App
 import org.relaxindia.util.toast
-import org.relaxindia.view.activity.BookNowActivity
-import org.relaxindia.view.activity.BookingSuccessfulActivity
-import org.relaxindia.view.activity.HomeActivity
-import org.relaxindia.view.activity.ScheduleBookingActivity
+import org.relaxindia.view.activity.*
 
 object VollyApi {
     fun updateDeviceToken(context: Context, deviceToken: String) {
@@ -484,6 +481,54 @@ object VollyApi {
                     val header: MutableMap<String, String> = HashMap()
                     header["Authorization"] = App.getUserToken(context)
                     return header
+                }
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
+    }
+
+
+    fun giveReating(context: Context, bookingId: String, rating: String, review: String) {
+        context.toast("Please wait...")
+        val URL = "${App.apiBaseUrl}${App.RATE_DRIVER}"
+        val requestQueue = Volley.newRequestQueue(context)
+
+        val stringRequest: StringRequest =
+            object : StringRequest(
+                Request.Method.POST, URL,
+                Response.Listener<String?> { response ->
+                    try {
+                        val jsonObj = JSONObject(response)
+                        val error = jsonObj.getBoolean("error")
+                        if (error) {
+                            context.toast("Something went wrong!!!")
+                        } else {
+                            context.toast("Thank you for your review.")
+                            (context as DriverFeedbackActivity).sendThanksActivity()
+                        }
+                    } catch (e: JSONException) {
+                        App.openDialog(context, "Error", e.message!!)
+                    }
+                },
+                Response.ErrorListener { error ->
+                    context.toast("Something went wrong: $error")
+                }) {
+
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): MutableMap<String, String> {
+                    val header: MutableMap<String, String> = HashMap()
+                    header["Authorization"] = App.getUserToken(context)
+                    return header
+                }
+
+                @Throws(AuthFailureError::class)
+                override fun getParams(): Map<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["booking_id"] = bookingId
+                    params["rating"] = rating
+                    params["review"] = review
+
+                    return params
                 }
             }
         requestQueue.cache.clear()
