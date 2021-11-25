@@ -15,8 +15,8 @@
 
         <item
             android:id="@+id/menu_wallet"
-            android:visible="false"
-            android:title="Wallet" />
+            android:title="Wallet"
+            android:visible="false" />
 
         <item
             android:id="@+id/menu_profile"
@@ -26,12 +26,15 @@
             android:id="@+id/menu_schedule_booking"
             android:title="Schedule Booking" />
 
-        <item
-            android:title="Share App" />
+        <item android:title="Share App" />
 
         <item
             android:id="@+id/menu_support"
             android:title="Support" />
+
+        <item
+            android:id="@+id/menu_support_list"
+            android:title="Support List" />
 
 
     </group>

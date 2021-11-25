@@ -11,6 +11,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import org.relaxindia.SuccessScheduleReq
 import org.relaxindia.model.ScheduleReq
+import org.relaxindia.model.SupportList
 import org.relaxindia.service.location.GpsTracker
 import org.relaxindia.util.App
 import org.relaxindia.util.toast
@@ -435,5 +436,59 @@ object VollyApi {
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)
     }
+
+    fun getSupportList(context: Context) {
+        context.toast("Please wait...")
+        val URL = "${App.apiBaseUrl}${App.GET_TICKETS}"
+        val requestQueue = Volley.newRequestQueue(context)
+
+        val stringRequest: StringRequest =
+            object : StringRequest(
+                Request.Method.POST, URL,
+                Response.Listener<String?> { response ->
+                    try {
+                        val jsonObj = JSONObject(response)
+                        val error = jsonObj.getBoolean("error")
+                        if (error) {
+                            context.toast("Something went wrong!!!")
+                        } else {
+                            val jsonArr = jsonObj.getJSONArray("data")
+                            if (jsonArr.length() > 0) {
+                                val objList = ArrayList<SupportList>()
+                                for (i in 0 until jsonArr.length()) {
+                                    val obj = jsonArr.getJSONObject(i)
+                                    objList.add(
+                                        SupportList(
+                                            obj.getString("ticket_id"),
+                                            obj.getString("topic"),
+                                            obj.getString("description"),
+                                            obj.getString("status"),
+                                        )
+                                    )
+                                }
+                                (context as HomeActivity).getSupportList(objList)
+                            } else {
+                                context.toast("Not List Found Yet...")
+                            }
+                        }
+                    } catch (e: JSONException) {
+                        App.openDialog(context, "Error", e.message!!)
+                    }
+                },
+                Response.ErrorListener { error ->
+                    context.toast("Something went wrong: $error")
+                }) {
+
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): MutableMap<String, String> {
+                    val header: MutableMap<String, String> = HashMap()
+                    header["Authorization"] = App.getUserToken(context)
+                    return header
+                }
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
+    }
+
 
 }

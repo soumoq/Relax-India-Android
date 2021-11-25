@@ -49,7 +49,11 @@ import java.util.*
 import kotlin.collections.ArrayList
 import android.widget.LinearLayout
 import android.widget.EditText
+import kotlinx.android.synthetic.main.sheet_booking_list.*
+import org.relaxindia.model.SupportList
 import org.relaxindia.util.toast
+import org.relaxindia.view.recyclerView.ScheduleBookingAdapter
+import org.relaxindia.view.recyclerView.SupportListAdapter
 
 
 class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -211,6 +215,9 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                 R.id.menu_support -> {
                     getSupportDialog()
                 }
+                R.id.menu_support_list -> {
+                    VollyApi.getSupportList(this)
+                }
             }
             true
         }
@@ -304,6 +311,23 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         dialog.setView(layout)
         dialog.setCancelable(false)
         dialog.show()
+    }
+
+    fun getSupportList(objList: ArrayList<SupportList>) {
+        val bookingListSheet = BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme)
+        bookingListSheet.setContentView(R.layout.sheet_booking_list)
+        bookingListSheet.title_sheet.text = "Support List"
+        bookingListSheet.show()
+
+        bookingListSheet.back_sheet_schedule.setOnClickListener {
+            bookingListSheet.dismiss()
+        }
+
+        val supportListAdapter = SupportListAdapter(this)
+        bookingListSheet.schedule_booking_list.adapter = supportListAdapter
+        supportListAdapter.updateData(objList)
+
+
     }
 
 

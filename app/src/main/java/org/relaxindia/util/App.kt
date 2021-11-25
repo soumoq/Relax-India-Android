@@ -21,7 +21,7 @@ import org.relaxindia.model.NotificationDataModel
 
 object App {
 
-    var ambulanceSearchRedis : String = "5"
+    var ambulanceSearchRedis: String = "5"
 
     const val rs = "₹"
     const val locationAlert =
@@ -52,8 +52,7 @@ object App {
     const val UPDATE_SCHEDULE_REQ = "save-schedule-booking"
     const val GET_SCHEDULE_BOOKING = "get-schedule-bookings"
     const val RAISE_TOKEN = "raise-ticket"
-
-
+    const val GET_TICKETS = "get-tickets"
 
 
     //Share preference key
@@ -122,7 +121,7 @@ object App {
 
     fun getUserToken(context: Context): String {
         val sp = context.getSharedPreferences("user_info", AppCompatActivity.MODE_PRIVATE)
-        Log.e("BARRER_TOKEN","Bearer ${(sp.getString(App.preferenceUserToken, "").toString())}")
+        Log.e("BARRER_TOKEN", "Bearer ${(sp.getString(App.preferenceUserToken, "").toString())}")
         return "Bearer ${(sp.getString(App.preferenceUserToken, "").toString())}"
     }
 
