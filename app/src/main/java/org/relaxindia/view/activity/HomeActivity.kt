@@ -213,7 +213,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                     startActivity(intent)
                 }
                 R.id.menu_support -> {
-                    getSupportDialog()
+                    startActivity(Intent(this, SupportActivity::class.java));
                 }
                 R.id.menu_support_list -> {
                     VollyApi.getSupportList(this)
@@ -277,40 +277,6 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         serviceInfo[position].select = true
         apiCallViewModel.getService.value!!.data = serviceInfo
         serviceAdapter.notifyDataSetChanged()
-    }
-
-    private fun getSupportDialog() {
-        val layout = LinearLayout(this)
-        layout.orientation = LinearLayout.VERTICAL;
-
-        val topic = EditText(this)
-        topic.hint = "Topic"
-        layout.addView(topic)
-
-        val descriptionBox = EditText(this)
-        descriptionBox.hint = "Description"
-        layout.addView(descriptionBox)
-
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Support")
-
-        // add a button
-        builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
-            if (topic.text.isNotEmpty() && descriptionBox.text.isNotEmpty()) {
-                VollyApi.raiseToken(this, topic.text.toString(), descriptionBox.text.toString())
-            } else {
-                toast("Please enter valid input!!!")
-            }
-        })
-
-        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
-
-        })
-
-        val dialog = builder.create()
-        dialog.setView(layout)
-        dialog.setCancelable(false)
-        dialog.show()
     }
 
     fun getSupportList(objList: ArrayList<SupportList>) {

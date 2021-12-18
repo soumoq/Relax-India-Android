@@ -18,6 +18,9 @@
         android:theme="@style/Theme.RelaxIndia"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.activity.SupportActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.ScheduleBookingActivity"
             android:exported="true" />
         <activity

@@ -406,6 +406,7 @@ object VollyApi {
                             context.toast("Something went wrong!!!")
                         } else {
                             context.toast("Token generate successful")
+                            (context as SupportActivity).reloadActivity()
                         }
                     } catch (e: JSONException) {
                         App.openDialog(context, "Error", e.message!!)
