@@ -27,150 +27,156 @@
             android:elevation="2dp"
             app:cardCornerRadius="5dp">
 
-            <LinearLayout
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/profile_image_feedback"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="15dp"
-                    android:src="@drawable/ic_baseline_account_black_circle_24" />
-
-                <TextView
-                    android:id="@+id/driver_name_feedback"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="15dp"
-                    android:text="Satya Roy"
-                    android:textColor="@color/black" />
-
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="15dp"
-                    android:background="@drawable/location_box">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/profile_image_feedback"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/ic_baseline_account_black_circle_24" />
+
+                    <TextView
+                        android:id="@+id/driver_name_feedback"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="15dp"
+                        android:text="Satya Roy"
+                        android:textColor="@color/black" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/location_box">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true">
+
+                            <TextView
+                                android:id="@+id/from_location_feedback"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="6dp"
+                                android:singleLine="true"
+                                android:text="Sadhu Mukherjee R.."
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="6dp"
+                                android:layout_marginRight="6dp"
+                                android:src="@drawable/ic_outline_arrow_right_alt_24" />
+
+                            <TextView
+                                android:id="@+id/to_location_feedback"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:singleLine="true"
+                                android:text="B.N Bose Hospital"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="15dp"
+                        android:text="Share your experience"
+                        android:textColor="@color/black"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="25dp"
+                        android:gravity="center"
+                        android:text="It will help us to serve you better in future" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true">
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp">
 
-                        <TextView
-                            android:id="@+id/from_location_feedback"
-                            android:layout_width="120dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="6dp"
-                            android:singleLine="true"
-                            android:text="Sadhu Mukherjee R.."
-                            android:textColor="@color/black"
-                            android:textSize="12sp" />
-
-                        <ImageView
+                        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                            android:id="@+id/feedback_rating"
+                            style="@style/Widget.MaterialRatingBar.RatingBar"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="6dp"
-                            android:layout_marginRight="6dp"
-                            android:src="@drawable/ic_outline_arrow_right_alt_24" />
-
-                        <TextView
-                            android:id="@+id/to_location_feedback"
-                            android:layout_width="120dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:singleLine="true"
-                            android:text="B.N Bose Hospital"
-                            android:textColor="@color/black"
-                            android:textSize="12sp" />
+                            android:layout_height="50dp"
+                            app:mrb_progressTint="@color/yellow" />
 
                     </LinearLayout>
 
+                    <EditText
+                        android:id="@+id/feedback_review"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/text_box"
+                        android:gravity="top"
+                        android:hint="Tell us about your experience"
+                        android:inputType="text|textMultiLine"
+                        android:padding="10dp"
+                        android:textSize="14sp" />
 
-                </RelativeLayout>
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="15dp"
-                    android:text="Share your experience"
-                    android:textColor="@color/black"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="25dp"
-                    android:gravity="center"
-                    android:text="It will help us to serve you better in future" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp">
-
-                    <me.zhanghai.android.materialratingbar.MaterialRatingBar
-                        android:id="@+id/feedback_rating"
-                        style="@style/Widget.MaterialRatingBar.RatingBar"
-                        android:layout_width="wrap_content"
+                    <com.dagang.library.GradientButton
+                        android:id="@+id/feedback_submit"
+                        android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        app:mrb_progressTint="@color/yellow" />
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_marginBottom="20dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:button_end_color="@color/app_color"
+                        app:button_is_shadowed="true"
+                        app:button_press_end_color="@color/app_color"
+                        app:button_radius="5dp"
+                        app:button_shadow_angle="90"
+                        app:button_shadow_color="@color/app_color"
+                        app:button_start_color="@color/app_color"
+                        app:button_text="SUBMIT"
+                        app:button_text_color="@color/white" />
 
                 </LinearLayout>
 
-                <EditText
-                    android:id="@+id/feedback_review"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="15dp"
-                    android:background="@drawable/text_box"
-                    android:gravity="top"
-                    android:hint="Tell us about your experience"
-                    android:inputType="text|textMultiLine"
-                    android:padding="10dp"
-                    android:textSize="14sp" />
-
-                <com.dagang.library.GradientButton
-                    android:id="@+id/feedback_submit"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginBottom="20dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:button_end_color="@color/app_color"
-                    app:button_is_shadowed="true"
-                    app:button_press_end_color="@color/app_color"
-                    app:button_radius="5dp"
-                    app:button_shadow_angle="90"
-                    app:button_shadow_color="@color/app_color"
-                    app:button_start_color="@color/app_color"
-                    app:button_text="SUBMIT"
-                    app:button_text_color="@color/white" />
-
-            </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
 
 
         </androidx.cardview.widget.CardView>

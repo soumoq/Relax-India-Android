@@ -260,7 +260,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
 
     override fun onPaymentError(p0: Int, p1: String?) {
         Log.e("PAYMRNT_INFO", p1.toString())
-        App.openDialog(this, "Error", "Something went wrong with payment \n $p1")
+        App.openDialog(this, "Payment Error", "Payment is not successful.")
     }
 
     override fun startActivity(intent: Intent?) {
