@@ -1,5 +1,6 @@
 package org.relaxindia.view.activity
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +14,7 @@ import org.relaxindia.util.App
 import org.relaxindia.viewModel.ApiCallViewModel
 import android.os.CountDownTimer
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_bookig_successful.*
 import org.relaxindia.service.VollyApi
 
@@ -43,7 +45,7 @@ class BookingSuccessfulActivity : AppCompatActivity() {
         observeViewModel()
 
 
-        val cT: CountDownTimer = object : CountDownTimer(100000, 1000) {
+        val cT: CountDownTimer = object : CountDownTimer(60000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val v = String.format("%02d", millisUntilFinished / 60000)
                 val va = (millisUntilFinished % 120000 / 1000).toInt()
@@ -57,7 +59,22 @@ class BookingSuccessfulActivity : AppCompatActivity() {
         cT.start()
 
         cancel_booking.setOnClickListener {
-            VollyApi.cancelBooking(this, bookingId)
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Alert")
+            builder.setMessage("Are you sure you want to cancel this booking?")
+
+            // add a button
+            builder.setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, which ->
+                VollyApi.cancelBooking(this, bookingId)
+            })
+
+            builder.setNegativeButton("No", DialogInterface.OnClickListener { dialogInterface, i ->
+
+            })
+
+            val dialog = builder.create()
+            dialog.setCanceledOnTouchOutside(false)
+            dialog.show()
         }
 
         go_to_home.setOnClickListener {

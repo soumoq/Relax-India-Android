@@ -1,5 +1,7 @@
 package org.relaxindia.view.activity
 
+//Key tool commend - keytool -list -v -keystore "C:\Users\SG093895\.android\debug.keystore" -alias androiddebugkey -storepass android -keypass android
+
 import android.Manifest
 import android.content.Context
 import android.content.Intent
