@@ -2,13 +2,16 @@ package org.relaxindia.view.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +25,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.Projection;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -91,8 +95,10 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         Log.d("mylog", "Added Markers");
-        mMap.addMarker(place1);
-        mMap.addMarker(place2);
+        mMap.addMarker(place1).
+                setIcon(bitmapDescriptorFromVector(R.drawable.ic_baseline_home_24));
+        mMap.addMarker(place2).
+                setIcon(bitmapDescriptorFromVector(R.drawable.ic_baseline_local_hospital_24));
 
         //Add driver
         mDatabase.child("driver_data").child(driverId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -106,13 +112,19 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
                         JSONObject driverObj = new JSONObject(String.valueOf(task.getResult().getValue()));
 
                         mMap.addMarker(new MarkerOptions()
-                                .position(new LatLng(Double.parseDouble(driverObj.getString("lat")), Double.parseDouble(driverObj.getString("lon"))))
+                                .position(new LatLng(driverObj.getDouble("lat"), driverObj.getDouble("lon")))
                                 .title("This is my title")
                                 .snippet("and snippet")
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)))
+                                .setIcon(bitmapDescriptorFromVector(R.drawable.ic_baseline_directions_car_24));
 
                         //driverPlace = new MarkerOptions().position(new LatLng(Double.parseDouble(driverObj.getString("lat")), Double.parseDouble(driverObj.getString("lon")))).title("Location 1");
                         //mMap.addMarker(driverPlace);
+
+                        Polyline polyline1 = googleMap.addPolyline(new PolylineOptions()
+                                .clickable(true)
+                                .add(new LatLng(fromLatitude, fromLongitude),
+                                        new LatLng(driverObj.getDouble("lat"), driverObj.getDouble("lon"))));
 
                     } catch (JSONException e) {
                         Toast.makeText(TrackActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -131,17 +143,21 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
                 .tilt(45)
                 .build();
 
-        Polyline polyline1 = googleMap.addPolyline(new PolylineOptions()
-                .clickable(true)
-                .add(
-                        new LatLng(fromLatitude, fromLongitude),
-                        new LatLng(toLatitude, toLongitude)));
 
         // Position the map's camera near Alice Springs in the center of Australia,
         // and set the zoom factor so most of Australia shows on the screen.
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(fromLatitude, fromLongitude), 4));
 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 5000, null);
+    }
+
+    private BitmapDescriptor bitmapDescriptorFromVector( int vectorResId) {
+        Drawable vectorDrawable = ContextCompat.getDrawable(this, vectorResId);
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
 

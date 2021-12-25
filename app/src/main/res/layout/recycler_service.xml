@@ -45,6 +45,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:visibility="gone"
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:text="ETA: 15 mins"
