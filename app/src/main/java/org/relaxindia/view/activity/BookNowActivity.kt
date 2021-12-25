@@ -90,7 +90,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         endPoint.latitude = "${intent.getStringExtra("desLat")}".toDouble()
         endPoint.longitude = "${intent.getStringExtra("desLon")}".toDouble()
         val distance = startPoint.distanceTo(endPoint) / 1000
-        book_now_destance.text = "$distance K.M."
+        book_now_destance.text = "${String.format("%.2f", distance)} K.M."
 
         sourceLoc = intent.getStringExtra("source_loc")!!
         desLoc = intent.getStringExtra("des_loc")!!

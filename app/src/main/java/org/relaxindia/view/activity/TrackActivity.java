@@ -12,11 +12,13 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -49,10 +51,7 @@ import org.relaxindia.util.App;
 
 public class TrackActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
     private MarkerOptions place1, place2, driverPlace;
-    Button getDirection;
-    private Polyline currentPolyline;
 
     //Intent Val
     private Double fromLatitude = 0.0;
@@ -64,10 +63,16 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
     //Firebase
     private DatabaseReference mDatabase;
 
+    //view
+    private GoogleMap mMap;
+    private TextView etaTIme;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track);
+
+        etaTIme = findViewById(R.id.eta_time);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -95,8 +100,7 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         Log.d("mylog", "Added Markers");
-        mMap.addMarker(place1).
-                setIcon(bitmapDescriptorFromVector(R.drawable.ic_baseline_home_24));
+        mMap.addMarker(place1);
         mMap.addMarker(place2).
                 setIcon(bitmapDescriptorFromVector(R.drawable.ic_baseline_local_hospital_24));
 
@@ -116,15 +120,31 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
                                 .title("This is my title")
                                 .snippet("and snippet")
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)))
-                                .setIcon(bitmapDescriptorFromVector(R.drawable.ic_baseline_directions_car_24));
+                                .setIcon(bitmapDescriptorFromVector(R.drawable.amb_vec));
 
-                        //driverPlace = new MarkerOptions().position(new LatLng(Double.parseDouble(driverObj.getString("lat")), Double.parseDouble(driverObj.getString("lon")))).title("Location 1");
-                        //mMap.addMarker(driverPlace);
 
                         Polyline polyline1 = googleMap.addPolyline(new PolylineOptions()
                                 .clickable(true)
                                 .add(new LatLng(fromLatitude, fromLongitude),
-                                        new LatLng(driverObj.getDouble("lat"), driverObj.getDouble("lon"))));
+                                        new LatLng(driverObj.getDouble("lat"), driverObj.getDouble("lon")))
+                                .width(20)
+                                .color(getResources().getColor(R.color.app_color)));
+
+                        Location location1 = new Location("");
+                        location1.setLatitude(fromLatitude);
+                        location1.setLongitude(fromLongitude);
+
+                        Location location2 = new Location("");
+                        location2.setLatitude(driverObj.getDouble("lat"));
+                        location2.setLongitude(driverObj.getDouble("lon"));
+
+                        float distanceInMeters = location1.distanceTo(location2);
+
+                        //For example spead is 10 meters per minute.
+                        int speedIs10MetersPerMinute = 583;
+                        float estimatedDriveTimeInMinutes = distanceInMeters / speedIs10MetersPerMinute;
+                        String time = String.format("%.2f", estimatedDriveTimeInMinutes);
+                        etaTIme.setText("Estimated time: " + time + " Minutes");
 
                     } catch (JSONException e) {
                         Toast.makeText(TrackActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -151,7 +171,7 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 5000, null);
     }
 
-    private BitmapDescriptor bitmapDescriptorFromVector( int vectorResId) {
+    private BitmapDescriptor bitmapDescriptorFromVector(int vectorResId) {
         Drawable vectorDrawable = ContextCompat.getDrawable(this, vectorResId);
         vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
         Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
