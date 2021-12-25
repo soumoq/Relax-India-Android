@@ -2,18 +2,14 @@ package org.relaxindia.view.recyclerView
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_support_list.view.*
-import kotlinx.android.synthetic.main.schedule_booking_list.view.*
 
 import org.relaxindia.R
 import org.relaxindia.model.SupportList
-import org.relaxindia.view.activity.ScheduleBookingActivity
 
 
 class SupportListAdapter(context: Context) :

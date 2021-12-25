@@ -4,7 +4,6 @@ package org.relaxindia.view.activity
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
@@ -42,17 +41,12 @@ import org.relaxindia.util.App
 import org.relaxindia.view.recyclerView.ServiceAdapter
 import org.relaxindia.viewModel.ApiCallViewModel
 import android.location.Geocoder
-import androidx.appcompat.app.AlertDialog
 import com.google.firebase.messaging.FirebaseMessaging
 import org.relaxindia.service.VollyApi
 import java.util.*
 import kotlin.collections.ArrayList
-import android.widget.LinearLayout
-import android.widget.EditText
 import kotlinx.android.synthetic.main.sheet_booking_list.*
 import org.relaxindia.model.SupportList
-import org.relaxindia.util.toast
-import org.relaxindia.view.recyclerView.ScheduleBookingAdapter
 import org.relaxindia.view.recyclerView.SupportListAdapter
 
 

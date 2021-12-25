@@ -10,7 +10,6 @@ import kotlinx.android.synthetic.main.success_schedule_booking_list.view.*
 
 import org.relaxindia.R
 import org.relaxindia.SuccessScheduleReq
-import org.relaxindia.view.activity.ScheduleBookingActivity
 
 
 class SuccessScheduleBookingAdapter(context: Context) :

@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.schedule_booking_list.view.*
 
 import org.relaxindia.R
 import org.relaxindia.model.ScheduleReq
-import org.relaxindia.view.activity.ScheduleBookingActivity
+import org.relaxindia.view.activity.StartScheduleBookingActivity
 
 
 class ScheduleBookingAdapter(context: Context) :
@@ -71,7 +71,7 @@ class ScheduleBookingAdapter(context: Context) :
             }
 
             view.pay_now_button.setOnClickListener {
-                (context as ScheduleBookingActivity).startPayment(
+                (context as StartScheduleBookingActivity).startPayment(
                     booking.booking_amount,
                     booking.booking_id.toString()
                 )

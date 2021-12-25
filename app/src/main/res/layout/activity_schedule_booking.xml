@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@color/light_light_gray"
     tools:context=".view.activity.ScheduleBookingActivity">
 
     <LinearLayout
@@ -43,188 +43,178 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/start_schedule_booking"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="8dp"
             android:layout_marginBottom="5dp"
-            android:text="From address"
-            android:textSize="11sp" />
+            android:background="@color/light_light_gray"
+            android:orientation="vertical"
+            app:cardCornerRadius="7dp">
 
-        <RelativeLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_baseline_menu_book_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginRight="13dp"
+                    android:text="Start Schedule Booking"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_right_24" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/schedule_req"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/des_background">
-
-            <fragment
-                android:id="@+id/from_location_fragment"
-                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_centerInParent="true" />
-
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="8dp"
             android:layout_marginBottom="5dp"
-            android:text="To address"
-            android:textSize="11sp" />
+            android:background="@color/light_light_gray"
+            android:orientation="vertical"
+            app:cardCornerRadius="7dp">
 
-        <RelativeLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_baseline_menu_book_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginRight="13dp"
+                    android:text="View Schedule Booking Request"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_right_24" />
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/get_schedule_req"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/des_background">
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/light_light_gray"
+            android:orientation="vertical"
+            app:cardCornerRadius="7dp">
 
-            <fragment
-                android:id="@+id/to_location_fragment"
-                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_centerInParent="true" />
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="horizontal">
 
-        </RelativeLayout>
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_baseline_menu_book_24" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/select_date"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="15dp"
-            android:hint="Select Date - dd/mm/yy"
-            android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginRight="13dp"
+                    android:text="View Schedule Booking List"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/select_date_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false"
-                android:imeOptions="actionNext"
-                android:textSize="16sp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
 
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="15dp"
-            android:hint="Select Time (hh:mm)"
-            android:orientation="horizontal">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/schedule_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:imeOptions="actionNext"
-                android:inputType="time"
-                android:textSize="16sp" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_right_24" />
 
 
-        </com.google.android.material.textfield.TextInputLayout>
+                </RelativeLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="15dp"
-            android:hint="Comment"
-            android:orientation="horizontal">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/user_comment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:imeOptions="actionNext"
-                android:textSize="16sp" />
+            </LinearLayout>
 
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:elevation="5dp">
-
-            <Button
-                android:id="@+id/start_schedule_booking"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:letterSpacing="0"
-                android:shadowColor="@color/app_color"
-                android:shadowDx="0"
-                android:shadowDy="10"
-                android:text="Start Schedule Booking"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:elevation="5dp">
-
-            <Button
-                android:id="@+id/schedule_req"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:letterSpacing="0"
-                android:shadowColor="@color/app_color"
-                android:shadowDx="0"
-                android:shadowDy="10"
-                android:text="View Schedule Booking Request"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:elevation="5dp">
-
-            <Button
-                android:id="@+id/get_schedule_req"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="20dp"
-                android:letterSpacing="0"
-                android:shadowColor="@color/app_color"
-                android:shadowDx="0"
-                android:shadowDy="10"
-                android:text="View Schedule Boking List"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
+        </androidx.cardview.widget.CardView>
 
 
     </LinearLayout>
-
 
 </androidx.core.widget.NestedScrollView>

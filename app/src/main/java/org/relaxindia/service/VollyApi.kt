@@ -178,7 +178,7 @@ object VollyApi {
                             context.toast("Something went wrong!!!")
                         } else {
                             context.toast("Booking request successful...")
-                            (context as ScheduleBookingActivity).reloadActivity()
+                            (context as StartScheduleBookingActivity).reloadActivity()
                         }
                     } catch (e: JSONException) {
                         App.openDialog(context, "Error", e.message!!)
