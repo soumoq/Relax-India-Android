@@ -248,9 +248,16 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
     fun driverFindStatus(driverCount: Int) {
         if (driverCount == 0) {
             sheetDialog.pay_to_book_sheet.visibility = View.GONE
+            sheetDialog.driver_image.visibility = View.GONE
+            sheetDialog.driver_found_text.visibility = View.GONE
+            sheetDialog.search_image.setImageResource(R.drawable.search_fail)
+
             App.openDialog(this, "Alert", "No driver found please search again.")
         } else {
             sheetDialog.pay_to_book_sheet.visibility = View.VISIBLE
+            sheetDialog.driver_image.visibility = View.VISIBLE
+            sheetDialog.driver_found_text.visibility = View.VISIBLE
+            sheetDialog.search_image.visibility = View.GONE
             sheetDialog.book_now_amount_sheet.text = bookNowAmountSheet
             sheetDialog.pay_to_book_sheet.setOnClickListener {
                 startPayment()
