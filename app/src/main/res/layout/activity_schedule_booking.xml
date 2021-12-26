@@ -23,9 +23,9 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/schedule_booking_back"
+                    android:id="@+id/schedule_booking_back_btn"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_baseline_arrow_back_white_24" />
 

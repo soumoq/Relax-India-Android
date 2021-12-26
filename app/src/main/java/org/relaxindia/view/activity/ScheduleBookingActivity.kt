@@ -26,6 +26,10 @@ class ScheduleBookingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule_booking)
 
+        schedule_booking_back_btn.setOnClickListener {
+            onBackPressed()
+        }
+
         bookingListSheet = BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme)
         bookingListSheet.setContentView(R.layout.sheet_booking_list)
         bookingListSheet.back_sheet_schedule.setOnClickListener {

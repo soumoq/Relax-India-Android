@@ -158,7 +158,7 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
 
         CameraPosition googlePlex = CameraPosition.builder()
                 .target(new LatLng(fromLatitude, fromLongitude))
-                .zoom(12f)
+                .zoom(20f)
                 .bearing(0)
                 .tilt(45)
                 .build();

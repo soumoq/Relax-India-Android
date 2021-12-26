@@ -2,9 +2,11 @@ package org.relaxindia.view.recyclerView
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_support_list.view.*
 
@@ -51,7 +53,13 @@ class SupportListAdapter(context: Context) :
             textView.setText(Html.fromHtml(styledText), TextView.BufferType.SPANNABLE);
             */
 
-            view.support_list_status.text = "Status: ${support.status}"
+            if (support.status == "Pending") {
+                view.support_list_status.text =
+                    Html.fromHtml("Status: <font color='red'>${support.status}</font>")
+            } else {
+                view.support_list_status.text =
+                    Html.fromHtml("Status: <font color='green'>${support.status}</font>")
+            }
             view.support_list_topic.text = "Topic: ${support.topic}"
             view.support_list_dec.text = "Description: ${support.description}"
 
