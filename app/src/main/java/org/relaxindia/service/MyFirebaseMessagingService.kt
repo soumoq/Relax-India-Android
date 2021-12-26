@@ -18,6 +18,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import org.relaxindia.R
 import org.relaxindia.view.activity.HomeActivity
+import org.relaxindia.view.activity.MyBookingActivity
 import java.util.*
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
@@ -28,7 +29,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         super.onMessageReceived(remoteMessage)
         super.onMessageReceived(remoteMessage!!)
 
-        val intent = Intent(this, HomeActivity::class.java)
+        val intent = Intent(this, MyBookingActivity::class.java)
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val notificationID = Random().nextInt(3000)

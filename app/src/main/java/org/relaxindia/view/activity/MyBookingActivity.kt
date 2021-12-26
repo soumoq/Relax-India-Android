@@ -33,7 +33,7 @@ class MyBookingActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         apiCallViewModel.getBookingHistory.observe(this, Observer {
-            if (!it.error){
+            if (!it.error) {
                 val myOrderListAdapter = MyOrderListAdapter(this)
                 my_booking_list.adapter = myOrderListAdapter
                 myOrderListAdapter.updateData(it.data)
@@ -48,7 +48,9 @@ class MyBookingActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        val intent = Intent(this, HomeActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
 }
