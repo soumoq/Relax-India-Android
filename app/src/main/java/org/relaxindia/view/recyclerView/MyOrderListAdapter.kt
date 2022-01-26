@@ -71,6 +71,8 @@ class MyOrderListAdapter(context: Context) : RecyclerView.Adapter<MyOrderListAda
                 intent.putExtra("to_latitude", booking.to_latitude.toString())
                 intent.putExtra("to_longitude", booking.to_longitude.toString())
                 intent.putExtra("driver_id", booking.driver_id.toString())
+                intent.putExtra("driver_phone", booking.driver_phone.toString())
+
 
                 view.context.startActivity(intent)
             }

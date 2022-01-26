@@ -175,9 +175,11 @@
                                     android:textStyle="bold" />
 
                                 <TextView
+                                    android:id="@+id/booking_info_phone"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="RATE"
+                                    android:text="Call"
+                                    android:textColor="@color/quantum_orange"
                                     android:textSize="13sp" />
 
                             </LinearLayout>

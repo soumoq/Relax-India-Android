@@ -1,6 +1,7 @@
 package org.relaxindia.view.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,8 @@ import org.relaxindia.R
 import org.relaxindia.util.App
 import org.relaxindia.util.loadImage
 import org.relaxindia.view.recyclerView.OtherServiceAdapter
+import androidx.core.content.ContextCompat.startActivity
+
 
 class BookingInfoActivity : AppCompatActivity() {
 
@@ -27,6 +30,7 @@ class BookingInfoActivity : AppCompatActivity() {
     private var toLatitude = ""
     private var toLongitude = ""
     private var driverId = ""
+    private var driverPhone = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,8 +54,10 @@ class BookingInfoActivity : AppCompatActivity() {
         toLatitude = intent.getStringExtra("to_latitude")!!
         toLongitude = intent.getStringExtra("to_longitude")!!
         driverId = intent.getStringExtra("driver_id")!!
+        driverPhone = intent.getStringExtra("driver_phone")!!
 
 
+        booking_info_phone.text = "Call: $driverPhone"
         booking_info_from_loc.text = fromLocation
         booking_info_des_loc.text = toLocation
         booking_info_driver_name.text = driverName
@@ -68,6 +74,11 @@ class BookingInfoActivity : AppCompatActivity() {
         other_service_list.adapter = otherServiceAdapter
         otherServiceAdapter.updateData(jsonArr)
 
+        booking_info_phone.setOnClickListener {
+            val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "$driverPhone"))
+            startActivity(intent)
+        }
+
         track_booking.setOnClickListener {
             val intent = Intent(this, TrackActivity::class.java)
             intent.putExtra("from_latitude", fromLatitude)
@@ -75,8 +86,11 @@ class BookingInfoActivity : AppCompatActivity() {
             intent.putExtra("to_latitude", toLatitude)
             intent.putExtra("to_longitude", toLongitude)
             intent.putExtra("driver_id", driverId)
-
-
+            intent.putExtra("driver_name", driverName)
+            intent.putExtra("driver_image", driverImage)
+            intent.putExtra("from_location", fromLocation)
+            intent.putExtra("to_location", toLocation)
+            intent.putExtra("driver_phone", driverPhone)
             startActivity(intent)
         }
 

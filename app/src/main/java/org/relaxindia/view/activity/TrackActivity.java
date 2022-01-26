@@ -13,6 +13,7 @@ import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -49,6 +51,8 @@ import org.relaxindia.service.location.FetchURL;
 import org.relaxindia.service.location.TaskLoadedCallback;
 import org.relaxindia.util.App;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class TrackActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private MarkerOptions place1, place2, driverPlace;
@@ -59,6 +63,12 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
     private Double toLatitude = 0.0;
     private Double toLongitude = 0.0;
     private String driverId = "";
+    private String driverName = "";
+    private String driverImage = "";
+    private String fromLocation = "";
+    private String toLocation = "";
+    private String phone = "";
+
 
     //Firebase
     private DatabaseReference mDatabase;
@@ -66,6 +76,12 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
     //view
     private GoogleMap mMap;
     private TextView etaTIme;
+    private TextView viewTrackPhone;
+    private TextView viewDriverName;
+    private TextView viewFromLocation;
+    private TextView viewToLocation;
+    private CircleImageView viewDriverImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +89,12 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
         setContentView(R.layout.activity_track);
 
         etaTIme = findViewById(R.id.eta_time);
+        viewTrackPhone = findViewById(R.id.track_phone);
+        viewDriverName = findViewById(R.id.track_driver_name);
+        viewFromLocation = findViewById(R.id.track_from_location);
+        viewToLocation = findViewById(R.id.track_to_location);
+        viewDriverImage = findViewById(R.id.track_driver_image);
+        viewTrackPhone = findViewById(R.id.track_phone);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -82,13 +104,36 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
         toLatitude = Double.valueOf(intent.getStringExtra("to_latitude"));
         toLongitude = Double.valueOf(intent.getStringExtra("to_longitude"));
         driverId = intent.getStringExtra("driver_id");
+        driverName = intent.getStringExtra("driver_name");
+        driverImage = intent.getStringExtra("driver_image");
+        fromLocation = intent.getStringExtra("from_location");
+        toLocation = intent.getStringExtra("to_location");
+        phone = intent.getStringExtra("driver_phone");
+
+        viewDriverName.setText(driverName);
+        viewFromLocation.setText(fromLocation);
+        viewToLocation.setText(toLocation);
+        viewTrackPhone.setText("Call: " + phone);
+
+        viewTrackPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
+                startActivity(intent);
+            }
+        });
+
+        Glide.with(this)
+                .load(driverImage)
+                .into(viewDriverImage);
+
 
         //App.INSTANCE.openDialog(this, "T", fromLatitude + " : " + fromLongitude + " : " + toLatitude + " : " + toLongitude);
 
         //27.658143,85.3199503
         //27.667491,85.3208583
-        place1 = new MarkerOptions().position(new LatLng(fromLatitude, fromLongitude)).title("Location 1");
-        place2 = new MarkerOptions().position(new LatLng(toLatitude, toLongitude)).title("Location 2");
+        place1 = new MarkerOptions().position(new LatLng(fromLatitude, fromLongitude)).title("Your location");
+        place2 = new MarkerOptions().position(new LatLng(toLatitude, toLongitude)).title("Destination Location");
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.mapNearBy);
         mapFragment.getMapAsync(TrackActivity.this);
