@@ -174,7 +174,7 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
 
         //Polyline options
         PolylineOptions options = new PolylineOptions();
-        List<PatternItem> pattern = Arrays.<PatternItem>asList(new Dash(30), new Gap(20));
+        List<PatternItem> pattern = Arrays.<PatternItem>asList(new Dash(30), new Gap(0));
 
         //Calculate heading between circle center and two points
         double h1 = SphericalUtil.computeHeading(c, p1);
@@ -190,7 +190,36 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
         }
 
         //Draw polyline
-        mMap.addPolyline(options.width(10).color(Color.MAGENTA).geodesic(false).pattern(pattern));
+        mMap.addPolyline(options.width(10).color(getResources().getColor(R.color.black)).geodesic(false).pattern(pattern));
+    }
+
+    public static void createDashedLine(GoogleMap map, LatLng latLngOrig, LatLng latLngDest, int color) {
+        double difLat = latLngDest.latitude - latLngOrig.latitude;
+        double difLng = latLngDest.longitude - latLngOrig.longitude;
+
+        double zoom = map.getCameraPosition().zoom;
+        int z = 10;
+
+        double divLat = difLat / (zoom * z);
+        double divLng = difLng / (zoom * z);
+
+        LatLng tmpLatOri = latLngOrig;
+
+        for (int i = 0; i < (zoom * z); i++) {
+            LatLng loopLatLng = tmpLatOri;
+
+            if (i > 0) {
+                loopLatLng = new LatLng(tmpLatOri.latitude + (divLat * 0.25f), tmpLatOri.longitude + (divLng * 0.25f));
+            }
+
+            Polyline polyline = map.addPolyline(new PolylineOptions()
+                    .add(loopLatLng)
+                    .add(new LatLng(tmpLatOri.latitude + divLat, tmpLatOri.longitude + divLng))
+                    .color(color)
+                    .width(10f));
+
+            tmpLatOri = new LatLng(tmpLatOri.latitude + divLat, tmpLatOri.longitude + divLng);
+        }
     }
 
     @Override
@@ -220,14 +249,15 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
                                 .setIcon(bitmapDescriptorFromVector(R.drawable.amb_vec));
 
 
-                        Polyline polyline1 = googleMap.addPolyline(new PolylineOptions()
-                                .clickable(true)
-                                .add(new LatLng(fromLatitude, fromLongitude),
-                                        new LatLng(driverObj.getDouble("lat"), driverObj.getDouble("lon")))
-                                .width(20)
-                                .color(getResources().getColor(R.color.app_color)));
+//                        Polyline polyline1 = googleMap.addPolyline(new PolylineOptions()
+//                                .clickable(true)
+//                                .add(new LatLng(fromLatitude, fromLongitude),
+//                                        new LatLng(driverObj.getDouble("lat"), driverObj.getDouble("lon")))
+//                                .width(15)
+//                                .color(getResources().getColor(R.color.black)));
 
                         showCurvedPolyline(new LatLng(fromLatitude, fromLongitude), new LatLng(driverObj.getDouble("lat"), driverObj.getDouble("lon")), 0.5);
+                        createDashedLine(googleMap, new LatLng(fromLatitude, fromLongitude), new LatLng(driverObj.getDouble("lat"), driverObj.getDouble("lon")), getResources().getColor(R.color.black));
 
                         Location location1 = new Location("");
                         location1.setLatitude(fromLatitude);
@@ -257,7 +287,7 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
 
         CameraPosition googlePlex = CameraPosition.builder()
                 .target(new LatLng(fromLatitude, fromLongitude))
-                .zoom(20f)
+                .zoom(13f)
                 .bearing(0)
                 .tilt(45)
                 .build();
