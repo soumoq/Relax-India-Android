@@ -92,7 +92,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
             arr.put(serviceIdList[i])
         }
         serviceJson.put("service", arr)
-        serviceJson.put("distance_in_km",distance)
+        serviceJson.put("distance_in_km", distance)
         //Log.e("CONVAERJKJDAJ", serviceJson.toString())
         apiCallViewModel.selectedServiceInfo(this, serviceJson.toString())
 
@@ -138,7 +138,10 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
                 totalAmount = it.data.payable_amount + it.data.rest_amount
                 partial_pay.text = "${App.rs}${it.data.payable_amount}"
                 payto_driver.text = "${App.rs}${it.data.rest_amount}"
-                note_text.text = App.setNoteText(it.data.rest_amount.toString())
+                note_text.text = App.setNoteText(
+                    it.data.payable_amount.toString(),
+                    it.data.rest_amount.toString()
+                )
             }
         })
 

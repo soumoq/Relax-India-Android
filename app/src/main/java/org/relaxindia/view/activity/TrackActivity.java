@@ -158,7 +158,7 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
 
     }
 
-    private void showCurvedPolyline(LatLng p1, LatLng p2, double k) {
+    /*private void showCurvedPolyline(LatLng p1, LatLng p2, double k) {
         //Calculate distance and heading between two points
         double d = SphericalUtil.computeDistanceBetween(p1, p2);
         double h = SphericalUtil.computeHeading(p1, p2);
@@ -191,7 +191,7 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
 
         //Draw polyline
         mMap.addPolyline(options.width(10).color(getResources().getColor(R.color.black)).geodesic(false).pattern(pattern));
-    }
+    }*/
 
     public static void createDashedLine(GoogleMap map, LatLng latLngOrig, LatLng latLngDest, int color) {
         double difLat = latLngDest.latitude - latLngOrig.latitude;
@@ -256,7 +256,7 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
 //                                .width(15)
 //                                .color(getResources().getColor(R.color.black)));
 
-                        showCurvedPolyline(new LatLng(fromLatitude, fromLongitude), new LatLng(driverObj.getDouble("lat"), driverObj.getDouble("lon")), 0.5);
+                        //showCurvedPolyline(new LatLng(fromLatitude, fromLongitude), new LatLng(driverObj.getDouble("lat"), driverObj.getDouble("lon")), 0.5);
                         createDashedLine(googleMap, new LatLng(fromLatitude, fromLongitude), new LatLng(driverObj.getDouble("lat"), driverObj.getDouble("lon")), getResources().getColor(R.color.black));
 
                         Location location1 = new Location("");

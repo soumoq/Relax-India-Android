@@ -94,6 +94,11 @@ class BookingInfoActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        booking_info_customer_support.setOnClickListener {
+            val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "9874408080"))
+            startActivity(intent)
+        }
+
     }
 
     override fun startActivity(intent: Intent?) {

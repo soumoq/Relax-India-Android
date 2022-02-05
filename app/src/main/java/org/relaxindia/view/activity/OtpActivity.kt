@@ -8,9 +8,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_otp.*
 import org.relaxindia.R
 import org.relaxindia.util.App
+import org.relaxindia.util.toast
 import org.relaxindia.viewModel.ApiCallViewModel
 import java.util.concurrent.TimeUnit
 
@@ -34,6 +36,10 @@ class OtpActivity : AppCompatActivity() {
 
         otp_back.setOnClickListener {
             onBackPressed()
+        }
+
+        resend_sms.setOnClickListener {
+            apiCallViewModel.loginInfo(this, phoneNumber)
         }
 
 
@@ -64,6 +70,15 @@ class OtpActivity : AppCompatActivity() {
                 App.openDialog(this, "Error", it.message)
             }
         })
+
+        apiCallViewModel.loginInfo.observe(this, Observer {
+            if (!it.error) {
+                toast("Otp Sent successful")
+            } else {
+                toast("Something went wrong")
+            }
+        })
+
     }
 
 

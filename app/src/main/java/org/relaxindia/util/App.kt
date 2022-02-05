@@ -28,7 +28,7 @@ object App {
         "We'll only use your location to show available delivery option. You can change this preference in settings at any time"
 
     //Payment key id
-    const val paymentkeyId = "rzp_test_jbQerQj2ziorxg"
+    const val paymentkeyId = "rzp_test_3wnATNB0dnwOxX"
 
     //google api key
     const val googleApiKey = "AIzaSyCxn_36SpMjIwCuoUSqOOI4N9E_6XTdJJk"
@@ -55,7 +55,6 @@ object App {
     const val GET_TICKETS = "get-tickets"
     const val RATE_DRIVER = "rate-driver"
     const val GET_REATING = "get-driver-rating"
-
 
 
     //Share preference key
@@ -185,8 +184,12 @@ object App {
     }
 
 
-    fun setNoteText(amount: String): String {
-        return "Note: You have to pay $rs$amount Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard."
+    fun setNoteText(partialPay: String, amountPayToDriver: String): String {
+
+        val note =
+            "Note : You need to pay $rs$partialPay at the time of booking and  $rs$amountPayToDriver to driver by cash or in other format as per your choice after end of the journey.\n" +
+                    "If no driver get assigned after booking then the amount will refund within 2 working days to your bank account"
+        return note
     }
 
 }
