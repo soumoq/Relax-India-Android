@@ -71,17 +71,6 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         desLat = intent.getStringExtra("desLat").toString()
         desLon = intent.getStringExtra("desLon").toString()
 
-        serviceIdList.add(intent.getStringExtra("service_id")?.toInt()!!)
-        for (i in 0 until serviceIdList.size) {
-            arr.put(serviceIdList[i])
-        }
-        serviceJson.put("service", arr)
-        //Log.e("CONVAERJKJDAJ", serviceJson.toString())
-        apiCallViewModel.selectedServiceInfo(this, serviceJson.toString())
-
-        //Payment check out
-        Checkout.preload(applicationContext)
-
         //Calculate distance
         val startPoint = Location("SOURCE")
         startPoint.latitude = "${intent.getStringExtra("sourceLat")}".toDouble()
@@ -97,6 +86,18 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
 
         des_location.text = desLoc
         source_location.text = sourceLoc
+
+        serviceIdList.add(intent.getStringExtra("service_id")?.toInt()!!)
+        for (i in 0 until serviceIdList.size) {
+            arr.put(serviceIdList[i])
+        }
+        serviceJson.put("service", arr)
+        serviceJson.put("distance_in_km",distance)
+        //Log.e("CONVAERJKJDAJ", serviceJson.toString())
+        apiCallViewModel.selectedServiceInfo(this, serviceJson.toString())
+
+        //Payment check out
+        Checkout.preload(applicationContext)
 
 
 

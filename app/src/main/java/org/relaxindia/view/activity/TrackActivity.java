@@ -135,7 +135,7 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
         viewCustomerSupport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "7003489486"));
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "9874408080"));
                 startActivity(intent);
             }
         });

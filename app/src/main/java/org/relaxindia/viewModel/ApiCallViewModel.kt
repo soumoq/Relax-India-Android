@@ -215,6 +215,8 @@ class ApiCallViewModel : ViewModel() {
         progressDialog.setMessage("Please wait we are calculating total")
         progressDialog.show()
 
+        Log.e("ALL_SERVICE_JSON",jsonStr)
+
         val body: RequestBody = RequestBody.create(
             MediaType.parse("application/json; charset=utf-8"),
             JSONObject(jsonStr).toString()
