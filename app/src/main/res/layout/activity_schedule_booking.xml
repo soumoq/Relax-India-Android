@@ -43,8 +43,7 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <androidx.cardview.widget.CardView
             android:id="@+id/start_schedule_booking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,7 +51,9 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="5dp"
-            android:background="@color/light_light_gray"
+            android:background="?android:attr/selectableItemBackground"
+            android:backgroundTint="@color/light_light_gray"
+            android:clickable="true"
             android:orientation="vertical"
             app:cardCornerRadius="7dp">
 
@@ -63,11 +64,11 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
-                    android:src="@drawable/ic_baseline_menu_book_24" />
+                    android:src="@drawable/ic_outline_date_range_24" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -89,7 +90,10 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_gravity="center"
-                        android:layout_margin="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
                         android:src="@drawable/ic_baseline_keyboard_arrow_right_24" />
 
 
@@ -120,11 +124,11 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
-                    android:src="@drawable/ic_baseline_menu_book_24" />
+                    android:src="@drawable/ic_outline_playlist_add_24" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -177,11 +181,11 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
-                    android:src="@drawable/ic_baseline_menu_book_24" />
+                    android:src="@drawable/ic_baseline_playlist_play_24" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -189,7 +193,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="13dp"
                     android:layout_marginRight="13dp"
-                    android:text="View Schedule Booking List"
+                    android:text="Accepted Schedule Bookings"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 

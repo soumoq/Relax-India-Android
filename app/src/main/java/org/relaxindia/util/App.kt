@@ -187,8 +187,7 @@ object App {
     fun setNoteText(partialPay: String, amountPayToDriver: String): String {
 
         val note =
-            "Note : You need to pay $rs$partialPay at the time of booking and  $rs$amountPayToDriver to driver by cash or in other format as per your choice after end of the journey.\n" +
-                    "If no driver get assigned after booking then the amount will refund within 2 working days to your bank account"
+            "Note : You need to pay $rs$partialPay at the time of booking and  $rs$amountPayToDriver to driver by cash or in other format as per your choice after end of the journey. If no driver get assigned after booking then the amount will refund within 2 working days to your bank account"
         return note
     }
 

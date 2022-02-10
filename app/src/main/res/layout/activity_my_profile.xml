@@ -93,7 +93,9 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
             android:hint="Phone"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:textColorHint="#aaa"
+            app:boxBackgroundColor="#f8f8f8">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/profile_phone"
@@ -101,6 +103,7 @@
                 android:layout_height="wrap_content"
                 android:focusable="false"
                 android:imeOptions="actionNext"
+                android:textColor="#aaa"
                 android:textSize="16sp" />
 
 
