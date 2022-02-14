@@ -1,12 +1,7 @@
 package org.relaxindia.service.retrofit
 
 
-import android.annotation.SuppressLint
-import androidx.annotation.RawRes
-import com.google.gson.JsonObject
-import kotlinx.android.parcel.RawValue
 import okhttp3.RequestBody
-import org.json.JSONObject
 import org.relaxindia.model.GlobalResponse
 import org.relaxindia.model.bookingHistory.BookingList
 import org.relaxindia.model.driverList.DriverList
@@ -38,14 +33,14 @@ interface ApiCallService {
         otp: String
     ): Call<OtpResponse>
 
-    @POST(App.apiProfile)
+    @POST(App.API_PROFILE)
     fun profile(
         @Header("Authorization")
         authHeader: String,
     ): Call<ProfileResponse>
 
     @FormUrlEncoded
-    @PATCH(App.apiProfile)
+    @PATCH(App.API_PROFILE)
     fun updateProfile(
         @Header("Authorization")
         authHeader: String,

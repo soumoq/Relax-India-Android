@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_my_profile.*
 import kotlinx.android.synthetic.main.nav_header.view.*
 import org.relaxindia.R
+import org.relaxindia.service.VollyApi
 import org.relaxindia.util.App
 import org.relaxindia.util.toast
 import org.relaxindia.viewModel.ApiCallViewModel
@@ -30,21 +31,29 @@ class MyProfileActivity : AppCompatActivity() {
         apiCallViewModel.profileInfo(this)
 
         update_profile.setOnClickListener {
-            if (profile_name.text.toString().equals("") ||
-                profile_email.text.toString().equals("") ||
-                profile_address.text.toString().equals("") ||
-                profile_pin_code.text.toString().equals("")
-            ) {
-                toast("Enter valid input")
-            } else {
-                apiCallViewModel.updateProfileInfo(
-                    this,
-                    profile_name.text.toString(),
-                    profile_email.text.toString(),
-                    profile_address.text.toString(),
-                    profile_pin_code.text.toString()
-                )
-            }
+
+            VollyApi.updateProfile(
+                this, profile_name.text.toString(),
+                profile_email.text.toString(),
+                profile_address.text.toString(),
+                profile_pin_code.text.toString()
+            )
+
+//            if (profile_name.text.toString().equals("") ||
+//                profile_email.text.toString().equals("") ||
+//                profile_address.text.toString().equals("") ||
+//                profile_pin_code.text.toString().equals("")
+//            ) {
+//                toast("Enter valid input")
+//            } else {
+//                apiCallViewModel.updateProfileInfo(
+//                    this,
+//                    profile_name.text.toString(),
+//                    profile_email.text.toString(),
+//                    profile_address.text.toString(),
+//                    profile_pin_code.text.toString()
+//                )
+//            }
         }
 
     }
@@ -70,6 +79,10 @@ class MyProfileActivity : AppCompatActivity() {
 
     }
 
+    fun profileUpdated() {
+        onBackPressed()
+    }
+
 
     override fun startActivity(intent: Intent?) {
         super.startActivity(intent)
@@ -85,5 +98,6 @@ class MyProfileActivity : AppCompatActivity() {
         }
 
     }
+
 
 }

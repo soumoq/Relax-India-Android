@@ -37,7 +37,7 @@ object App {
     const val apiBaseUrl = "http://itmartsolution.com/demo/relaxindia.org/api/v1/user/"
     const val apiLogin = "login"
     const val apiCheckOtp = "verify-otp"
-    const val apiProfile = "profile"
+    const val API_PROFILE = "profile"
     const val getService = "get-services"
     const val getSelectedService = "get-selected-services"
     const val getSaveBooking = "save-booking"

@@ -1,5 +1,6 @@
 package org.relaxindia.service
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.util.Log
 import com.android.volley.AuthFailureError
@@ -59,6 +60,64 @@ object VollyApi {
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)
     }
+
+    fun updateProfile(context: Context, name: String, email: String, address: String, pin: String) {
+        val URL = "${App.apiBaseUrl}${App.API_PROFILE}"
+        val requestQueue = Volley.newRequestQueue(context)
+        val stringRequest: StringRequest =
+            object : StringRequest(Request.Method.PATCH, URL,
+                Response.Listener<String?> { response ->
+                    try {
+                        val jsonObj = JSONObject(response)
+                        val error = jsonObj.getBoolean("error")
+                        if (!error) {
+                            context.toast("Profile Updated")
+                            (context as MyProfileActivity).profileUpdated()
+                        } else {
+                            val dataObj = jsonObj.getJSONObject("data")
+                            val errorObj = dataObj.getJSONObject("errors")
+                            val keys = errorObj.keys()
+                            val errorString = StringBuffer()
+                            keys.forEach {
+                                errorString.append("\u2022" + errorObj.getJSONArray(it)[0].toString() + "\n")
+                            }
+                            App.openDialog(
+                                context,
+                                "Error",
+                                errorString.toString()
+                            )
+                        }
+                    } catch (e: JSONException) {
+                        App.openDialog(context, "Error", response)
+                    }
+                },
+                Response.ErrorListener { error ->
+                    context.toast("Something went wrong: $error")
+                }) {
+
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): MutableMap<String, String> {
+                    val header: MutableMap<String, String> = HashMap()
+                    header["Authorization"] = App.getUserToken(context)
+                    return header
+                }
+
+                @Throws(AuthFailureError::class)
+                override fun getParams(): Map<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["name"] = name
+                    params["email"] = email
+                    params["address"] = address
+                    params["pincode"] = pin
+
+                    return params
+                }
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
+
+    }
+
 
     fun findAmbulance(context: Context, range: String) {
         val gpsTracker = GpsTracker(context)
