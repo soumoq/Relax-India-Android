@@ -29,6 +29,7 @@ class BookingSuccessfulActivity : AppCompatActivity() {
     private var sourceLoc = ""
     private var desLoc = ""
     private var amount = ""
+    private var serviceName = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +40,9 @@ class BookingSuccessfulActivity : AppCompatActivity() {
         sourceLoc = intent.getStringExtra("source_loc")!!
         desLoc = intent.getStringExtra("des_loc")!!
         amount = intent.getStringExtra("amount")!!
+        serviceName = intent.getStringExtra("service_name")!!
+
+        service_name_successful.text = serviceName
 
         apiCallViewModel = ViewModelProvider(this).get(ApiCallViewModel::class.java)
         apiCallViewModel.getDriverListInfo(this)

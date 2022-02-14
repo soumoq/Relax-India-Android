@@ -67,7 +67,7 @@ class OtpActivity : AppCompatActivity() {
                 startActivity(intent)
 
             } else {
-                App.openDialog(this, "Error", it.message)
+                App.openDialog(this, "Error: ", it.message)
             }
         })
 

@@ -18,6 +18,10 @@ class MyProfileActivity : AppCompatActivity() {
     //view-model
     lateinit var apiCallViewModel: ApiCallViewModel
 
+    //Normal name
+    var name: String? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_profile)
@@ -61,6 +65,7 @@ class MyProfileActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         apiCallViewModel.profileInfo.observe(this, Observer {
+            name = it.data.name
             profile_phone.setText(it.data.phone)
             profile_name.setText(it.data.name)
             profile_email.setText(it.data.email)
@@ -80,7 +85,7 @@ class MyProfileActivity : AppCompatActivity() {
     }
 
     fun profileUpdated() {
-        onBackPressed()
+        finish()
     }
 
 
@@ -90,7 +95,7 @@ class MyProfileActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (profile_name.text.toString().equals("")) {
+        if (name == null) {
             App.openDialog(this, "Alert", "Please update your name.")
         } else {
             super.onBackPressed()

@@ -57,6 +57,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
     var desLat = ""
     var desLon = ""
 
+    var serviceName = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_now)
@@ -70,6 +71,10 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         sourceLon = intent.getStringExtra("sourceLon").toString()
         desLat = intent.getStringExtra("desLat").toString()
         desLon = intent.getStringExtra("desLon").toString()
+        serviceName = intent.getStringExtra("service_name").toString()
+
+        book_now_heading.text = serviceName
+        service_name_book_now.text = serviceName
 
         //Calculate distance
         val startPoint = Location("SOURCE")
@@ -148,6 +153,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         apiCallViewModel.getSaveService.observe(this, Observer {
             if (!it.error) {
                 val intent = Intent(this, BookingSuccessfulActivity::class.java)
+                intent.putExtra("service_name", serviceName)
                 intent.putExtra("booking_id", it.data.booking_id)
                 intent.putExtra("source_loc", sourceLoc)
                 intent.putExtra("des_loc", desLoc)

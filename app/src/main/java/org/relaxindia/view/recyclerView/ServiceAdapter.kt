@@ -61,7 +61,7 @@ class ServiceAdapter(context: Context) : RecyclerView.Adapter<ServiceAdapter.Vie
 
 
             view.recycler_library_service_layout.setOnClickListener {
-                (context as HomeActivity).changeBackGround(position,service.price,service.id)
+                (context as HomeActivity).changeBackGround(position,service.price,service.id,service.name)
             }
 
         }

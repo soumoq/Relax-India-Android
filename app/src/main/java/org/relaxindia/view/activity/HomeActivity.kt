@@ -74,6 +74,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
     //Service Price
     var servicePrice: Double = 0.0
     var serviceId = -1
+    var serviceName = ""
 
     var sourceLocation = ""
     var desLocation = ""
@@ -104,6 +105,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
             val intent = Intent(this, BookNowActivity::class.java)
             intent.putExtra("service_price", servicePrice.toString())
             intent.putExtra("service_id", serviceId.toString())
+            intent.putExtra("service_name", serviceName)
             intent.putExtra("source_loc", sourceLocation)
             intent.putExtra("des_loc", desLocation)
             intent.putExtra("sourceLat", sourceLat)
@@ -259,9 +261,10 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         })
     }
 
-    fun changeBackGround(position: Int, price: Double, serviceId: Int) {
+    fun changeBackGround(position: Int, price: Double, serviceId: Int, serviceName : String) {
         servicePrice = price * 100
         this.serviceId = serviceId
+        this.serviceName = serviceName
         homeDashboardSheet.book_now.visibility = View.VISIBLE
         val serviceInfo = ArrayList<ServiceData>()
         serviceInfo.addAll(apiCallViewModel.getService.value?.data!!)

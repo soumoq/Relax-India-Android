@@ -41,6 +41,7 @@
                         android:src="@drawable/ic_baseline_arrow_back_white_24" />
 
                     <TextView
+                        android:id="@+id/book_now_heading"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -104,6 +105,7 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/service_name_book_now"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Relax India Cariac Ambulance"
