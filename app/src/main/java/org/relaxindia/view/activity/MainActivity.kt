@@ -49,7 +49,9 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         val perms = arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.CALL_PHONE,
-            Manifest.permission.ACCESS_COARSE_LOCATION
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
 
         if (EasyPermissions.hasPermissions(this, *perms)) {
