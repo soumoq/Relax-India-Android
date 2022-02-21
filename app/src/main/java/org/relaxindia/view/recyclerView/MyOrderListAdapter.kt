@@ -3,9 +3,13 @@ package org.relaxindia.view.recyclerView
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_my_order_list.view.*
 
@@ -50,6 +54,38 @@ class MyOrderListAdapter(context: Context) : RecyclerView.Adapter<MyOrderListAda
         @SuppressLint("SetTextI18n")
         fun bind(booking: BookingListData) {
 
+            var styledText = ""
+            when {
+                booking.status.equals("Pending") -> styledText =
+                    "Status: <font color='yellow'>${booking.status}</font>"
+                booking.status.equals("Booked") -> styledText =
+                    "Status: <font color='green'>${booking.status}</font>"
+                booking.status.equals("Cancelled") -> styledText =
+                    "Status: <font color='red'>${booking.status}</font>"
+                booking.status.equals("Refund") -> styledText =
+                    "Status: <font color='blue'>${booking.status}</font>"
+            }
+
+            if (booking.status.equals("Booked")) {
+                view.my_order_details_layout.visibility = View.VISIBLE
+                view.recycler_library_item_layout.setBackgroundDrawable(
+                    ContextCompat.getDrawable(
+                        view.context,
+                        R.color.white
+                    )
+                )
+            } else {
+                view.my_order_details_layout.visibility = View.GONE
+                view.recycler_library_item_layout.setBackgroundDrawable(
+                    ContextCompat.getDrawable(
+                        view.context,
+                        R.color.light_light_gray
+                    )
+                )
+            }
+
+
+            view.booked_status.setText(Html.fromHtml(styledText), TextView.BufferType.SPANNABLE)
             view.order_list_des_loc.text = booking.to_location
             view.order_list_source_loc.text = booking.from_location
             view.order_list_driver_name.text = booking.driver_name

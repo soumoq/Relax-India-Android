@@ -32,6 +32,8 @@ data class BookingListData(
     @SerializedName("to_latitude") val to_latitude: String,
     @SerializedName("to_longitude") val to_longitude: String,
     @SerializedName("driver_id") val driver_id: Int,
+    @SerializedName("status") val status: String
+
 
 
 
