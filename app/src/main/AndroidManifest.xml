@@ -45,7 +45,7 @@
         </service>
 
         <activity
-            android:name=".view.activity.WalletActivity"
+            android:name=".view.activity.TransactionsActivity"
             android:exported="true" />
         <activity
             android:name=".view.activity.MyProfileActivity"

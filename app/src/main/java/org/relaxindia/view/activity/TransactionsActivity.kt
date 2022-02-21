@@ -3,18 +3,27 @@ package org.relaxindia.view.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_wallet.*
+import kotlinx.android.synthetic.main.activity_transactions.*
 import org.relaxindia.R
+import org.relaxindia.model.TransactionList
+import org.relaxindia.service.VollyApi
+import org.relaxindia.util.toast
 
-class WalletActivity : AppCompatActivity() {
+class TransactionsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_wallet)
+        setContentView(R.layout.activity_transactions)
 
         wallet_back.setOnClickListener {
             onBackPressed()
         }
 
+        VollyApi.getTransaction(this)
+
+    }
+
+    fun getTransactionList(transactionList: ArrayList<TransactionList>) {
+        toast(transactionList.size.toString())
     }
 
     override fun startActivity(intent: Intent?) {

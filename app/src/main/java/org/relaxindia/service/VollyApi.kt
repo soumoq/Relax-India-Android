@@ -1,6 +1,5 @@
 package org.relaxindia.service
 
-import android.app.ProgressDialog
 import android.content.Context
 import android.util.Log
 import com.android.volley.AuthFailureError
@@ -13,6 +12,7 @@ import org.json.JSONObject
 import org.relaxindia.SuccessScheduleReq
 import org.relaxindia.model.ScheduleReq
 import org.relaxindia.model.SupportList
+import org.relaxindia.model.TransactionList
 import org.relaxindia.service.location.GpsTracker
 import org.relaxindia.util.App
 import org.relaxindia.util.toast
@@ -597,7 +597,7 @@ object VollyApi {
 
     fun getRating(context: Context, bookingId: String) {
         //context.toast("Please wait...")
-        val URL = "${App.apiBaseUrl}${App.GET_REATING}"
+        val URL = "${App.apiBaseUrl}${App.GET_RATING}"
         val requestQueue = Volley.newRequestQueue(context)
 
         val stringRequest: StringRequest =
@@ -641,5 +641,61 @@ object VollyApi {
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)
     }
+
+
+    fun getTransaction(context: Context) {
+        //context.toast("Please wait...")
+        val URL = "${App.apiBaseUrl}${App.GET_TRANSACTION}"
+        val requestQueue = Volley.newRequestQueue(context)
+
+        val stringRequest: StringRequest =
+            object : StringRequest(
+                Request.Method.POST, URL,
+                Response.Listener<String?> { response ->
+                    try {
+                        val jsonObj = JSONObject(response)
+                        val error = jsonObj.getBoolean("error")
+                        if (error) {
+                            context.toast("Something went wrong!!!")
+                        } else {
+                            val jsonArr = jsonObj.getJSONArray("data")
+                            if (jsonArr.length() > 0) {
+                                val transactionList = ArrayList<TransactionList>()
+                                for (i in 0 until jsonArr.length()) {
+                                    transactionList.add(
+                                        TransactionList(
+                                            jsonArr.getJSONObject(i).getInt("booking_id"),
+                                            jsonArr.getJSONObject(i).getString("amount_paid"),
+                                            jsonArr.getJSONObject(i)
+                                                .getString("journey_total_amount"),
+                                            jsonArr.getJSONObject(i).getString("status"),
+                                            jsonArr.getJSONObject(i).getString("booking_type"),
+                                            jsonArr.getJSONObject(i).getString("date"),
+                                        )
+                                    )
+                                }
+                                (context as TransactionsActivity).getTransactionList(transactionList)
+                            }
+
+                        }
+                    } catch (e: JSONException) {
+                        App.openDialog(context, "Error", e.message!!)
+                    }
+                },
+                Response.ErrorListener { error ->
+                    context.toast("Something went wrong: $error")
+                }) {
+
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): MutableMap<String, String> {
+                    val header: MutableMap<String, String> = HashMap()
+                    header["Authorization"] = App.getUserToken(context)
+                    return header
+                }
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
+    }
+
 
 }

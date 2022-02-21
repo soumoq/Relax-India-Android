@@ -14,9 +14,8 @@
             android:title="Your Bookings" />
 
         <item
-            android:id="@+id/menu_wallet"
-            android:title="Wallet"
-            android:visible="false" />
+            android:id="@+id/menu_transactions"
+            android:title="Transactions" />
 
         <item
             android:id="@+id/menu_profile"

@@ -200,8 +200,8 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                     val intent = Intent(this, MyProfileActivity::class.java)
                     startActivity(intent)
                 }
-                R.id.menu_wallet -> {
-                    val intent = Intent(this, WalletActivity::class.java)
+                R.id.menu_transactions -> {
+                    val intent = Intent(this, TransactionsActivity::class.java)
                     startActivity(intent)
                 }
                 R.id.menu_schedule_booking -> {
