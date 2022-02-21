@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_light_gray"
     tools:context=".view.activity.TransactionsActivity">
 
 
@@ -49,7 +50,16 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/transaction_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
 
 
     </LinearLayout>

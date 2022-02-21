@@ -8,6 +8,7 @@ import org.relaxindia.R
 import org.relaxindia.model.TransactionList
 import org.relaxindia.service.VollyApi
 import org.relaxindia.util.toast
+import org.relaxindia.view.recyclerView.TransactionListAdapter
 
 class TransactionsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +24,11 @@ class TransactionsActivity : AppCompatActivity() {
     }
 
     fun getTransactionList(transactionList: ArrayList<TransactionList>) {
-        toast(transactionList.size.toString())
+        if (transactionList.size > 0) {
+            val transactionListAdapter = TransactionListAdapter(this)
+            transaction_list.adapter = transactionListAdapter
+            transactionListAdapter.updateData(transactionList)
+        }
     }
 
     override fun startActivity(intent: Intent?) {
