@@ -41,6 +41,12 @@ import org.relaxindia.util.App
 import org.relaxindia.view.recyclerView.ServiceAdapter
 import org.relaxindia.viewModel.ApiCallViewModel
 import android.location.Geocoder
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.messaging.FirebaseMessaging
 import org.relaxindia.service.VollyApi
 import java.util.*
@@ -48,6 +54,8 @@ import kotlin.collections.ArrayList
 import kotlinx.android.synthetic.main.sheet_booking_list.*
 import org.relaxindia.model.SupportList
 import org.relaxindia.view.recyclerView.SupportListAdapter
+import com.google.gson.Gson
+import org.json.JSONObject
 
 
 class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -261,7 +269,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         })
     }
 
-    fun changeBackGround(position: Int, price: Double, serviceId: Int, serviceName : String) {
+    fun changeBackGround(position: Int, price: Double, serviceId: Int, serviceName: String) {
         servicePrice = price * 100
         this.serviceId = serviceId
         this.serviceName = serviceName
@@ -331,6 +339,40 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
             googleMap.uiSettings.isMyLocationButtonEnabled = true
         }
         val latLng = LatLng(currentLocation!!.latitude, currentLocation!!.longitude)
+
+        FirebaseDatabase.getInstance().reference.child("driver_data")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    for (ds in dataSnapshot.children) {
+                        var getObject: Object = ds.getValue(Object::class.java)!!
+                        val objectStr: String = Gson().toJson(getObject)
+                        val jsonObject = JSONObject(objectStr)
+                        if (jsonObject.getBoolean("locationActive") && jsonObject.getBoolean("online")) {
+                            val place = MarkerOptions().position(
+                                LatLng(
+                                    jsonObject.getDouble("lat"),
+                                    jsonObject.getDouble("lon")
+                                )
+                            ).title("Ambulance")
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+
+                            googleMap.addMarker(place)
+                                .setIcon(
+                                    App.bitmapDescriptorFromVector(
+                                        R.drawable.amb_vec,
+                                        this@HomeActivity
+                                    )
+                                )
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+            })
+
         val cameraPosition = CameraPosition.Builder().target(latLng).zoom(16f).build()
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
     }
