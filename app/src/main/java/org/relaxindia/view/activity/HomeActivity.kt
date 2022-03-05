@@ -56,6 +56,7 @@ import org.relaxindia.model.SupportList
 import org.relaxindia.view.recyclerView.SupportListAdapter
 import com.google.gson.Gson
 import org.json.JSONObject
+import org.relaxindia.util.toast
 
 
 class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -167,7 +168,8 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                 desLocation = place.address.toString()
                 homeDashboardSheet.sheet_des.text = desLocation
                 homeDashboardSheet.sheet_pickup.text = sourceLocation
-                //toast(queriedLocation!!.latitude.toString())
+                //toast("$desLocation : $sourceLocation")
+                VollyApi.saveSearch(this@HomeActivity, sourceLocation, desLocation)
             }
 
             override fun onError(status: Status) {

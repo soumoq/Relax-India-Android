@@ -697,5 +697,37 @@ object VollyApi {
         requestQueue.add(stringRequest)
     }
 
+    fun saveSearch(context: Context, source: String, des: String) {
+        val URL = "${App.apiBaseUrl}${App.SAVE_SEARCH}"
+        val requestQueue = Volley.newRequestQueue(context)
+
+        val stringRequest: StringRequest =
+            object : StringRequest(
+                Request.Method.POST, URL,
+                Response.Listener<String?> { response ->
+                },
+                Response.ErrorListener { error ->
+                    //context.toast("Something went wrong: $error")
+                }) {
+
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): MutableMap<String, String> {
+                    val header: MutableMap<String, String> = HashMap()
+                    header["Authorization"] = App.getUserToken(context)
+                    return header
+                }
+
+                @Throws(AuthFailureError::class)
+                override fun getParams(): Map<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["source"] = source
+                    params["destination"] = des
+                    return params
+                }
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
+    }
+
 
 }
