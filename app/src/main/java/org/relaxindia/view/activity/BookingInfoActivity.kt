@@ -11,7 +11,6 @@ import org.relaxindia.R
 import org.relaxindia.util.App
 import org.relaxindia.util.loadImage
 import org.relaxindia.view.recyclerView.OtherServiceAdapter
-import androidx.core.content.ContextCompat.startActivity
 
 
 class BookingInfoActivity : AppCompatActivity() {
@@ -63,10 +62,10 @@ class BookingInfoActivity : AppCompatActivity() {
         booking_info_driver_name.text = driverName
         booking_info_driver_image.loadImage(driverImage)
         booking_info_date.text = date
-        booking_info_booking_amt.text = "${App.rs}$bookingAmount"
-        booking_info_total_amt.text = "${App.rs}$totalAmount"
+        booking_info_booking_amt.text = "${App.RS}$bookingAmount"
+        booking_info_total_amt.text = "${App.RS}$totalAmount"
         booking_info_driver_amt.text =
-            "${App.rs}${totalAmount.toDouble() - bookingAmount.toDouble()}"
+            "${App.RS}${totalAmount.toDouble() - bookingAmount.toDouble()}"
 
         val jsonArr = JSONArray(serviceDetails)
         Log.e("JSONDATA", jsonArr.getJSONObject(0).getString("name"))

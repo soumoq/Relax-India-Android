@@ -4,6 +4,7 @@ package org.relaxindia.view.activity
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
@@ -41,6 +42,9 @@ import org.relaxindia.util.App
 import org.relaxindia.view.recyclerView.ServiceAdapter
 import org.relaxindia.viewModel.ApiCallViewModel
 import android.location.Geocoder
+import android.net.Uri
+import android.widget.VideoView
+import androidx.appcompat.app.AlertDialog
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.DataSnapshot
@@ -56,6 +60,7 @@ import org.relaxindia.model.SupportList
 import org.relaxindia.view.recyclerView.SupportListAdapter
 import com.google.gson.Gson
 import org.json.JSONObject
+import androidx.core.content.ContextCompat.startActivity
 
 
 class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -225,6 +230,14 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                 R.id.menu_support_list -> {
                     VollyApi.getSupportList(this)
                 }
+                R.id.menu_guide -> {
+                    VollyApi.getGuide(this)
+                }
+                R.id.menu_store -> {
+                    val httpIntent = Intent(Intent.ACTION_VIEW)
+                    httpIntent.data = Uri.parse(App.STORE_URL)
+                    startActivity(httpIntent)
+                }
             }
             true
         }
@@ -309,6 +322,22 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         supportListAdapter.updateData(objList)
 
 
+    }
+
+    fun startVideoPlayActivity(url: String) {
+        val builder = AlertDialog.Builder(this)
+        val videoPlayer = VideoView(this)
+        builder.setView(videoPlayer)
+        videoPlayer.setVideoPath(url)
+        videoPlayer.start()
+        
+        // add a button
+        builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+
+        })
+
+        val dialog = builder.create()
+        dialog.show()
     }
 
 

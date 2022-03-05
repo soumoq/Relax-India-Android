@@ -10,24 +10,17 @@ import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.razorpay.Checkout
 import com.razorpay.PaymentResultListener
 import kotlinx.android.synthetic.main.activity_start_schedule_booking.*
-import kotlinx.android.synthetic.main.sheet_booking_list.*
 import org.json.JSONObject
 import org.relaxindia.R
-import org.relaxindia.SuccessScheduleReq
-import org.relaxindia.model.ScheduleReq
 import org.relaxindia.service.VollyApi
 import org.relaxindia.util.App
 import org.relaxindia.util.toast
-import org.relaxindia.view.recyclerView.ScheduleBookingAdapter
-import org.relaxindia.view.recyclerView.SuccessScheduleBookingAdapter
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class StartScheduleBookingActivity : AppCompatActivity(), PaymentResultListener {
 
@@ -141,7 +134,7 @@ class StartScheduleBookingActivity : AppCompatActivity(), PaymentResultListener 
         this.bookingId = bookingId;
         this.amount = payableAmount.toString()
         val checkout = Checkout()
-        checkout.setKeyID(App.paymentkeyId)
+        checkout.setKeyID(App.PAYMENT_KAY_ID)
 
         checkout.setImage(R.drawable.logo)
 

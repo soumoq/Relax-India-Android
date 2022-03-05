@@ -12,8 +12,6 @@ import android.location.Location
 
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -25,7 +23,6 @@ import org.relaxindia.R
 import org.relaxindia.service.VollyApi
 import org.relaxindia.service.location.GpsTracker
 import org.relaxindia.util.App
-import org.relaxindia.util.toast
 import org.relaxindia.view.recyclerView.DefaultServiceAdapter
 import org.relaxindia.view.recyclerView.OptionalServiceAdapter
 import org.relaxindia.viewModel.ApiCallViewModel
@@ -145,12 +142,12 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
 
         apiCallViewModel.getSelectedService.observe(this, Observer {
             if (!it.error) {
-                base_price.text = "${App.rs}${(it.data.payable_amount + it.data.rest_amount)}"
-                bookNowAmountSheet = "Pay now ${App.rs}${it.data.payable_amount}"
+                base_price.text = "${App.RS}${(it.data.payable_amount + it.data.rest_amount)}"
+                bookNowAmountSheet = "Pay now ${App.RS}${it.data.payable_amount}"
                 payableAmount = it.data.payable_amount
                 totalAmount = it.data.payable_amount + it.data.rest_amount
-                partial_pay.text = "${App.rs}${it.data.payable_amount}"
-                payto_driver.text = "${App.rs}${it.data.rest_amount}"
+                partial_pay.text = "${App.RS}${it.data.payable_amount}"
+                payto_driver.text = "${App.RS}${it.data.rest_amount}"
                 note_text.text = it.data.note
             }
         })
@@ -192,7 +189,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
 
     private fun startPayment() {
         val checkout = Checkout()
-        checkout.setKeyID(App.paymentkeyId)
+        checkout.setKeyID(App.PAYMENT_KAY_ID)
 
         checkout.setImage(R.drawable.logo)
 
@@ -275,7 +272,11 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
             sheetDialog.search_image.visibility = View.GONE
             sheetDialog.book_now_amount_sheet.text = bookNowAmountSheet
             sheetDialog.pay_to_book_sheet.setOnClickListener {
-                startPayment()
+                if (payableAmount.toInt() == 0) {
+                    onPaymentSuccess("NULL")
+                } else {
+                    startPayment()
+                }
             }
         }
     }

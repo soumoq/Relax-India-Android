@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.provider.Settings
 import android.text.TextUtils
@@ -29,12 +28,13 @@ object App {
 
     var ambulanceSearchRedis: String = "5"
 
-    const val rs = "₹"
+    const val RS = "₹"
+    const val STORE_URL = "https://www.relaxindia.org/"
     const val locationAlert =
         "We'll only use your location to show available delivery option. You can change this preference in settings at any time"
 
     //Payment key id
-    const val paymentkeyId = "rzp_test_3wnATNB0dnwOxX"
+    const val PAYMENT_KAY_ID = "rzp_test_3wnATNB0dnwOxX"
 
     //google api key
     const val googleApiKey = "AIzaSyCxn_36SpMjIwCuoUSqOOI4N9E_6XTdJJk"
@@ -63,6 +63,7 @@ object App {
     const val GET_RATING = "get-driver-rating"
     const val GET_TRANSACTION = "get-transactions"
     const val SAVE_SEARCH = "save-search"
+    const val GET_GUIDE = "get-app-tour-guide-video"
 
 
     //Share preference key
@@ -195,11 +196,11 @@ object App {
     fun setNoteText(partialPay: String, amountPayToDriver: String): String {
 
         val note =
-            "Note : You need to pay $rs$partialPay at the time of booking and  $rs$amountPayToDriver to driver by cash or in other format as per your choice after end of the journey. If no driver get assigned after booking then the amount will refund within 2 working days to your bank account"
+            "Note : You need to pay $RS$partialPay at the time of booking and  $RS$amountPayToDriver to driver by cash or in other format as per your choice after end of the journey. If no driver get assigned after booking then the amount will refund within 2 working days to your bank account"
         return note
     }
 
-    fun bitmapDescriptorFromVector(vectorResId: Int,context: Context): BitmapDescriptor? {
+    fun bitmapDescriptorFromVector(vectorResId: Int, context: Context): BitmapDescriptor? {
         val vectorDrawable = ContextCompat.getDrawable(context, vectorResId)
         vectorDrawable!!.setBounds(
             0,

@@ -3,7 +3,6 @@ package org.relaxindia.view.recyclerView
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,7 +53,7 @@ class OptionalServiceAdapter(context: Context) :
         fun bind(service: ServiceData, position: Int, context: Context) {
             view.op_service_image.loadImage(service.image)
             view.op_service_name.text = service.name
-            view.op_service_price.text = "${App.rs}${service.price.toString()}"
+            view.op_service_price.text = "${App.RS}${service.price.toString()}"
 
             if (service.select) {
                 view.recycler_op_service_layout.setBackgroundColor(Color.parseColor("#00b0ec"))

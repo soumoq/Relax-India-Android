@@ -35,6 +35,14 @@
             android:id="@+id/menu_support_list"
             android:title="Support List" />
 
+        <item
+            android:id="@+id/menu_store"
+            android:title="Store" />
+
+        <item
+            android:id="@+id/menu_guide"
+            android:title="Guide" />
+
 
     </group>
 

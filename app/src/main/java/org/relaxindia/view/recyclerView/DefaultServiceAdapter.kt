@@ -2,19 +2,16 @@ package org.relaxindia.view.recyclerView
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_default_service.view.*
-import kotlinx.android.synthetic.main.recycler_service.view.*
 
 import org.relaxindia.R
 import org.relaxindia.model.getService.ServiceData
 import org.relaxindia.util.App
 import org.relaxindia.util.loadImage
-import org.relaxindia.view.activity.HomeActivity
 
 
 class DefaultServiceAdapter(context: Context) :
@@ -53,7 +50,7 @@ class DefaultServiceAdapter(context: Context) :
         @SuppressLint("SetTextI18n")
         fun bind(service: ServiceData, position: Int, context: Context) {
             view.default_service_name.text = service.name
-            view.default_service_price.text = "${App.rs}${service.price}"
+            view.default_service_price.text = "${App.RS}${service.price}"
             view.default_service_image.loadImage(service.image)
         }
     }
