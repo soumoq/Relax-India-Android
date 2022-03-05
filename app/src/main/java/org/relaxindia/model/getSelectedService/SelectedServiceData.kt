@@ -14,8 +14,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 
 
-data class SelectedServiceData (
+data class SelectedServiceData(
 
-	@SerializedName("payable_amount") val payable_amount : Double,
-	@SerializedName("rest_amount") val rest_amount : Double
+    @SerializedName("payable_amount") val payable_amount: Double,
+    @SerializedName("rest_amount") val rest_amount: Double,
+    @SerializedName("note") val note: String
 )

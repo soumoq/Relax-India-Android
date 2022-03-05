@@ -113,11 +113,11 @@
 
 
                                 <TextView
+                                    android:id="@+id/short_dec"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="ETA: mins"
-                                    android:textSize="12sp"
-                                    android:visibility="gone" />
+                                    android:textColor="@color/black"/>
 
 
                             </LinearLayout>
@@ -245,8 +245,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_marginLeft="45dp"
-                            android:layout_marginRight="15dp"
                             android:layout_marginTop="15dp"
+                            android:layout_marginRight="15dp"
                             android:layout_marginBottom="15dp"
                             android:background="#dadada" />
 
@@ -268,8 +268,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="15dp"
-                                android:text="B.N. Bose Hospital"
                                 android:layout_marginRight="15dp"
+                                android:text="B.N. Bose Hospital"
                                 android:textColor="@color/black"
                                 android:textSize="13sp" />
 

@@ -56,7 +56,6 @@ import org.relaxindia.model.SupportList
 import org.relaxindia.view.recyclerView.SupportListAdapter
 import com.google.gson.Gson
 import org.json.JSONObject
-import org.relaxindia.util.toast
 
 
 class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -83,6 +82,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
     //Service Price
     var servicePrice: Double = 0.0
     var serviceId = -1
+    var shortDec = ""
     var serviceName = ""
 
     var sourceLocation = ""
@@ -115,6 +115,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
             intent.putExtra("service_price", servicePrice.toString())
             intent.putExtra("service_id", serviceId.toString())
             intent.putExtra("service_name", serviceName)
+            intent.putExtra("short_description", shortDec)
             intent.putExtra("source_loc", sourceLocation)
             intent.putExtra("des_loc", desLocation)
             intent.putExtra("sourceLat", sourceLat)
@@ -271,10 +272,17 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         })
     }
 
-    fun changeBackGround(position: Int, price: Double, serviceId: Int, serviceName: String) {
+    fun changeBackGround(
+        position: Int,
+        price: Double,
+        serviceId: Int,
+        serviceName: String,
+        shortDescription: String
+    ) {
         servicePrice = price * 100
         this.serviceId = serviceId
         this.serviceName = serviceName
+        this.shortDec = shortDescription
         homeDashboardSheet.book_now.visibility = View.VISIBLE
         val serviceInfo = ArrayList<ServiceData>()
         serviceInfo.addAll(apiCallViewModel.getService.value?.data!!)

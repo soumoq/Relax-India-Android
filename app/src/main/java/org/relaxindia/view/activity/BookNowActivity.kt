@@ -58,6 +58,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
     var desLon = ""
 
     var serviceName = ""
+    var shortDec = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_now)
@@ -72,9 +73,16 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
         desLat = intent.getStringExtra("desLat").toString()
         desLon = intent.getStringExtra("desLon").toString()
         serviceName = intent.getStringExtra("service_name").toString()
+        shortDec = intent.getStringExtra("short_description").toString()
 
         book_now_heading.text = serviceName
         service_name_book_now.text = serviceName
+        if (shortDec.equals("NULL")) {
+            short_dec.visibility = View.GONE
+        } else {
+            short_dec.visibility = View.VISIBLE
+            short_dec.text = shortDec
+        }
 
         //Calculate distance
         val startPoint = Location("SOURCE")
@@ -143,10 +151,7 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
                 totalAmount = it.data.payable_amount + it.data.rest_amount
                 partial_pay.text = "${App.rs}${it.data.payable_amount}"
                 payto_driver.text = "${App.rs}${it.data.rest_amount}"
-                note_text.text = App.setNoteText(
-                    it.data.payable_amount.toString(),
-                    it.data.rest_amount.toString()
-                )
+                note_text.text = it.data.note
             }
         })
 

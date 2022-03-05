@@ -38,7 +38,7 @@ class ServiceAdapter(context: Context) : RecyclerView.Adapter<ServiceAdapter.Vie
     )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(service[position], position,context)
+        holder.bind(service[position], position, context)
     }
 
     override fun getItemCount() = service.size
@@ -60,8 +60,20 @@ class ServiceAdapter(context: Context) : RecyclerView.Adapter<ServiceAdapter.Vie
             }
 
 
+            var shortDec = ""
+            shortDec = if (service.short_description.equals(null))
+                "NULL"
+            else
+                service.short_description!!
+
             view.recycler_library_service_layout.setOnClickListener {
-                (context as HomeActivity).changeBackGround(position,service.price,service.id,service.name)
+                (context as HomeActivity).changeBackGround(
+                    position,
+                    service.price,
+                    service.id,
+                    service.name,
+                    shortDec
+                )
             }
 
         }
