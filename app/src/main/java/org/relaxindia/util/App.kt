@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.location.Location
 import android.os.Build
 import android.provider.Settings
 import android.text.TextUtils
@@ -216,6 +217,15 @@ object App {
         val canvas = Canvas(bitmap)
         vectorDrawable.draw(canvas)
         return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
+
+    fun calculateTime(location1: Location, location2: Location) : String {
+        val distanceInMeters = location1.distanceTo(location2)
+        //For example spead is 10 meters per minute.
+        val speedIs10MetersPerMinute = 583
+        val estimatedDriveTimeInMinutes: Float = distanceInMeters / speedIs10MetersPerMinute
+        val time = String.format("%.0f", estimatedDriveTimeInMinutes)
+        return time
     }
 
 }

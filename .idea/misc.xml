@@ -19,11 +19,14 @@
         <entry key="..\:/Users/soumo/AndroidStudioProjects/shanu/Relax-India-Android/app/src/main/res/drawable-v24/location_box.xml" value="0.2175925925925926" />
         <entry key="..\:/Users/soumo/AndroidStudioProjects/shanu/Relax-India-Android/app/src/main/res/drawable-v24/text_box.xml" value="0.23425925925925925" />
         <entry key="..\:/Users/soumo/AndroidStudioProjects/shanu/Relax-India-Android/app/src/main/res/drawable-v24/track_box.xml" value="0.2175925925925926" />
+        <entry key="..\:/Users/soumo/AndroidStudioProjects/shanu/Relax-India-Android/app/src/main/res/drawable/blue_border_circle.xml" value="0.2175925925925926" />
+        <entry key="..\:/Users/soumo/AndroidStudioProjects/shanu/Relax-India-Android/app/src/main/res/drawable/blue_circle.xml" value="0.2175925925925926" />
         <entry key="..\:/Users/soumo/AndroidStudioProjects/shanu/Relax-India-Android/app/src/main/res/drawable/des_background.xml" value="0.23425925925925925" />
         <entry key="..\:/Users/soumo/AndroidStudioProjects/shanu/Relax-India-Android/app/src/main/res/drawable/ic_baseline_playlist_play_24.xml" value="0.23055555555555557" />
         <entry key="..\:/Users/soumo/AndroidStudioProjects/shanu/Relax-India-Android/app/src/main/res/drawable/ic_baseline_support_agent_24.xml" value="0.24814814814814815" />
         <entry key="..\:/Users/soumo/AndroidStudioProjects/shanu/Relax-India-Android/app/src/main/res/drawable/ic_outline_date_range_24.xml" value="0.23425925925925925" />
         <entry key="..\:/Users/soumo/AndroidStudioProjects/shanu/Relax-India-Android/app/src/main/res/drawable/ic_outline_playlist_add_24.xml" value="0.23055555555555557" />
+        <entry key="..\:/Users/soumo/AndroidStudioProjects/shanu/Relax-India-Android/app/src/main/res/drawable/white_circle_with_pink_border.xml" value="0.262037037037037" />
         <entry key="..\:/Users/soumo/AndroidStudioProjects/shanu/Relax-India-Android/app/src/main/res/layout/activity_book_now.xml" value="0.21965579710144928" />
         <entry key="..\:/Users/soumo/AndroidStudioProjects/shanu/Relax-India-Android/app/src/main/res/layout/activity_bookig_successful.xml" value="0.24592391304347827" />
         <entry key="..\:/Users/soumo/AndroidStudioProjects/shanu/Relax-India-Android/app/src/main/res/layout/activity_booking_info.xml" value="0.1793478260869565" />

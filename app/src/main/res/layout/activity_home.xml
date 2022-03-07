@@ -64,6 +64,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:elevation="5dp">
+
+                    <TextView
+                        android:id="@+id/eta_nearest_ambulance"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/white_circle_with_pink_border"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="15 Min"
+                        android:textSize="12.5sp" />
+
+                </RelativeLayout>
+
                 <fragment
                     android:id="@+id/myMap"
                     android:name="com.google.android.gms.maps.SupportMapFragment"

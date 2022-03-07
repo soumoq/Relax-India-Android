@@ -61,6 +61,9 @@ import org.relaxindia.view.recyclerView.SupportListAdapter
 import com.google.gson.Gson
 import org.json.JSONObject
 import androidx.core.content.ContextCompat.startActivity
+import java.util.function.Consumer
+import java.util.stream.Collector
+import java.util.stream.Collectors
 
 
 class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -330,7 +333,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         builder.setView(videoPlayer)
         videoPlayer.setVideoPath(url)
         videoPlayer.start()
-        
+
         // add a button
         builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
 
@@ -382,6 +385,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         FirebaseDatabase.getInstance().reference.child("driver_data")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val timeList = ArrayList<Int>()
                     for (ds in dataSnapshot.children) {
                         var getObject: Object = ds.getValue(Object::class.java)!!
                         val objectStr: String = Gson().toJson(getObject)
@@ -402,8 +406,29 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                                         this@HomeActivity
                                     )
                                 )
+
+                            val location1 = Location("")
+                            location1.latitude = currentLocation!!.latitude
+                            location1.longitude = currentLocation!!.longitude
+
+                            val location2 = Location("")
+                            location2.latitude = jsonObject.getDouble("lat")
+                            location2.longitude = jsonObject.getDouble("lon")
+
+                            val time = App.calculateTime(location1, location2)
+
+                            timeList.add(time.toInt())
+
                         }
                     }
+
+                    val timeListSort = timeList.stream().sorted().collect(Collectors.toList())
+                    timeListSort.forEach(Consumer {
+                        Log.e("ASDDDW", "$it")
+                    })
+                    if (timeListSort.size > 0)
+                        eta_nearest_ambulance.text = "${timeListSort.get(0)} min"
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {
