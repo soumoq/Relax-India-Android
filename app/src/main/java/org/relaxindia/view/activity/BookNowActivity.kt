@@ -133,7 +133,6 @@ class BookNowActivity : AppCompatActivity(), PaymentResultListener {
                     serviceAdapter.updateData(it.data)
                 } else if (it.message == "Default Service") {
                     val defaultServiceAdapter = DefaultServiceAdapter(this)
-                    default_service.layoutManager = GridLayoutManager(this, 3)
                     default_service.adapter = defaultServiceAdapter
                     defaultServiceAdapter.updateData(it.data)
                 }

@@ -354,7 +354,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         videoPlayer.start()
 
         // add a button
-        builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+        builder.setPositiveButton("Close", DialogInterface.OnClickListener { dialog, which ->
 
         })
 
