@@ -65,6 +65,7 @@ object App {
     const val GET_TRANSACTION = "get-transactions"
     const val SAVE_SEARCH = "save-search"
     const val GET_GUIDE = "get-app-tour-guide-video"
+    const val NEAR_HOSPITAL = "get-nearby-hospitals"
 
 
     //Share preference key

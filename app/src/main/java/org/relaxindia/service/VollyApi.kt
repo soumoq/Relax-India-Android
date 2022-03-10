@@ -10,6 +10,7 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONException
 import org.json.JSONObject
 import org.relaxindia.SuccessScheduleReq
+import org.relaxindia.model.HospitalList
 import org.relaxindia.model.ScheduleReq
 import org.relaxindia.model.SupportList
 import org.relaxindia.model.TransactionList
@@ -761,6 +762,69 @@ object VollyApi {
                     header["Authorization"] = App.getUserToken(context)
                     return header
                 }
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
+    }
+
+    fun getHospital(context: Context, lat: String, lon: String, radius: String = "1500") {
+        //context.toast("Please wait...")
+        Log.e("C_LAT_LON", "$lat\t$lon")
+        val URL = "${App.apiBaseUrl}${App.NEAR_HOSPITAL}"
+        val requestQueue = Volley.newRequestQueue(context)
+
+        val stringRequest: StringRequest =
+            object : StringRequest(
+                Request.Method.POST, URL,
+                Response.Listener<String?> { response ->
+                    try {
+                        val jsonObj = JSONObject(response)
+                        val error = jsonObj.getBoolean("error")
+                        if (error) {
+                            context.toast("Something went wrong!!!")
+                        } else {
+                            val jsonArr = jsonObj.getJSONArray("data")
+                            if (jsonArr.length() > 0) {
+                                val hospitalList = ArrayList<HospitalList>()
+                                for (i in 0 until jsonArr.length()) {
+                                    val data = jsonArr.getJSONObject(i)
+                                    val location = data.getJSONObject("location")
+                                    val hospital = HospitalList(
+                                        data.getString("name"),
+                                        location.getString("lat"),
+                                        location.getString("lng")
+                                    )
+                                    hospitalList.add(hospital)
+                                }
+                                (context as HomeActivity).getHospital(hospitalList)
+                            }
+
+                        }
+                    } catch (e: JSONException) {
+                        App.openDialog(context, "Error", e.message!!)
+                    }
+                },
+                Response.ErrorListener { error ->
+                    context.toast("Something went wrong: $error")
+                }) {
+
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): MutableMap<String, String> {
+                    val header: MutableMap<String, String> = HashMap()
+                    header["Authorization"] = App.getUserToken(context)
+                    return header
+                }
+
+                @Throws(AuthFailureError::class)
+                override fun getParams(): Map<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+                    params["lat"] = lat
+                    params["long"] = lon
+                    params["radius"] = radius
+
+                    return params
+                }
+
             }
         requestQueue.cache.clear()
         requestQueue.add(stringRequest)

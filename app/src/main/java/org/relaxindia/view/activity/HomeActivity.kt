@@ -60,9 +60,10 @@ import org.relaxindia.model.SupportList
 import org.relaxindia.view.recyclerView.SupportListAdapter
 import com.google.gson.Gson
 import org.json.JSONObject
-import androidx.core.content.ContextCompat.startActivity
+import org.relaxindia.model.HospitalList
+import org.relaxindia.util.toast
+import org.relaxindia.view.recyclerView.HospitalListAdapter
 import java.util.function.Consumer
-import java.util.stream.Collector
 import java.util.stream.Collectors
 
 
@@ -245,6 +246,13 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
             true
         }
 
+        val myLoc = GpsTracker(this)
+        VollyApi.getHospital(
+            this,
+            myLoc?.latitude.toString(),
+            myLoc?.longitude.toString()
+        )
+
 
     }
 
@@ -257,6 +265,17 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
+    }
+
+    fun getHospital(hospitalList: ArrayList<HospitalList>) {
+        if (hospitalList.size > 0) {
+            nh_layout.visibility = View.VISIBLE
+            val hospitalListAdapter = HospitalListAdapter(this)
+            hospital_list.adapter = hospitalListAdapter
+            hospitalListAdapter.updateData(hospitalList)
+        } else {
+            nh_layout.visibility = View.GONE
+        }
     }
 
     private fun observeViewModel() {
@@ -407,6 +426,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                                     )
                                 )
 
+                            Log.e("C_LAT_LON", "${currentLocation!!.latitude}")
                             val location1 = Location("")
                             location1.latitude = currentLocation!!.latitude
                             location1.longitude = currentLocation!!.longitude
