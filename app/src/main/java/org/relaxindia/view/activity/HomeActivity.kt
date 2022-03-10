@@ -426,8 +426,13 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                     timeListSort.forEach(Consumer {
                         Log.e("ASDDDW", "$it")
                     })
-                    if (timeListSort.size > 0)
-                        eta_nearest_ambulance.text = "${timeListSort.get(0)} min"
+                    if (timeListSort.size > 0) {
+                        if (timeListSort.get(0) <= 0) {
+                            eta_nearest_ambulance.text = "${1} Mins"
+                        } else {
+                            eta_nearest_ambulance.text = "${timeListSort.get(0)} Mins"
+                        }
+                    }
 
                 }
 

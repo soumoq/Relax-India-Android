@@ -64,24 +64,61 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
                     android:layout_margin="10dp"
-                    android:elevation="5dp">
+                    android:elevation="5dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:shapeAppearanceOverlay="@style/circle">
 
-                    <TextView
-                        android:id="@+id/eta_nearest_ambulance"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                    <RelativeLayout
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:layout_gravity="center"
                         android:background="@drawable/white_circle_with_pink_border"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="15 Min"
-                        android:textSize="12.5sp" />
+                        android:padding="5dp">
 
-                </RelativeLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="Nearest"
+                                android:textSize="12.5sp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="Ambulance Time"
+                                android:textSize="9sp" />
+
+
+                            <TextView
+                                android:id="@+id/eta_nearest_ambulance"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="0 Min"
+                                android:textColor="@color/app_color"
+                                android:textSize="12.5sp" />
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+
+                </com.google.android.material.card.MaterialCardView>
 
                 <fragment
                     android:id="@+id/myMap"
