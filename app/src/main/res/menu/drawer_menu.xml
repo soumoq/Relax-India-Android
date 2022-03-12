@@ -43,6 +43,10 @@
             android:id="@+id/menu_guide"
             android:title="Guide" />
 
+        <item
+            android:id="@+id/menu_share"
+            android:title="Share" />
+
 
     </group>
 
