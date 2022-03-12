@@ -16,6 +16,7 @@ import org.relaxindia.model.HospitalList
 import org.relaxindia.util.App
 import org.relaxindia.util.loadImage
 import org.relaxindia.view.activity.BookNowActivity
+import org.relaxindia.view.activity.HomeActivity
 
 
 class HospitalListAdapter(context: Context) :
@@ -54,7 +55,9 @@ class HospitalListAdapter(context: Context) :
         @SuppressLint("SetTextI18n")
         fun bind(hospital: HospitalList, position: Int, context: Context) {
             view.hospital_text.text = hospital.name
-
+            view.hospital_list_layout.setOnClickListener {
+                (view.context as HomeActivity).getSearch(hospital.lat, hospital.lon, hospital.name)
+            }
 
         }
     }

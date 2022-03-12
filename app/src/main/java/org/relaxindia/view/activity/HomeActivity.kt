@@ -61,7 +61,6 @@ import org.relaxindia.view.recyclerView.SupportListAdapter
 import com.google.gson.Gson
 import org.json.JSONObject
 import org.relaxindia.model.HospitalList
-import org.relaxindia.util.toast
 import org.relaxindia.view.recyclerView.HospitalListAdapter
 import java.util.function.Consumer
 import java.util.stream.Collectors
@@ -170,16 +169,12 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                 //Log.i("TAG", "Place: " + place.getName() + ", " + place.getId());
                 //Toast.makeText(getApplicationContext(),"Success" + place.getName(),Toast.LENGTH_LONG).show();
                 val queriedLocation = place.latLng
-                desLat = queriedLocation?.latitude.toString()
-                desLon = queriedLocation?.longitude.toString()
-                homeDashboardSheet.select_ambulance_layout.visibility = View.VISIBLE
-                apiCallViewModel.serviceInfo(this@HomeActivity)
-                homeDashboardSheet.show()
-                desLocation = place.address.toString()
-                homeDashboardSheet.sheet_des.text = desLocation
-                homeDashboardSheet.sheet_pickup.text = sourceLocation
-                //toast("$desLocation : $sourceLocation")
-                VollyApi.saveSearch(this@HomeActivity, sourceLocation, desLocation)
+                val place1 = place.address.toString()
+                getSearch(
+                    queriedLocation?.latitude.toString(),
+                    queriedLocation?.longitude.toString(),
+                    place1
+                )
             }
 
             override fun onError(status: Status) {
@@ -275,6 +270,19 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
+    }
+
+    fun getSearch(lat: String, lon: String, place: String) {
+        desLat = lat
+        desLon = lon
+        homeDashboardSheet.select_ambulance_layout.visibility = View.VISIBLE
+        apiCallViewModel.serviceInfo(this@HomeActivity)
+        homeDashboardSheet.show()
+        desLocation = place
+        homeDashboardSheet.sheet_des.text = desLocation
+        homeDashboardSheet.sheet_pickup.text = sourceLocation
+        //toast("$desLocation : $sourceLocation")
+        VollyApi.saveSearch(this@HomeActivity, sourceLocation, desLocation)
     }
 
     fun getHospital(hospitalList: ArrayList<HospitalList>) {

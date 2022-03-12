@@ -99,7 +99,7 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/white_circle_with_pink_border"
+                        android:background="@drawable/white_circle_with_orange_border"
                         android:padding="5dp">
 
                         <LinearLayout
