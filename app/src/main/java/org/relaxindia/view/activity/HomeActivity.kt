@@ -292,15 +292,19 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         VollyApi.saveSearch(this@HomeActivity, sourceLocation, desLocation)
     }
 
-    fun getHospital(hospitalList: ArrayList<HospitalList>) {
+    private val hospitalListAdapter = HospitalListAdapter(this)
+    fun getHospital(hospitalList: ArrayList<HospitalList>, click: Boolean = false) {
         if (hospitalList.size > 0) {
             nh_layout.visibility = View.VISIBLE
-            val hospitalListAdapter = HospitalListAdapter(this)
             hospital_list.adapter = hospitalListAdapter
             hospitalListAdapter.updateData(hospitalList)
         } else {
             nh_layout.visibility = View.GONE
         }
+    }
+
+    fun getClickHospital(pos: Int) {
+        hospitalListAdapter.updateClick(pos)
     }
 
     private fun observeViewModel() {

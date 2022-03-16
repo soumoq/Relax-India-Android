@@ -792,7 +792,8 @@ object VollyApi {
                                     val hospital = HospitalList(
                                         data.getString("name"),
                                         location.getString("lat"),
-                                        location.getString("lng")
+                                        location.getString("lng"),
+                                        false
                                     )
                                     hospitalList.add(hospital)
                                 }
