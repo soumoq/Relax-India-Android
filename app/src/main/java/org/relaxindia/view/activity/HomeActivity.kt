@@ -59,11 +59,18 @@ import kotlinx.android.synthetic.main.sheet_booking_list.*
 import org.relaxindia.model.SupportList
 import org.relaxindia.view.recyclerView.SupportListAdapter
 import com.google.gson.Gson
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import org.json.JSONObject
 import org.relaxindia.model.HospitalList
 import org.relaxindia.view.recyclerView.HospitalListAdapter
 import java.util.function.Consumer
 import java.util.stream.Collectors
+import javax.security.auth.callback.Callback
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+
+import androidx.annotation.NonNull
+
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
 
 
 class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -366,10 +373,18 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
     fun startVideoPlayActivity(url: String) {
         val builder = AlertDialog.Builder(this)
-        val videoPlayer = VideoView(this)
-        builder.setView(videoPlayer)
-        videoPlayer.setVideoPath(url)
-        videoPlayer.start()
+        //val videoPlayer = VideoView(this)
+        //builder.setView(videoPlayer)
+        //videoPlayer.setVideoPath(url)
+        //videoPlayer.start()
+        val youtube = YouTubePlayerView(this)
+        lifecycle.addObserver(youtube)
+        youtube.getYouTubePlayerWhenReady(object : YouTubePlayerCallback {
+            override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
+                youTubePlayer.loadVideo(url, 0f)
+            }
+        })
+        builder.setView(youtube)
 
         // add a button
         builder.setPositiveButton("Close", DialogInterface.OnClickListener { dialog, which ->

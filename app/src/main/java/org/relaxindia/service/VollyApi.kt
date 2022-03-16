@@ -731,7 +731,7 @@ object VollyApi {
     }
 
     fun getGuide(context: Context) {
-        //context.toast("Please wait...")
+        context.toast("Please wait...")
         val URL = "${App.apiBaseUrl}${App.GET_GUIDE}"
         val requestQueue = Volley.newRequestQueue(context)
 
