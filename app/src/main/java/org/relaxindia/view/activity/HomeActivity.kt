@@ -476,6 +476,13 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
                             timeList.add(time.toInt())
 
+                        } else {
+                            val place = MarkerOptions().position(
+                                LatLng(0.0, 0.0)
+                            ).title("Ambulance")
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+
+                            googleMap.addMarker(place)
                         }
                     }
 

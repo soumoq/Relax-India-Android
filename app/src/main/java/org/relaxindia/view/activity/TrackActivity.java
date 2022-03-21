@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -89,6 +90,7 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
     private TextView viewToLocation;
     private CircleImageView viewDriverImage;
     private LinearLayout viewCustomerSupport;
+    private ImageView timeRefresh;
 
 
     @Override
@@ -104,6 +106,7 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
         viewDriverImage = findViewById(R.id.track_driver_image);
         viewTrackPhone = findViewById(R.id.track_phone);
         viewCustomerSupport = findViewById(R.id.customer_support);
+        timeRefresh = findViewById(R.id.time_refresh);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -129,6 +132,13 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
                 startActivity(intent);
+            }
+        });
+
+        timeRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(getIntent());
             }
         });
 

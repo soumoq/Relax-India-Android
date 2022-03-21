@@ -17,16 +17,31 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/eta_time"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"
-            android:text="Estimated time: "
-            android:textColor="@color/black"
-            android:textSize="16dp" />
+            android:layout_marginRight="15dp">
+
+            <TextView
+                android:id="@+id/eta_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Estimated time: "
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+            <ImageView
+                android:id="@+id/time_refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_baseline_refresh_24" />
+
+        </LinearLayout>
 
 
         <RelativeLayout

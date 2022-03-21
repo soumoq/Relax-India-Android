@@ -57,13 +57,13 @@ class MyOrderListAdapter(context: Context) : RecyclerView.Adapter<MyOrderListAda
             var styledText = ""
             when {
                 booking.status.equals("Pending") -> styledText =
-                    "Status: <font color='yellow'>${booking.status}</font>"
+                    "Status: <font color='#F7DC6F'>${booking.status}</font>"
                 booking.status.equals("Booked") -> styledText =
-                    "Status: <font color='green'>${booking.status}</font>"
+                    "Status: <font color='#1ABC9C'>${booking.status}</font>"
                 booking.status.equals("Cancelled") -> styledText =
                     "Status: <font color='red'>${booking.status}</font>"
                 booking.status.equals("Refund") -> styledText =
-                    "Status: <font color='blue'>${booking.status}</font>"
+                    "Status: <font color='#2980B9'>${booking.status}</font>"
             }
 
             if (booking.status.equals("Booked")) {
