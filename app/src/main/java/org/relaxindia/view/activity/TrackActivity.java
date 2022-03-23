@@ -297,7 +297,7 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
 
         CameraPosition googlePlex = CameraPosition.builder()
                 .target(new LatLng(fromLatitude, fromLongitude))
-                .zoom(13f)
+                .zoom(16f)
                 .bearing(0)
                 .tilt(45)
                 .build();
@@ -305,9 +305,9 @@ public class TrackActivity extends AppCompatActivity implements OnMapReadyCallba
 
         // Position the map's camera near Alice Springs in the center of Australia,
         // and set the zoom factor so most of Australia shows on the screen.
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(fromLatitude, fromLongitude), 4));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(fromLatitude, fromLongitude), 16f));
 
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 5000, null);
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex));
     }
 
     private BitmapDescriptor bitmapDescriptorFromVector(int vectorResId) {
