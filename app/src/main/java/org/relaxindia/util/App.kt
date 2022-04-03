@@ -41,7 +41,7 @@ object App {
     const val googleApiKey = "AIzaSyCxn_36SpMjIwCuoUSqOOI4N9E_6XTdJJk"
 
     //API
-    const val apiBaseUrl = "https://recztrade.com/demo/relaxindia.org/api/v1/user/"
+    const val apiBaseUrl = "https://www.relaxindia.recztrade.com/api/v1/user/"
     const val apiLogin = "login"
     const val apiCheckOtp = "verify-otp"
     const val API_PROFILE = "profile"
