@@ -23,6 +23,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONArray
 import org.json.JSONObject
+import org.relaxindia.BuildConfig
 import org.relaxindia.R
 import org.relaxindia.util.App
 import org.relaxindia.util.toast
@@ -45,6 +46,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        app_version.text = BuildConfig.VERSION_NAME.toString()
 
         FirebaseMessaging.getInstance().subscribeToTopic("/topics/relaxIndia")
 
