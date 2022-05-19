@@ -30,8 +30,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
 
 import com.google.android.gms.location.LocationRequest
-
-
+import org.relaxindia.service.VollyApi
 
 
 class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
@@ -40,12 +39,14 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         setContentView(R.layout.activity_main)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
+        VollyApi.getApiKey(this)
+    }
 
+    fun startPoint() {
         val perms = arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.CALL_PHONE,
@@ -70,9 +71,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
                 *perms
             )
         }
-
     }
-
 
 
     override fun onBackPressed() {

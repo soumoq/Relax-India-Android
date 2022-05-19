@@ -831,5 +831,41 @@ object VollyApi {
         requestQueue.add(stringRequest)
     }
 
+    fun getApiKey(context: Context) {
+        val URL = "https://www.relaxindia.recztrade.com/api/v1/get-api-keys"
+        val requestQueue = Volley.newRequestQueue(context)
+        val stringRequest: StringRequest =
+            object : StringRequest(
+                Request.Method.POST, URL,
+                Response.Listener<String?> { response ->
+                    try {
+                        val jsonObj = JSONObject(response)
+                        val data = jsonObj.getJSONObject("data")
+                        val placekey = data.getString("place_api_key")
+                        //context.toast(placekey)
+                        val sp = context.getSharedPreferences("user_info", Context.MODE_PRIVATE)
+                        val editor = sp.edit()
+                        editor.putString(App.preferenceUserAPI, placekey)
+                        editor.commit()
+                        (context as MainActivity).startPoint()
+
+                    } catch (e: JSONException) {
+                        App.openDialog(context, "Error", e.message!!)
+                    }
+                },
+                Response.ErrorListener { error ->
+                    context.toast("Something went wrong: $error")
+                }) {
+                @Throws(AuthFailureError::class)
+                override fun getParams(): Map<String, String>? {
+                    val params: MutableMap<String, String> = HashMap()
+
+                    return params
+                }
+            }
+        requestQueue.cache.clear()
+        requestQueue.add(stringRequest)
+    }
+
 
 }
