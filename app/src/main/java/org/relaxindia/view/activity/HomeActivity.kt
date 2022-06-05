@@ -11,7 +11,7 @@ import android.location.Address
 import android.location.Location
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
+import android.util.*
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -71,6 +71,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import androidx.annotation.NonNull
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
+import org.relaxindia.util.toast
+import java.lang.Byte.decode
+import java.security.spec.PSSParameterSpec.DEFAULT
 
 
 class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -161,7 +164,9 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         sourceLat = gpsTracker.latitude.toString()
         sourceLon = gpsTracker.longitude.toString()
 
-        val apiKey = App.googleApiKey
+        val key = App.getUserApi(this)
+        val apiKey = key//String(android.util.Base64.decode(key, android.util.Base64.URL_SAFE))
+
         if (!Places.isInitialized()) {
             Places.initialize(applicationContext, apiKey)
         }

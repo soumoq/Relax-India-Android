@@ -37,9 +37,6 @@ object App {
     //Payment key id
     const val PAYMENT_KAY_ID = "rzp_test_3wnATNB0dnwOxX"
 
-    //google api key
-    const val googleApiKey = "AIzaSyCxn_36SpMjIwCuoUSqOOI4N9E_6XTdJJk"
-
     //API
     const val apiBaseUrl = "https://www.relaxindia.recztrade.com/api/v1/user/"
     const val apiLogin = "login"
@@ -66,6 +63,7 @@ object App {
     const val SAVE_SEARCH = "save-search"
     const val GET_GUIDE = "get-app-tour-guide-video"
     const val NEAR_HOSPITAL = "get-nearby-hospitals"
+    const val GET_API_KEY = "get-api-keys"
 
 
     //Share preference key
@@ -74,6 +72,7 @@ object App {
     const val preferenceUserEmail = "user_email"
     const val preferenceUserName = "user_name"
     const val preferenceUserId = "user_id"
+    const val preferenceUserAPI = "user_api"
 
 
     //Notification
@@ -158,6 +157,11 @@ object App {
         return sp.getString(App.preferenceUserName, "")!!
     }
 
+    fun getUserApi(context: Context): String {
+        val sp = context.getSharedPreferences("user_info", AppCompatActivity.MODE_PRIVATE)
+        return sp.getString(App.preferenceUserAPI, "")!!
+    }
+
 
     fun isLocationEnabled(context: Context): Boolean {
         var locationMode = 0
@@ -220,7 +224,7 @@ object App {
         return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 
-    fun calculateTime(location1: Location, location2: Location) : String {
+    fun calculateTime(location1: Location, location2: Location): String {
         val distanceInMeters = location1.distanceTo(location2)
         //For example spead is 10 meters per minute.
         val speedIs10MetersPerMinute = 583
