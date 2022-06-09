@@ -117,7 +117,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="15dp"
-                    android:text="Terms of Services"
+                    android:text="App Rating"
                     android:textSize="13sp" />
 
 
