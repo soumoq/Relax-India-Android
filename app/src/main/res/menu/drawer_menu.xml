@@ -25,7 +25,9 @@
             android:id="@+id/menu_schedule_booking"
             android:title="Schedule Booking" />
 
-        <item android:title="Share App" />
+        <item
+            android:id="@+id/menu_share_app"
+            android:title="Share App" />
 
         <item
             android:id="@+id/menu_support"
