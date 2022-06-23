@@ -30,13 +30,15 @@ object App {
     var ambulanceSearchRedis: String = "5"
 
     const val RS = "₹"
-    const val STORE_URL = "https://www.relaxindia.org/"
     const val locationAlert =
         "We'll only use your location to show available delivery option. You can change this preference in settings at any time"
 
     //Payment key id
     const val PAYMENT_KAY_ID = "rzp_test_3wnATNB0dnwOxX"
 
+    //external link
+    const val PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=org.relaxindia"
+    const val WEBSITE_URL="https://www.relaxindia.org/"
     //API
     const val apiBaseUrl = "https://www.relaxindia.recztrade.com/api/v1/user/"
     const val apiLogin = "login"

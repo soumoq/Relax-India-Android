@@ -246,13 +246,23 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
                 R.id.menu_store -> {
                     val httpIntent = Intent(Intent.ACTION_VIEW)
-                    httpIntent.data = Uri.parse(App.STORE_URL)
+                    httpIntent.data = Uri.parse(App.WEBSITE_URL)
                     startActivity(httpIntent)
                 }
                 R.id.menu_share -> {
                     val sendIntent: Intent = Intent().apply {
                         action = Intent.ACTION_SEND
-                        putExtra(Intent.EXTRA_TEXT, "https://relaxindia.org/")
+                        putExtra(Intent.EXTRA_TEXT, App.WEBSITE_URL)
+                        type = "text/plain"
+                    }
+
+                    val shareIntent = Intent.createChooser(sendIntent, null)
+                    startActivity(shareIntent)
+                }
+                R.id.menu_share_app -> {
+                    val sendIntent: Intent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, App.PLAY_STORE_URL)
                         type = "text/plain"
                     }
 
