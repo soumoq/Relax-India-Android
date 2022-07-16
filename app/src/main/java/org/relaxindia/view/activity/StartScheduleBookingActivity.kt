@@ -103,10 +103,11 @@ class StartScheduleBookingActivity : AppCompatActivity(), PaymentResultListener 
                 select_date_et.text.toString().isNotEmpty() &&
                 schedule_time.text.toString().isNotEmpty()
             ) {
+
                 VollyApi.scheduleBookingReq(
                     this, fromAddress, toAddress,
                     "${select_date_et.text.toString()} ${
-                        schedule_time.text.toString().isNotEmpty()
+                        schedule_time.text.toString()
                     }",
                     user_comment.text.toString()
                 )
@@ -126,8 +127,6 @@ class StartScheduleBookingActivity : AppCompatActivity(), PaymentResultListener 
         val sdf = SimpleDateFormat(myFormat, Locale.US)
         select_date_et.setText(sdf.format(myCalendar.time))
     }
-
-
 
 
     fun startPayment(payableAmount: Double, bookingId: String) {
